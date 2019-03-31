@@ -10,10 +10,8 @@ namespace sf {
 
 void centerOrigin(sf::Sprite& sprite);
 void centerOrigin(sf::Text& text);
-//10.26
 void centerOrigin(GEX::Animation& animation);
 
-//10.4
 // Degree and radian conversion
 float toDegree(float radian);
 float toRadian(float degree);

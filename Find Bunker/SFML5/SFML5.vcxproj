@@ -26,7 +26,6 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandQueue.cpp" />
     <ClCompile Include="DataTables.cpp" />
-    <ClCompile Include="DynamicObjects.cpp" />
     <ClCompile Include="EmitterNode.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FontManager.cpp" />
@@ -58,7 +57,6 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandQueue.h" />
     <ClInclude Include="DataTables.h" />
-    <ClInclude Include="DynamicObjects.h" />
     <ClInclude Include="EmitterNode.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FontManager.h" />
