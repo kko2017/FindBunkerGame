@@ -69,3 +69,17 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 													 
 	return data;
 }
+
+std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticObjectsData()
+{
+	std::map<StaticObjects::Type, StaticObjectData> data;
+
+	data[StaticObjects::Type::SignPost].texture = TextureID::SignPost;
+	data[StaticObjects::Type::SignPost].textureRect = sf::IntRect(0,0,50,49);
+
+	data[StaticObjects::Type::Bunker].texture = TextureID::Bunker;
+	data[StaticObjects::Type::Bunker].textureRect = sf::IntRect(0, 0, 76, 100);
+
+	return data;
+}
+

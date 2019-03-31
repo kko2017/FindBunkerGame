@@ -37,7 +37,7 @@ namespace GEX {
 		switch (type_)
 		{
 		case Type::Character:
-			return Category::Chracter;
+			return Category::Character;
 			break;
 		case Type::Vehicle1:
 		case Type::Vehicle2:

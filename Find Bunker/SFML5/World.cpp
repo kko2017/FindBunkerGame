@@ -12,7 +12,9 @@ namespace GEX {
 		, worldBounds_(0.f, 0.f, worldView_.getSize().x, worldView_.getSize().y)
 		, spawnPosition_(worldView_.getSize().x / 2.f, worldBounds_.height - (worldView_.getSize().y / 2.f))
 		, scrollSpeed_(-50.f)
-		, playerAircraft_(nullptr)
+		, character_(nullptr)
+		, signPost_(nullptr)
+		, bunker_(nullptr)
 	{
 
 		loadTextures();
@@ -25,7 +27,7 @@ namespace GEX {
 	{
 
 		//9.24
-		playerAircraft_->setVelocity(0.f, 0.f);
+		character_->setVelocity(0.f, 0.f);
 
 		//10.22
 		destroyEntitiesOutOfView();
@@ -51,9 +53,9 @@ namespace GEX {
 
 	//9.24
 	void World::adaptPlayerVelocity() {
-		sf::Vector2f velocity = playerAircraft_->getVelocity();
+		sf::Vector2f velocity = character_->getVelocity();
 		if (velocity.x != 0.f && velocity.y != 0.f) {
-			playerAircraft_->setVelocity(velocity / std::sqrt(2.f));
+			character_->setVelocity(velocity / std::sqrt(2.f));
 		}
 	}
 
@@ -140,7 +142,7 @@ namespace GEX {
 	void World::destroyEntitiesOutOfView()
 	{
 		Command command;
-		command.category = Category::Type::Projectile | Category::Type::EnemyAircraft;
+		command.category = Category::Type::Projectile | Category::Type::Vehicle;
 		command.action = derivedAction<Entity>([this](Entity& e, sf::Time dt)
 		{
 			if (!getBattlefieldBounds().intersects(e.getBoundingBox()))
@@ -157,7 +159,7 @@ namespace GEX {
 		sceneGraph_.checkSceneCollision(sceneGraph_, collisionPairs);
 
 		for (SceneNode::Pair pair : collisionPairs) {
-			if (matchesCategories(pair, Category::Type::Chracter, Category::Type::Vehicle))
+			if (matchesCategories(pair, Category::Type::Character, Category::Type::Vehicle))
 			{
 				auto& hero = static_cast<DynamicObjects&>(*(pair.first));
 				auto& zombie = static_cast<DynamicObjects&>(*(pair.second));
@@ -197,14 +199,14 @@ namespace GEX {
 		const float BORDER_DISTANCE = 40.f;
 		sf::FloatRect viewBounds(worldView_.getCenter() - worldView_.getSize() / 2.f, worldView_.getSize());
 
-		sf::Vector2f position = playerAircraft_->getPosition();
+		sf::Vector2f position = character_->getPosition();
 		position.x = std::max(position.x, viewBounds.left + BORDER_DISTANCE);
 		position.x = std::min(position.x, viewBounds.left + viewBounds.width - BORDER_DISTANCE);
 
 		position.y = std::max(position.y, viewBounds.top + BORDER_DISTANCE);
 		position.y = std::min(position.y, viewBounds.top + viewBounds.height - BORDER_DISTANCE);
 
-		playerAircraft_->setPosition(position);
+		character_->setPosition(position);
 	}
 
 	void World::draw()
@@ -221,22 +223,21 @@ namespace GEX {
 	//10.22, 10.23
 	bool World::hasAlivePlayer() const
 	{
-		return !playerAircraft_->isDestroyed();
+		return !character_->isDestroyed();
 	}
 
 	bool World::hasPlayerReachedEnd() const
 	{
-		return !worldBounds_.contains(playerAircraft_->getPosition());
+		return !worldBounds_.contains(character_->getPosition());
 	}
 
 	//10.24
 	void World::loadTextures() {
-		textures_.load(GEX::TextureID::Entities, "Media/Textures/Entities.png");
 		textures_.load(GEX::TextureID::City1, "Media/Textures/City1.jpg");
 		textures_.load(GEX::TextureID::Particle, "Media/Textures/Particle.png");
-		textures_.load(GEX::TextureID::Explosion, "Media/Textures/Explosion.png");
-		textures_.load(GEX::TextureID::FinishLine, "Media/Textures/FinishLine.png");
 		textures_.load(GEX::TextureID::Character, "Media/Textures/ke2.png");
+		textures_.load(GEX::TextureID::SignPost, "Media/Textures/SignPost.png");
+		textures_.load(GEX::TextureID::Bunker, "Media/Textures/Bunker.png");
 	}
 
 	void World::buildScene() {
@@ -271,11 +272,23 @@ namespace GEX {
 		sceneLayers_[Background]->attachChild(std::move(backgroundSprite));
 
 		// add player aircraft & game object
-		std::unique_ptr<DynamicObjects> leader(new DynamicObjects(DynamicObjects::Type::Character, textures_));
-		leader->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
-		leader->setVelocity(150.f, scrollSpeed_);
-		playerAircraft_ = leader.get();
-		sceneLayers_[UpperAir]->attachChild(std::move(leader));
+		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
+		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
+		character->setVelocity(150.f, scrollSpeed_);
+		character_ = character.get();
+		sceneLayers_[UpperAir]->attachChild(std::move(character));
+
+		// add SignPost
+		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
+		signPost->setPosition(worldView_.getSize().x / 2.f, worldView_.getSize().y / 2.f);
+		signPost_ = signPost.get();
+		sceneLayers_[UpperAir]->attachChild(std::move(signPost));
+
+		// add Bunker
+		std::unique_ptr<StaticObjects> bunker(new StaticObjects(StaticObjects::Type::Bunker, textures_));
+		bunker->setPosition(worldView_.getSize().x / 2.f, worldView_.getSize().y / 1.5f);
+		bunker_ = signPost.get();
+		sceneLayers_[UpperAir]->attachChild(std::move(bunker));
 
 		// add enemy aircrft
 		addEnemies();

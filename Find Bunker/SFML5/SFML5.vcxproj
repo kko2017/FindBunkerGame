@@ -42,6 +42,7 @@
     <ClCompile Include="SpriteNode.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="StaticObjects.cpp" />
     <ClCompile Include="TextNode.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TitleState.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateIdentifier.h" />
     <ClInclude Include="StateStack.h" />
+    <ClInclude Include="StaticObjects.h" />
     <ClInclude Include="TextNode.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TitleState.h" />

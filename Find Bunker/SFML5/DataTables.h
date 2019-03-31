@@ -4,6 +4,7 @@
 #pragma once
 #include "TextureManager.h"
 #include "DynamicObjects.h"
+#include "StaticObjects.h"
 #include "Projectile.h"
 #include "Particle.h"
 
@@ -32,12 +33,17 @@ namespace GEX {
 		std::vector<Direction> directions;
 	};
 
+	struct StaticObjectData {
+		TextureID	texture;
+		sf::IntRect textureRect;
+	};
+
 	struct ProjectileData {
 		
 		int			damage;
 		float		speed;
 		TextureID	texture;
-		//10.24
+
 		sf::IntRect textureRect;
 	};
 
@@ -50,6 +56,7 @@ namespace GEX {
 	std::map<Projectile::Type, ProjectileData> initializeProjectileData();
 	std::map<Particle::Type, ParticleData> initializeParticleData();
 
-	std::map<DynamicObjects::Type, DynamicObjectsData> initializeDynamicObjectsData();	
+	std::map<DynamicObjects::Type, DynamicObjectsData> initializeDynamicObjectsData();
+	std::map<StaticObjects::Type, StaticObjectData> initializeStaticObjectsData();
 }
 

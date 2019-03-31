@@ -7,6 +7,8 @@ namespace GEX {
 		Character,
 		Vehicle1,
 		Vehicle2,
+		Bunker,
+		SignPost,
 		TitleScreen,		
 		Entities,
 		City1,

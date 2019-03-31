@@ -95,7 +95,7 @@ namespace GEX {
 
 		//9.26
 		for (auto& pair : actionBindings_) {
-			pair.second.category = Category::Chracter;
+			pair.second.category = Category::Character;
 		}		
 	}
 

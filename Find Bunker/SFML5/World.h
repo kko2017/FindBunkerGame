@@ -10,6 +10,7 @@
 #include "SpriteNode.h"
 #include "TextureManager.h"
 #include "DynamicObjects.h"
+#include "StaticObjects.h"
 #include "CommandQueue.h"
 
 // forward declaration
@@ -58,7 +59,6 @@ namespace GEX {
 	private:
 		enum Layer {
 			Background = 0,
-			//10.25
 			LowerAir,
 			UpperAir,
 			LayerCount
@@ -97,7 +97,9 @@ namespace GEX {
 
 		float								scrollSpeed_;
 
-		DynamicObjects*						playerAircraft_;
+		DynamicObjects*						character_;
+		StaticObjects*						signPost_;
+		StaticObjects*						bunker_;
 
 		//10.10
 		std::vector<SpawnPoint>				enemySpawnPointes_;
