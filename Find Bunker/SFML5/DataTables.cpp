@@ -46,7 +46,7 @@ std::map<GEX::Actor::Type, GEX::ActorData> GEX::initializeActorData()
 	std::map<Actor::Type, ActorData> data;
 
 	data[Actor::Type::Hero2].texture = TextureID::Hero2;
-	data[Actor::Type::Hero2].hitpoints = 100;
+	data[Actor::Type::Hero2].isAlive = true;
 	data[Actor::Type::Hero2].speed = 50;
 
 	JsonFrameParser frames = JsonFrameParser("Media/Textures/ke2.json");

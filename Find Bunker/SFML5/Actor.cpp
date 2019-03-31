@@ -125,7 +125,7 @@ namespace GEX
 		if (state_ == State::Dead && animations_.at(state_).isFinished()) {
 			state_ = State::Up;
 			animations_.at(state_).restart();
-			repair(10);
+			rebirth(true);
 		}
 
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Right

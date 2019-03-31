@@ -24,8 +24,7 @@ namespace GEX {
 	};
 
 	struct ActorData {
-		int			hitpoints;
-		int			damageDone;
+		bool		isAlive;
 		float		speed;
 		TextureID	texture;
 

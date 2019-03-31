@@ -9,7 +9,7 @@ namespace GEX {
 	class Entity : public SceneNode
 	{
 	public:
-		explicit			Entity(int points);
+		explicit			Entity(bool alive);
 
 		void				setVelocity(sf::Vector2f velocity);
 		void				setVelocity(float vx, float vy);
@@ -18,17 +18,13 @@ namespace GEX {
 
 		virtual void		accelerate(sf::Vector2f velocity);
 		void				accelerate(float vx, float vy);
-		//9.26
-		void				rotate(float r);
 
-		//10.3
-		int					getHitpoints() const;
-		void				repair(int points);
+		void				rebirth(bool alive);
 		void				destroy();
 		bool				isDestroyed() const override;
 
 		//10.22, 10.26 -- add virtual
-		virtual void				remove();
+		virtual void		remove();
 
 //10.4
 	protected:
@@ -36,11 +32,7 @@ namespace GEX {
 
 	private:
 		sf::Vector2f		velocity_;
-		//9.26
-		float				rotate_;
-
-		//10.3
-		int					hitpoints_;
+		bool				alive_;
 	};
 
 }

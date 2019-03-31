@@ -3,8 +3,8 @@
 
 
 namespace GEX {
-	Entity::Entity(int points)
-		: hitpoints_(points)
+	Entity::Entity(bool alive)
+		: alive_(alive)
 	{
 	}
 	void Entity::setVelocity(sf::Vector2f velocity) {
@@ -31,33 +31,20 @@ namespace GEX {
 		velocity_.y += vy;
 
 	}
-	//9.26
-	void Entity::rotate(float r)
-	{
-		rotate_ += r;
-	}
 
-
-	//10.3
-	int Entity::getHitpoints() const
+	void Entity::rebirth(bool alive)
 	{
-		return hitpoints_;
-	}
-
-	void Entity::repair(int points)
-	{
-		assert(points > 0);
-		hitpoints_ += points;
+		alive_ = alive;
 	}
 
 	void Entity::destroy()
 	{
-		hitpoints_ = 0;
+		alive_ = false;
 	}
 
 	bool Entity::isDestroyed() const
 	{
-		return (hitpoints_ <= 0);
+		return (alive_ == false);
 	}
 
 	void Entity::remove()
@@ -65,11 +52,7 @@ namespace GEX {
 		destroy();
 	}
 
-
-
 	void Entity::updateCurrent(sf::Time dt, CommandQueue& commands) {
 		move(velocity_ * dt.asSeconds());
-		//9.26
-		setRotation(rotate_);
 	}
 }
