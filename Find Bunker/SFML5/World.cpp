@@ -1,5 +1,4 @@
 #include "World.h"
-//10.25
 #include "ParticleNode.h"
 
 namespace GEX {
@@ -84,7 +83,7 @@ namespace GEX {
 
 	}
 
-	void World::addEnemy(Actor::Type type, float relX, float relY)
+	void World::addEnemy(DynamicObjects::Type type, float relX, float relY)
 	{
 		//SpawnPoint	spawnPoint(type, spawnPosition_.x - relX, spawnPosition_.y = relY);
 		//enemySpawnPointes_.push_back(spawnPoint);
@@ -97,7 +96,7 @@ namespace GEX {
 			enemySpawnPointes_.back().y > getBattlefieldBounds().top) {
 			
 			auto spawnPoint = enemySpawnPointes_.back();
-			std::unique_ptr<Actor> enemy(new Actor(spawnPoint.type, textures_));
+			std::unique_ptr<DynamicObjects> enemy(new DynamicObjects(spawnPoint.type, textures_));
 			enemy->setPosition(spawnPoint.x, spawnPoint.y);
 			//enemy->rotate(180);
 			sceneLayers_[UpperAir]->attachChild(std::move(enemy));
@@ -158,10 +157,10 @@ namespace GEX {
 		sceneGraph_.checkSceneCollision(sceneGraph_, collisionPairs);
 
 		for (SceneNode::Pair pair : collisionPairs) {
-			if (matchesCategories(pair, Category::Type::Hero, Category::Type::Zombie))
+			if (matchesCategories(pair, Category::Type::Chracter, Category::Type::Vehicle))
 			{
-				auto& hero = static_cast<Actor&>(*(pair.first));
-				auto& zombie = static_cast<Actor&>(*(pair.second));
+				auto& hero = static_cast<DynamicObjects&>(*(pair.first));
+				auto& zombie = static_cast<DynamicObjects&>(*(pair.second));
 
 				/*zombie.damage(hero.attackPoints());
 				hero.damage(zombie.attackPoints());*/
@@ -237,10 +236,7 @@ namespace GEX {
 		textures_.load(GEX::TextureID::Particle, "Media/Textures/Particle.png");
 		textures_.load(GEX::TextureID::Explosion, "Media/Textures/Explosion.png");
 		textures_.load(GEX::TextureID::FinishLine, "Media/Textures/FinishLine.png");
-		textures_.load(GEX::TextureID::Hero2, "Media/Textures/ke2.png");
-		textures_.load(GEX::TextureID::Zombie1, "Media/Textures/Zombie1.png");
-		textures_.load(GEX::TextureID::Zombie2, "Media/Textures/Zombie2.png");
-		textures_.load(GEX::TextureID::Zombie3, "Media/Textures/Zombie3.png");
+		textures_.load(GEX::TextureID::Character, "Media/Textures/ke2.png");
 	}
 
 	void World::buildScene() {
@@ -275,7 +271,7 @@ namespace GEX {
 		sceneLayers_[Background]->attachChild(std::move(backgroundSprite));
 
 		// add player aircraft & game object
-		std::unique_ptr<Actor> leader(new Actor(Actor::Type::Hero2, textures_));
+		std::unique_ptr<DynamicObjects> leader(new DynamicObjects(DynamicObjects::Type::Character, textures_));
 		leader->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
 		leader->setVelocity(150.f, scrollSpeed_);
 		playerAircraft_ = leader.get();

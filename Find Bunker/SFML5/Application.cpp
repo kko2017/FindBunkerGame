@@ -26,7 +26,7 @@ Application::Application()
 
 	statisticText_.setFont(GEX::FontManager::getInstance().get(GEX::FontID::Main));
 	statisticText_.setPosition(5.0f, 5.0f);
-	statisticText_.setCharacterSize(15.0f);
+	statisticText_.setCharacterSize(15);
 	statisticText_.setString("Frames / Second = \nTime / Update =");
 
 	registerStates();

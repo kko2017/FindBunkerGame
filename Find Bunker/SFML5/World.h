@@ -9,7 +9,7 @@
 #include "SceneNode.h"
 #include "SpriteNode.h"
 #include "TextureManager.h"
-#include "Actor.h"
+#include "DynamicObjects.h"
 #include "CommandQueue.h"
 
 // forward declaration
@@ -43,7 +43,7 @@ namespace GEX {
 		
 		//10.10
 		void								addEnemies();										// add spawnPoints of enemies
-		void								addEnemy(Actor::Type type, float relX, float relY);
+		void								addEnemy(DynamicObjects::Type type, float relX, float relY);
 		void								spawnEnemies();										// call this in the my update function to the spawn point
 		//10.10
 		sf::FloatRect						getViewBounds() const;								// for battle ground view
@@ -66,12 +66,12 @@ namespace GEX {
 
 		// 10.10
 		struct SpawnPoint {
-			SpawnPoint(Actor::Type _type, float _x, float _y)
+			SpawnPoint(DynamicObjects::Type _type, float _x, float _y)
 				: type(_type)
 				, x(_x)
 				, y(_y)
 			{}
-			Actor::Type type;						// member variable is public so we don't need to add _ to the name
+			DynamicObjects::Type type;						// member variable is public so we don't need to add _ to the name
 			float	x;
 			float   y;
 		};
@@ -97,7 +97,7 @@ namespace GEX {
 
 		float								scrollSpeed_;
 
-		Actor*								playerAircraft_;
+		DynamicObjects*						playerAircraft_;
 
 		//10.10
 		std::vector<SpawnPoint>				enemySpawnPointes_;

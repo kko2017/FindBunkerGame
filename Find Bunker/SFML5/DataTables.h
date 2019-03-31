@@ -3,7 +3,7 @@
 
 #pragma once
 #include "TextureManager.h"
-#include "Actor.h"
+#include "DynamicObjects.h"
 #include "Projectile.h"
 #include "Particle.h"
 
@@ -23,12 +23,12 @@ namespace GEX {
 		float distance;
 	};
 
-	struct ActorData {
+	struct DynamicObjectsData {
 		bool		isAlive;
 		float		speed;
 		TextureID	texture;
 
-		std::map<Actor::State, Animation2> animations;
+		std::map<DynamicObjects::State, Animation2> animations;
 		std::vector<Direction> directions;
 	};
 
@@ -50,7 +50,6 @@ namespace GEX {
 	std::map<Projectile::Type, ProjectileData> initializeProjectileData();
 	std::map<Particle::Type, ParticleData> initializeParticleData();
 
-	std::map<Actor::Type, ActorData> initializeActorData();
-	
+	std::map<DynamicObjects::Type, DynamicObjectsData> initializeDynamicObjectsData();	
 }
 

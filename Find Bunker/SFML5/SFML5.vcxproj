@@ -19,13 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animation2.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandQueue.cpp" />
     <ClCompile Include="DataTables.cpp" />
+    <ClCompile Include="DynamicObjects.cpp" />
     <ClCompile Include="EmitterNode.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FontManager.cpp" />
@@ -49,7 +49,6 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animation2.h" />
     <ClInclude Include="Application.h" />
@@ -57,6 +56,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandQueue.h" />
     <ClInclude Include="DataTables.h" />
+    <ClInclude Include="DynamicObjects.h" />
     <ClInclude Include="EmitterNode.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FontManager.h" />

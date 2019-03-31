@@ -1,20 +1,20 @@
 #include "PlayerControl.h"
-#include "Actor.h"
+#include "DynamicObjects.h"
 #include "Command.h"
 #include "CommandQueue.h"
 #include "Category.h"
 
 namespace GEX {
 
-	struct ActorMover 
+	struct DynamicObjectMover 
 	{
-		ActorMover(float vx, float vy)
+		DynamicObjectMover(float vx, float vy)
 			: velocity(vx, vy)
 		{}
 
-		void operator() (Actor& actor, sf::Time dt) const {
+		void operator() (DynamicObjects& object, sf::Time dt) const {
 
-			actor.accelerate(velocity);
+			object.accelerate(velocity);
 
 		}
 		sf::Vector2f velocity;
@@ -31,21 +31,8 @@ namespace GEX {
 		keyBindings_[sf::Keyboard::Up] = Action::MoveUp;
 		keyBindings_[sf::Keyboard::Down] = Action::MoveDown;
 
-		//10.31
-		keyBindings_[sf::Keyboard::Space] = Action::Attack;
-		keyBindings_[sf::Keyboard::M] = Action::LaunchMissile;
-
-		//9.26
-		keyBindings_[sf::Keyboard::K] = Action::RotateLeft;
-		keyBindings_[sf::Keyboard::L] = Action::RotateRight;
-
 		// set up action bindings
 		initializeAction();
-
-		//for (auto& pair : actionBindings_) {
-		//	pair.second.category = Category::PlayerAircraft;
-		//}
-
 	}
 	 
 	//9.24
@@ -89,9 +76,6 @@ namespace GEX {
 		case Action::MoveRight:
 		case Action::MoveUp:
 		case Action::MoveDown:
-		case Action::RR:
-		case Action::RL:
-		case Action::Attack:
 			return true;
 			break;
 		default:
@@ -104,14 +88,14 @@ namespace GEX {
 	{
 		const float playerSpeed = 200.f;
 
-		actionBindings_[Action::MoveLeft].action = derivedAction<Actor>(ActorMover(-playerSpeed, 0.f));
-		actionBindings_[Action::MoveRight].action = derivedAction<Actor>(ActorMover(+playerSpeed, 0.f));
-		actionBindings_[Action::MoveUp].action = derivedAction<Actor>(ActorMover(0.f, -playerSpeed));
-		actionBindings_[Action::MoveDown].action = derivedAction<Actor>(ActorMover(0.f, +playerSpeed));
+		actionBindings_[Action::MoveLeft].action = derivedAction<DynamicObjects>(DynamicObjectMover(-playerSpeed, 0.f));
+		actionBindings_[Action::MoveRight].action = derivedAction<DynamicObjects>(DynamicObjectMover(+playerSpeed, 0.f));
+		actionBindings_[Action::MoveUp].action = derivedAction<DynamicObjects>(DynamicObjectMover(0.f, -playerSpeed));
+		actionBindings_[Action::MoveDown].action = derivedAction<DynamicObjects>(DynamicObjectMover(0.f, +playerSpeed));
 
 		//9.26
 		for (auto& pair : actionBindings_) {
-			pair.second.category = Category::Hero;
+			pair.second.category = Category::Chracter;
 		}		
 	}
 

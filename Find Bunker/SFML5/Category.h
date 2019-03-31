@@ -17,8 +17,8 @@ namespace Category
 		AirSceneLayer	 = 1 << 6,
 		Pickup			 = 1 << 7,
 		ParticleSystem	 = 1 << 8,
-		Zombie			 = 1 << 9,
-		Hero			 = 1 << 10,
+		Vehicle			 = 1 << 9,
+		Chracter		 = 1 << 10,
 
 		Aircraft = PlayerAircraft | AlliedAircraft | EnemyAircraft,
 		Projectile = EnemyProjectile | AlliedProjectile

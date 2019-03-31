@@ -41,31 +41,31 @@ std::map<GEX::Particle::Type, GEX::ParticleData> GEX::initializeParticleData()
 	
 }
 
-std::map<GEX::Actor::Type, GEX::ActorData> GEX::initializeActorData()
+std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDynamicObjectsData()
 {
-	std::map<Actor::Type, ActorData> data;
+	std::map<DynamicObjects::Type, DynamicObjectsData> data;
 
-	data[Actor::Type::Hero2].texture = TextureID::Hero2;
-	data[Actor::Type::Hero2].isAlive = true;
-	data[Actor::Type::Hero2].speed = 50;
+	data[DynamicObjects::Type::Character].texture = TextureID::Character;
+	data[DynamicObjects::Type::Character].isAlive = true;
+	data[DynamicObjects::Type::Character].speed = 50;
 
 	JsonFrameParser frames = JsonFrameParser("Media/Textures/ke2.json");
 
-	data[Actor::Type::Hero2].animations[Actor::State::Down].addFrameSet(frames.getFramesFor("down"));
-	data[Actor::Type::Hero2].animations[Actor::State::Down].setDuration(sf::seconds(1.f));
-	data[Actor::Type::Hero2].animations[Actor::State::Down].setRepeating(true);
-
-	data[Actor::Type::Hero2].animations[Actor::State::Up].addFrameSet(frames.getFramesFor("up"));
-	data[Actor::Type::Hero2].animations[Actor::State::Up].setDuration(sf::seconds(1.f));
-	data[Actor::Type::Hero2].animations[Actor::State::Up].setRepeating(true);
-
-	data[Actor::Type::Hero2].animations[Actor::State::Right].addFrameSet(frames.getFramesFor("right"));
-	data[Actor::Type::Hero2].animations[Actor::State::Right].setDuration(sf::seconds(1.f));
-	data[Actor::Type::Hero2].animations[Actor::State::Right].setRepeating(true);
-
-	data[Actor::Type::Hero2].animations[Actor::State::Left].addFrameSet(frames.getFramesFor("left"));
-	data[Actor::Type::Hero2].animations[Actor::State::Left].setDuration(sf::seconds(1.f));
-	data[Actor::Type::Hero2].animations[Actor::State::Left].setRepeating(true);
-
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Down].addFrameSet(frames.getFramesFor("down"));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Down].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Down].setRepeating(true);
+													 
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Up].addFrameSet(frames.getFramesFor("up"));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Up].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Up].setRepeating(true);
+												
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Right].addFrameSet(frames.getFramesFor("right"));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Right].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Right].setRepeating(true);
+													 
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].addFrameSet(frames.getFramesFor("left"));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setRepeating(true);
+													 
 	return data;
 }

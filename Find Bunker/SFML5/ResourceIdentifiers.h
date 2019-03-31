@@ -4,12 +4,9 @@ namespace GEX {
 
 	enum class TextureID {
 	
-		Zombie1,
-		Zombie2,
-		Zombie3,
-		Zombie4,
-		Zombie5,
-		Hero2,
+		Character,
+		Vehicle1,
+		Vehicle2,
 		TitleScreen,		
 		Entities,
 		City1,

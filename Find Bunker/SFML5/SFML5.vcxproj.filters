@@ -96,7 +96,7 @@
     <ClCompile Include="Animation2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
+    <ClCompile Include="DynamicObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -194,7 +194,7 @@
     <ClInclude Include="Animation2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Actor.h">
+    <ClInclude Include="DynamicObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
