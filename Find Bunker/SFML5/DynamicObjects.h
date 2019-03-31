@@ -59,3 +59,10 @@ namespace GEX {
 
 }
 
+class DynamicObjects
+{
+public:
+	DynamicObjects();
+	~DynamicObjects();
+};
+

@@ -19,3 +19,13 @@ namespace GEX {
 
 }
 
+
+
+DynamicObjects::DynamicObjects()
+{
+}
+
+
+DynamicObjects::~DynamicObjects()
+{
+}
