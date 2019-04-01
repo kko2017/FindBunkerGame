@@ -5,6 +5,13 @@
 
 namespace GEX {
 
+	namespace {
+		std::random_device rn;
+		std::mt19937_64 rnd(rn());
+		int min = 0;
+		int max = 7;
+	}
+
 	World::World(sf::RenderWindow& window)
 		: window_(window)
 		, worldView_(window.getDefaultView())
@@ -16,7 +23,6 @@ namespace GEX {
 		, scrollSpeed_(-50.f)
 		, character_(nullptr)
 		, signPost_(nullptr)
-		, bunker_(nullptr)
 	{
 
 		loadTextures();
@@ -107,6 +113,26 @@ namespace GEX {
 			enemySpawnPointes_.pop_back();
 		}
 	}
+
+	void World::addBunker(StaticObjects::Type type)
+	{
+		std::unique_ptr<StaticObjects> bunker(new StaticObjects(type, textures_));
+
+		std::uniform_int_distribution<int> range(min, max);
+		int randomNumber = range(rnd);
+		int x = bunker->getObjectPosition()[randomNumber].first;
+		int y = bunker->getObjectPosition()[randomNumber].second;
+
+		bunker->setPosition(x, y);
+		sceneLayers_[UpperAir]->attachChild(std::move(bunker));
+	}
+
+	void World::addBunkers()
+	{
+		addBunker(StaticObjects::Type::Bunker);
+		addBunker(StaticObjects::Type::Bunker);
+	}
+
 
 	sf::FloatRect World::getViewBounds() const
 	{
@@ -278,35 +304,18 @@ namespace GEX {
 		// add SignPost
 		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
 
-		std::random_device rn;
-		std::mt19937_64 rnd(rn());
-
-		int min = 0;
-		int max = signPost->getObjectPosition().size() - 1;
 		std::uniform_int_distribution<int> range(min, max);
-
 		int randomNumber = range(rnd);
+
 		int xPosition = signPost->getObjectPosition()[randomNumber].first;
 		int yPosition = signPost->getObjectPosition()[randomNumber].second;
 
 		signPost->setPosition(xPosition, yPosition);
 		signPost_ = signPost.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(signPost));
-
-		// add Bunker
-		std::unique_ptr<StaticObjects> bunker(new StaticObjects(StaticObjects::Type::Bunker, textures_));
-
-		min = 0;
-		max = bunker->getObjectPosition().size() - 1;
-		std::uniform_int_distribution<int> range1(min, max);
-
-		randomNumber = range1(rnd);
-		xPosition = bunker->getObjectPosition()[randomNumber].first;
-		yPosition = bunker->getObjectPosition()[randomNumber].second;
-
-		bunker->setPosition(xPosition, yPosition);
-		bunker_ = bunker.get();
-		sceneLayers_[UpperAir]->attachChild(std::move(bunker));
+		
+		// add Bunkers
+		addBunkers();
 
 		// add enemy aircrft
 		addEnemies();

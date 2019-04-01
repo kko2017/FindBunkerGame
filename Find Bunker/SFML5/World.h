@@ -32,7 +32,7 @@ namespace GEX {
 		void								draw();
 		CommandQueue&						getCommandQueue();
 
-		//10.22
+		
 		bool								hasAlivePlayer() const;
 		bool								hasPlayerReachedEnd() const;
 
@@ -45,14 +45,16 @@ namespace GEX {
 		void								addEnemies();										// add spawnPoints of enemies
 		void								addEnemy(DynamicObjects::Type type, float relX, float relY);
 		void								spawnEnemies();										// call this in the my update function to the spawn point
-		//10.10
+		void								addBunker(StaticObjects::Type type);
+		void								addBunkers();
+		
 		sf::FloatRect						getViewBounds() const;								// for battle ground view
 		sf::FloatRect						getBattlefieldBounds() const;						//	battle ground view
-		//10.18
+		
 		void								handleCollisions();
 		bool								matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 
-		//10.22
+		
 		void								destroyEntitiesOutOfView();
 
 	private:
@@ -98,7 +100,6 @@ namespace GEX {
 
 		DynamicObjects*						character_;
 		StaticObjects*						signPost_;
-		StaticObjects*						bunker_;
 
 		//10.10
 		std::vector<SpawnPoint>				enemySpawnPointes_;
