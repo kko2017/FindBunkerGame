@@ -233,7 +233,7 @@ namespace GEX {
 
 	//10.24
 	void World::loadTextures() {
-		textures_.load(GEX::TextureID::City1, "Media/Textures/City1.jpg");
+		textures_.load(GEX::TextureID::City1, "Media/Textures/City1.png");
 		textures_.load(GEX::TextureID::Particle, "Media/Textures/Particle.png");
 		textures_.load(GEX::TextureID::Character, "Media/Textures/ke2.png");
 		textures_.load(GEX::TextureID::SignPost, "Media/Textures/SignPost.png");
@@ -251,7 +251,6 @@ namespace GEX {
 			sceneGraph_.attachChild(std::move(layer));
 		}
 
-		//10.25
 		// Particle System
 		std::unique_ptr<ParticleNode>smoke(new ParticleNode(Particle::Type::Smoke, textures_));	// smoke part
 		sceneLayers_[LowerAir]->attachChild(std::move(smoke));
@@ -259,13 +258,9 @@ namespace GEX {
 		std::unique_ptr<ParticleNode>fire(new ParticleNode(Particle::Type::Propellant, textures_));	// fire part
 		sceneLayers_[LowerAir]->attachChild(std::move(fire));
 
-
-
 		// Background
 		sf::Texture& texture = textures_.get(TextureID::City1);
 		sf::IntRect textureRect(worldBounds_);							// it is size of my world
-		//texture.setRepeated(true);
-
 
 		std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
@@ -292,7 +287,6 @@ namespace GEX {
 
 		// add enemy aircrft
 		addEnemies();
-
 	}
 }
 

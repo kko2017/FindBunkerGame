@@ -2,6 +2,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <cassert>
+#include <random>				// use random distribution engine
 
 #define _USE_MATH_DEFINES		// use math defines first that is preprocessor.
 #include <cmath>				// put it on it second
@@ -9,10 +10,8 @@
 #define M_PI (3.141592)
 #endif
 
-//10.23
-#include <random>				// use random distribution engine
 
-//10.23
+
 namespace {						// unanimous namespace
 	std::default_random_engine createRandomEngine() {
 		auto seed = static_cast<unsigned long>(std::time(nullptr));

@@ -78,7 +78,7 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 	data[StaticObjects::Type::SignPost].textureRect = sf::IntRect(0,0,50,49);
 
 	data[StaticObjects::Type::Bunker].texture = TextureID::Bunker;
-	data[StaticObjects::Type::Bunker].textureRect = sf::IntRect(0, 0, 76, 100);
+	data[StaticObjects::Type::Bunker].textureRect = sf::IntRect(0, 0, 53, 70);
 
 	return data;
 }
