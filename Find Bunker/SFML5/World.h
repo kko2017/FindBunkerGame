@@ -42,7 +42,6 @@ namespace GEX {
 		void								adaptPlayerPosition();
 		void								adaptPlayerVelocity();
 		
-		//10.10
 		void								addEnemies();										// add spawnPoints of enemies
 		void								addEnemy(DynamicObjects::Type type, float relX, float relY);
 		void								spawnEnemies();										// call this in the my update function to the spawn point

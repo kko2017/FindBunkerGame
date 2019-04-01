@@ -93,7 +93,6 @@ namespace GEX {
 		actionBindings_[Action::MoveUp].action = derivedAction<DynamicObjects>(DynamicObjectMover(0.f, -playerSpeed));
 		actionBindings_[Action::MoveDown].action = derivedAction<DynamicObjects>(DynamicObjectMover(0.f, +playerSpeed));
 
-		//9.26
 		for (auto& pair : actionBindings_) {
 			pair.second.category = Category::Character;
 		}		

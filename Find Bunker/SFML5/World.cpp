@@ -1,6 +1,8 @@
 #include "World.h"
 #include "ParticleNode.h"
 
+#include <random>
+
 namespace GEX {
 
 	World::World(sf::RenderWindow& window)
@@ -275,14 +277,35 @@ namespace GEX {
 
 		// add SignPost
 		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
-		signPost->setPosition(worldView_.getSize().x / 2.f, worldView_.getSize().y / 2.f);
+
+		std::random_device rn;
+		std::mt19937_64 rnd(rn());
+
+		int min = 0;
+		int max = signPost->getObjectPosition().size() - 1;
+		std::uniform_int_distribution<int> range(min, max);
+
+		int randomNumber = range(rnd);
+		int xPosition = signPost->getObjectPosition()[randomNumber].first;
+		int yPosition = signPost->getObjectPosition()[randomNumber].second;
+
+		signPost->setPosition(xPosition, yPosition);
 		signPost_ = signPost.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(signPost));
 
 		// add Bunker
 		std::unique_ptr<StaticObjects> bunker(new StaticObjects(StaticObjects::Type::Bunker, textures_));
-		bunker->setPosition(worldView_.getSize().x / 2.f, worldView_.getSize().y / 1.5f);
-		bunker_ = signPost.get();
+
+		min = 0;
+		max = bunker->getObjectPosition().size() - 1;
+		std::uniform_int_distribution<int> range1(min, max);
+
+		randomNumber = range1(rnd);
+		xPosition = bunker->getObjectPosition()[randomNumber].first;
+		yPosition = bunker->getObjectPosition()[randomNumber].second;
+
+		bunker->setPosition(xPosition, yPosition);
+		bunker_ = bunker.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(bunker));
 
 		// add enemy aircrft
