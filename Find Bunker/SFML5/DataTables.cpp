@@ -45,6 +45,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 {
 	std::map<DynamicObjects::Type, DynamicObjectsData> data;
 
+	// Set the character
 	data[DynamicObjects::Type::Character].texture = TextureID::Character;
 	data[DynamicObjects::Type::Character].isAlive = true;
 	data[DynamicObjects::Type::Character].speed = 50;
@@ -66,7 +67,17 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].addFrameSet(frames.getFramesFor("left"));
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setDuration(sf::seconds(1.f));
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setRepeating(true);
-													 
+
+	// set the vehicle1
+	data[DynamicObjects::Type::Vehicle1].texture = TextureID::Vehicle1;
+	data[DynamicObjects::Type::Vehicle1].textureRect = sf::IntRect(0,0,96,45);
+	
+
+	// set the vehicle2
+	data[DynamicObjects::Type::Vehicle2].texture = TextureID::Vehicle2;
+	data[DynamicObjects::Type::Vehicle2].textureRect = sf::IntRect(0,0,95,44);
+
+
 	return data;
 }
 
@@ -74,9 +85,11 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 {
 	std::map<StaticObjects::Type, StaticObjectData> data;
 
+	// set the signpost
 	data[StaticObjects::Type::SignPost].texture = TextureID::SignPost;
 	data[StaticObjects::Type::SignPost].textureRect = sf::IntRect(0,0,50,49);
 
+	// set the bunker
 	data[StaticObjects::Type::Bunker].texture = TextureID::Bunker;
 	data[StaticObjects::Type::Bunker].textureRect = sf::IntRect(0, 0, 53, 70);
 

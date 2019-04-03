@@ -28,6 +28,7 @@ namespace GEX {
 		bool		isAlive;
 		float		speed;
 		TextureID	texture;
+		sf::IntRect textureRect;
 
 		std::map<DynamicObjects::State, Animation2> animations;
 		std::vector<Direction> directions;

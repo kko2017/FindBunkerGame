@@ -266,6 +266,8 @@ namespace GEX {
 		textures_.load(GEX::TextureID::Character, "Media/Textures/ke2.png");
 		textures_.load(GEX::TextureID::SignPost, "Media/Textures/SignPost.png");
 		textures_.load(GEX::TextureID::Bunker, "Media/Textures/Bunker.png");
+		textures_.load(GEX::TextureID::Vehicle1, "Media/Textures/redcar2.png");
+		textures_.load(GEX::TextureID::Vehicle2, "Media/Textures/whitecar2.png");
 	}
 
 	void World::buildScene() {

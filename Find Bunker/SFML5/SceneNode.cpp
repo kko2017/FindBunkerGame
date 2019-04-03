@@ -88,13 +88,11 @@ namespace GEX
 		return transform;
 	}
 
-	//10.17
 	sf::FloatRect SceneNode::getBoundingBox() const
 	{
 		return sf::FloatRect();
 	}
 
-	//10.18
 	// visit every single node, then calls checkNodeCollision()
 	void SceneNode::checkSceneCollision(SceneNode & rootNode, std::set<Pair>& collisionPair)
 	{
