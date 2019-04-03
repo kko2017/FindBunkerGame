@@ -10,6 +10,7 @@ namespace GEX {
 
 	namespace
 	{
+		// the TABLE container holds the data of the dynamic objects 
 		const std::map<DynamicObjects::Type, DynamicObjectsData> TABLE = initializeDynamicObjectsData();
 	}
 
@@ -27,8 +28,13 @@ namespace GEX {
 			animations_[a.first] = a.second;
 		}
 
-		sprite_.setTextureRect(sf::IntRect());
+		if (DynamicObjects::getCategory() == Category::Type::Vehicle)
+		{
+			state_ = State::Drive;
+		}
 
+
+		sprite_.setTextureRect(sf::IntRect());
 		centerOrigin(sprite_);
 	}
 
@@ -67,6 +73,7 @@ namespace GEX {
 		case State::Down:
 		case State::Left:
 		case State::Right:
+		case State::Drive:
 			Entity::accelerate(velocity);
 			break;
 		default:

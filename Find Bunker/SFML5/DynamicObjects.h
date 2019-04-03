@@ -25,7 +25,8 @@ namespace GEX {
 			Down,
 			Left,
 			Right,
-			Dead
+			Dead,
+			Drive
 		};
 
 	public:
