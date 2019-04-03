@@ -39,6 +39,13 @@ namespace GEX {
 		sf::IntRect textureRect;
 	};
 
+	struct SpawnData {
+		DynamicObjects::Type type;
+		sf::Time			 time;
+		float				 x;
+		float				 y;
+	};
+
 	struct ProjectileData {
 		
 		int			damage;
@@ -54,10 +61,11 @@ namespace GEX {
 		sf::Time		lifetime;
 	};
 
-	std::map<Projectile::Type, ProjectileData> initializeProjectileData();
-	std::map<Particle::Type, ParticleData> initializeParticleData();
+	std::map<Projectile::Type, ProjectileData>			initializeProjectileData();
+	std::map<Particle::Type, ParticleData>				initializeParticleData();
 
-	std::map<DynamicObjects::Type, DynamicObjectsData> initializeDynamicObjectsData();
-	std::map<StaticObjects::Type, StaticObjectData> initializeStaticObjectsData();
+	std::map<DynamicObjects::Type, DynamicObjectsData>	initializeDynamicObjectsData();
+	std::map<StaticObjects::Type, StaticObjectData>		initializeStaticObjectsData();
+	std::vector<SpawnData>								initializeSpawnData();
 }
 

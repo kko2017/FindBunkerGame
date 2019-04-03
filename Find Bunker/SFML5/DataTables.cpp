@@ -45,7 +45,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 {
 	std::map<DynamicObjects::Type, DynamicObjectsData> data;
 
-	// Set the character
+	// Set the character' data
 	data[DynamicObjects::Type::Character].texture = TextureID::Character;
 	data[DynamicObjects::Type::Character].isAlive = true;
 	data[DynamicObjects::Type::Character].speed = 50;
@@ -68,7 +68,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setDuration(sf::seconds(1.f));
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setRepeating(true);
 
-	// set the vehicle1
+	// set the vehicle1's data
 	data[DynamicObjects::Type::Vehicle1].texture = TextureID::Vehicle1;
 	data[DynamicObjects::Type::Vehicle1].textureRect = sf::IntRect(0,0,96,45);
 	data[DynamicObjects::Type::Vehicle1].isAlive = true;
@@ -78,7 +78,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].setRepeating(true);
 	
 
-	// set the vehicle2
+	// set the vehicle2's data
 	data[DynamicObjects::Type::Vehicle2].texture = TextureID::Vehicle2;
 	data[DynamicObjects::Type::Vehicle2].textureRect = sf::IntRect(0,0,95,44);
 	data[DynamicObjects::Type::Vehicle2].isAlive = true;
@@ -95,13 +95,27 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 {
 	std::map<StaticObjects::Type, StaticObjectData> data;
 
-	// set the signpost
+	// set the signpost's data
 	data[StaticObjects::Type::SignPost].texture = TextureID::SignPost;
 	data[StaticObjects::Type::SignPost].textureRect = sf::IntRect(0,0,50,49);
 
-	// set the bunker
+	// set the bunker's data
 	data[StaticObjects::Type::Bunker].texture = TextureID::Bunker;
 	data[StaticObjects::Type::Bunker].textureRect = sf::IntRect(0, 0, 53, 70);
+
+	return data;
+}
+
+std::vector<GEX::SpawnData> GEX::initializeSpawnData()
+{
+	std::vector<SpawnData> data;
+
+	// Spawn Data of 1st road
+	data.push_back(SpawnData());
+	data[0].type = DynamicObjects::Type::Vehicle1;
+	data[0].time = sf::milliseconds(3000);
+	data[0].x = 100.f;
+	data[0].y = 100.f;
 
 	return data;
 }
