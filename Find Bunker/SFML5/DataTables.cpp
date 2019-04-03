@@ -71,11 +71,21 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	// set the vehicle1
 	data[DynamicObjects::Type::Vehicle1].texture = TextureID::Vehicle1;
 	data[DynamicObjects::Type::Vehicle1].textureRect = sf::IntRect(0,0,96,45);
+	data[DynamicObjects::Type::Vehicle1].isAlive = true;
+
+	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 96, 45));
+	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].setRepeating(true);
 	
 
 	// set the vehicle2
 	data[DynamicObjects::Type::Vehicle2].texture = TextureID::Vehicle2;
 	data[DynamicObjects::Type::Vehicle2].textureRect = sf::IntRect(0,0,95,44);
+	data[DynamicObjects::Type::Vehicle2].isAlive = true;
+
+	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 95, 44));
+	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].setRepeating(true);
 
 
 	return data;
