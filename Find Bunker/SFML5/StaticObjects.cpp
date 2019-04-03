@@ -46,7 +46,7 @@ sf::FloatRect GEX::StaticObjects::getBoundingBox() const
 	return getWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
-std::vector<std::pair<int, int>> GEX::StaticObjects::getObjectPosition()
+std::vector<std::pair<float, float>> GEX::StaticObjects::getObjectPosition()
 {
 	if (type_ == Type::SignPost)
 	{

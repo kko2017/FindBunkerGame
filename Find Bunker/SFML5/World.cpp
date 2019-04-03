@@ -117,7 +117,7 @@ namespace GEX {
 		std::unique_ptr<StaticObjects> bunker(new StaticObjects(type, textures_));
 
 		randomNumber = range(rnd);
-		int i = 0;
+		unsigned int i = 0;
 		while (i < randomNums_.size())
 		{
 			if (randomNums_[i] != randomNumber)
@@ -132,8 +132,8 @@ namespace GEX {
 		}
 		randomNums_.push_back(randomNumber);
 
-		int x = bunker->getObjectPosition()[randomNumber].first;
-		int y = bunker->getObjectPosition()[randomNumber].second;
+		float x = bunker->getObjectPosition()[randomNumber].first;
+		float y = bunker->getObjectPosition()[randomNumber].second;
 
 		bunker->setPosition(x, y);
 		sceneLayers_[UpperAir]->attachChild(std::move(bunker));
@@ -321,8 +321,8 @@ namespace GEX {
 
 		randomNumber = range(rnd);
 		randomNums_.push_back(randomNumber);
-		int xPosition = signPost->getObjectPosition()[randomNumber].first;
-		int yPosition = signPost->getObjectPosition()[randomNumber].second;
+		float xPosition = signPost->getObjectPosition()[randomNumber].first;
+		float yPosition = signPost->getObjectPosition()[randomNumber].second;
 
 		signPost->setPosition(xPosition, yPosition);
 		signPost_ = signPost.get();

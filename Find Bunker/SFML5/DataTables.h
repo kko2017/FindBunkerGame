@@ -5,7 +5,6 @@
 #include "TextureManager.h"
 #include "DynamicObjects.h"
 #include "StaticObjects.h"
-#include "Projectile.h"
 #include "Particle.h"
 
 #include <map>
@@ -46,22 +45,11 @@ namespace GEX {
 		float				 y;
 	};
 
-	struct ProjectileData {
-		
-		int			damage;
-		float		speed;
-		TextureID	texture;
-
-		sf::IntRect textureRect;
-	};
-
 	struct ParticleData {
 
 		sf::Color		color;
 		sf::Time		lifetime;
 	};
-
-	std::map<Projectile::Type, ProjectileData>			initializeProjectileData();
 	std::map<Particle::Type, ParticleData>				initializeParticleData();
 
 	std::map<DynamicObjects::Type, DynamicObjectsData>	initializeDynamicObjectsData();

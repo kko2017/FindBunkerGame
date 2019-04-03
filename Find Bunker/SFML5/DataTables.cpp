@@ -3,30 +3,6 @@
 #include "Animation2.h"
 
 
-std::map<GEX::Projectile::Type, GEX::ProjectileData> GEX::initializeProjectileData()
-{
-	std::map<Projectile::Type, ProjectileData>data;
-	//10.24
-	data[Projectile::Type::AlliedBullet].damage = 10;
-	data[Projectile::Type::AlliedBullet].speed = 300.f;
-	data[Projectile::Type::AlliedBullet].texture = TextureID::Entities;
-	data[Projectile::Type::AlliedBullet].textureRect = sf::IntRect(175, 64, 3, 14);
-
-	data[Projectile::Type::EnemyBullet].damage = 10;
-	data[Projectile::Type::EnemyBullet].speed = 300.f;
-	data[Projectile::Type::EnemyBullet].texture = TextureID::Entities;
-	data[Projectile::Type::EnemyBullet].textureRect = sf::IntRect(175, 64, 3, 14);
-
-	data[Projectile::Type::Missile].damage = 30;
-	data[Projectile::Type::Missile].speed = 200.f;
-	data[Projectile::Type::Missile].texture = TextureID::Entities;
-	data[Projectile::Type::Missile].textureRect = sf::IntRect(160, 64, 15, 24);
-
-	return data;
-}
-
-
-//10.24
 std::map<GEX::Particle::Type, GEX::ParticleData> GEX::initializeParticleData()
 {
 	std::map<GEX::Particle::Type, GEX::ParticleData> data;

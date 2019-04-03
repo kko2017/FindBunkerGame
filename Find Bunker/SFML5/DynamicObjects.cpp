@@ -33,7 +33,6 @@ namespace GEX {
 			state_ = State::Drive;
 		}
 
-
 		sprite_.setTextureRect(sf::IntRect());
 		centerOrigin(sprite_);
 	}
@@ -50,6 +49,7 @@ namespace GEX {
 			return Category::Vehicle;
 			break;
 		}
+		return Category::None;
 	}
 
 	sf::FloatRect DynamicObjects::getBoundingBox() const
