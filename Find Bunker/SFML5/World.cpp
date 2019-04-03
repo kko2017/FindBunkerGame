@@ -5,11 +5,14 @@
 
 namespace GEX {
 
+	// Create Random Engine
 	namespace {
 		std::random_device rn;
 		std::mt19937_64 rnd(rn());
-		int min = 0;
-		int max = 7;
+		const int MIN = 0;
+		const int MAX = 7;
+		std::uniform_int_distribution<int> range(MIN, MAX);
+		int randomNumber = 0;
 	}
 
 	World::World(sf::RenderWindow& window)
@@ -34,10 +37,8 @@ namespace GEX {
 	void World::update(sf::Time dt, CommandQueue& commands)
 	{
 
-		//9.24
 		character_->setVelocity(0.f, 0.f);
 
-		//10.22
 		destroyEntitiesOutOfView();
 
 		//run all the commands in the command queue
@@ -45,16 +46,13 @@ namespace GEX {
 			sceneGraph_.onCommand(commandQueue_.pop(), dt);
 		}
 
-		//10.18
 		handleCollisions();
-		//10.22
 		sceneGraph_.removeWrecks();
 
 		adaptPlayerVelocity();
 		sceneGraph_.update(dt, commands);
 		adaptPlayerPosition();
-	
-		//10.10
+
 		spawnEnemies();
 
 	}
@@ -118,8 +116,22 @@ namespace GEX {
 	{
 		std::unique_ptr<StaticObjects> bunker(new StaticObjects(type, textures_));
 
-		std::uniform_int_distribution<int> range(min, max);
-		int randomNumber = range(rnd);
+		randomNumber = range(rnd);
+		int i = 0;
+		while (i < randomNums_.size())
+		{
+			if (randomNums_[i] != randomNumber)
+			{
+				i++;
+			}
+			else
+			{
+				randomNumber = range(rnd);
+				i = 0;
+			}
+		}
+		randomNums_.push_back(randomNumber);
+
 		int x = bunker->getObjectPosition()[randomNumber].first;
 		int y = bunker->getObjectPosition()[randomNumber].second;
 
@@ -296,7 +308,7 @@ namespace GEX {
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
 		sceneLayers_[Background]->attachChild(std::move(backgroundSprite));
 
-		// add player aircraft & game object
+		// add character object
 		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
 		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
 		character->setVelocity(150.f, scrollSpeed_);
@@ -305,10 +317,10 @@ namespace GEX {
 
 		// add SignPost
 		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
+	
 
-		std::uniform_int_distribution<int> range(min, max);
-		int randomNumber = range(rnd);
-
+		randomNumber = range(rnd);
+		randomNums_.push_back(randomNumber);
 		int xPosition = signPost->getObjectPosition()[randomNumber].first;
 		int yPosition = signPost->getObjectPosition()[randomNumber].second;
 

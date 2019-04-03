@@ -78,10 +78,6 @@ namespace GEX {
 		};
 
 	private:
-
-		// you must declare things(fields?) in order
-		// because if those are scrambled, a bug happens and then it is extremely hard to find and fix it.
-
 		sf::RenderWindow&					window_;
 		sf::View							worldView_;			// my viewPort
 		TextureManager						textures_;
@@ -89,7 +85,6 @@ namespace GEX {
 		SceneNode							sceneGraph_;
 		std::vector<SceneNode*>				sceneLayers_;		// it is the vector of a raw pointer
 
-		//9.24
 		CommandQueue						commandQueue_;
 
 
@@ -101,8 +96,9 @@ namespace GEX {
 		DynamicObjects*						character_;
 		StaticObjects*						signPost_;
 
-		//10.10
 		std::vector<SpawnPoint>				enemySpawnPointes_;
+
+		std::vector<int>					randomNums_;
 	};
 
 }
