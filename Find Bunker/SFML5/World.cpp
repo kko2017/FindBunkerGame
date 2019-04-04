@@ -199,9 +199,6 @@ namespace GEX {
 			{
 				auto& hero = static_cast<DynamicObjects&>(*(pair.first));
 				auto& zombie = static_cast<DynamicObjects&>(*(pair.second));
-
-				/*zombie.damage(hero.attackPoints());
-				hero.damage(zombie.attackPoints());*/
 				
 				auto zpos = zombie.getPosition();
 				auto hpos = hero.getPosition();
@@ -312,15 +309,8 @@ namespace GEX {
 		character_ = character.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(character));
 
-
-		//std::unique_ptr<DynamicObjects> v(new DynamicObjects(DynamicObjects::Type::Vehicle1, textures_));
-		//v->setPosition(500.f, 500.f);
-		//v->setVelocity(100.f, 0.f);
-		//sceneLayers_[UpperAir]->attachChild(std::move(v));
-
 		// add SignPost
-		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
-	
+		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));	
 
 		randomNumber = range(rnd);
 		randomNums_.push_back(randomNumber);
@@ -329,7 +319,7 @@ namespace GEX {
 
 		signPost->setPosition(xPosition, yPosition);
 		signPost_ = signPost.get();
-		sceneLayers_[UpperAir]->attachChild(std::move(signPost));
+		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
 		
 		// add Bunkers
 		addBunkers();
