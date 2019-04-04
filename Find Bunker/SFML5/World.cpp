@@ -312,12 +312,6 @@ namespace GEX {
 		character_ = character.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(character));
 
-
-		//std::unique_ptr<DynamicObjects> v(new DynamicObjects(DynamicObjects::Type::Vehicle1, textures_));
-		//v->setPosition(500.f, 500.f);
-		//v->setVelocity(100.f, 0.f);
-		//sceneLayers_[UpperAir]->attachChild(std::move(v));
-
 		// add SignPost
 		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
 	
