@@ -6,6 +6,8 @@
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <vector>
+
 #include "SceneNode.h"
 #include "SpriteNode.h"
 #include "TextureManager.h"
@@ -19,7 +21,6 @@ namespace sf {
 	class RenderWindow;
 
 }
-
 
 namespace GEX {
 
@@ -45,6 +46,9 @@ namespace GEX {
 		void								addEnemies();										// add spawnPoints of enemies
 		void								addEnemy(DynamicObjects::Type type, float relX, float relY);
 		void								spawnEnemies();										// call this in the my update function to the spawn point
+		void								addVehicles();
+		void								addVehicle(DynamicObjects::Type type, float x, float y);
+		void								spawnVehicles();
 		void								addBunker(StaticObjects::Type type);
 		void								addBunkers();
 		
@@ -87,11 +91,7 @@ namespace GEX {
 
 		CommandQueue						commandQueue_;
 
-
 		sf::FloatRect						worldBounds_;
-		sf::Vector2f						spawnPosition_;
-
-		float								scrollSpeed_;
 
 		DynamicObjects*						character_;
 		StaticObjects*						signPost_;
@@ -99,6 +99,8 @@ namespace GEX {
 		std::vector<SpawnPoint>				enemySpawnPointes_;
 
 		std::vector<int>					randomNums_;
+		std::vector<sf::Time>				spawningTime_;
+		std::vector<sf::Time>				elapsedSpawningTime_;
 	};
 
 }

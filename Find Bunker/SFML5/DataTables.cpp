@@ -90,8 +90,10 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 	data.push_back(SpawnData());
 	data[0].type = DynamicObjects::Type::Vehicle1;
 	data[0].time = sf::milliseconds(3000);
-	data[0].x = 100.f;
-	data[0].y = 100.f;
+	data[0].xDeparture = 10.f;
+	data[0].yDeparture = 100.f;
+	data[0].xArrival = 2048.f;
+	data[0].yArrival = 100.f;
 
 	return data;
 }

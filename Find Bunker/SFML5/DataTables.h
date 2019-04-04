@@ -13,16 +13,6 @@
 
 namespace GEX {
 
-	struct Direction {
-		Direction(float a, float d)
-			: angle(a)
-			, distance(d) 
-		{}
-
-		float angle;
-		float distance;
-	};
-
 	struct DynamicObjectsData {
 		bool		isAlive;
 		float		speed;
@@ -30,7 +20,6 @@ namespace GEX {
 		sf::IntRect textureRect;
 
 		std::map<DynamicObjects::State, Animation2> animations;
-		std::vector<Direction> directions;
 	};
 
 	struct StaticObjectData {
@@ -41,8 +30,10 @@ namespace GEX {
 	struct SpawnData {
 		DynamicObjects::Type type;
 		sf::Time			 time;
-		float				 x;
-		float				 y;
+		float				 xDeparture;
+		float				 yDeparture;
+		float				 xArrival;
+		float				 yArrival;
 	};
 
 	struct ParticleData {

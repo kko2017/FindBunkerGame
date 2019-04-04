@@ -1,9 +1,14 @@
 #include "World.h"
 #include "ParticleNode.h"
+#include "DataTables.h"
 
 #include <random>
 
 namespace GEX {
+
+	namespace {
+		const std::vector<SpawnData> TABLE = initializeSpawnData();
+	}
 
 	// Create Random Engine
 	namespace {
@@ -22,16 +27,11 @@ namespace GEX {
 		, sceneGraph_()
 		, sceneLayers_()
 		, worldBounds_(0.f, 0.f, worldView_.getSize().x, worldView_.getSize().y)
-		, spawnPosition_(worldView_.getSize().x / 2.f, worldBounds_.height - (worldView_.getSize().y / 2.f))
-		, scrollSpeed_(-50.f)
 		, character_(nullptr)
 		, signPost_(nullptr)
 	{
-
 		loadTextures();
 		buildScene();
-
-		worldView_.setCenter(spawnPosition_);
 	}
 
 	void World::update(sf::Time dt, CommandQueue& commands)
@@ -57,7 +57,6 @@ namespace GEX {
 
 	}
 
-	//9.24
 	void World::adaptPlayerVelocity() {
 		sf::Vector2f velocity = character_->getVelocity();
 		if (velocity.x != 0.f && velocity.y != 0.f) {
@@ -106,10 +105,21 @@ namespace GEX {
 			auto spawnPoint = enemySpawnPointes_.back();
 			std::unique_ptr<DynamicObjects> enemy(new DynamicObjects(spawnPoint.type, textures_));
 			enemy->setPosition(spawnPoint.x, spawnPoint.y);
-			//enemy->rotate(180);
 			sceneLayers_[UpperAir]->attachChild(std::move(enemy));
 			enemySpawnPointes_.pop_back();
 		}
+	}
+
+	void World::addVehicles()
+	{
+	}
+
+	void World::addVehicle(DynamicObjects::Type type, float x, float y)
+	{
+	}
+
+	void World::spawnVehicles()
+	{
 	}
 
 	void World::addBunker(StaticObjects::Type type)
@@ -311,7 +321,6 @@ namespace GEX {
 		// add character object
 		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
 		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
-		character->setVelocity(150.f, scrollSpeed_);
 		character_ = character.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(character));
 
