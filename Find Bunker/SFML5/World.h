@@ -44,7 +44,7 @@ namespace GEX {
 		void								adaptPlayerVelocity();
 		
 		void								addVehicles(sf::Time dt);
-		void								addVehicle(DynamicObjects::Type type, float x, float y);
+		void								addVehicle(DynamicObjects::Type type, float x, float y, float speed);
 		void								spawnVehicles();
 		void								addBunker(StaticObjects::Type type);
 		void								addBunkers();
@@ -68,14 +68,16 @@ namespace GEX {
 
 		// 10.10
 		struct SpawnPoint {
-			SpawnPoint(DynamicObjects::Type _type, float _x, float _y)
+			SpawnPoint(DynamicObjects::Type _type, float _x, float _y, float _speed)
 				: type(_type)
 				, x(_x)
 				, y(_y)
+				, speed(_speed)
 			{}
 			DynamicObjects::Type type;						// member variable is public so we don't need to add _ to the name
 			float	x;
 			float   y;
+			float	speed;
 		};
 
 	private:

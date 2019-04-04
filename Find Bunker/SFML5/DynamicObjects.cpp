@@ -46,6 +46,10 @@ namespace GEX {
 			break;
 		case Type::Vehicle1:
 		case Type::Vehicle2:
+		case Type::Vehicle3:
+		case Type::Vehicle4:
+		case Type::Vehicle5:
+		case Type::Vehicle6:
 			return Category::Vehicle;
 			break;
 		}

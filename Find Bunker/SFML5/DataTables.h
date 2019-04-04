@@ -32,6 +32,7 @@ namespace GEX {
 		sf::Time			 time;
 		float				 x;
 		float				 y;
+		float				 speed;
 	};
 
 	struct ParticleData {

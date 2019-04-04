@@ -72,9 +72,9 @@ namespace GEX {
 	}
 
 	// Add a vehicle in the specific position.
-	void World::addVehicle(DynamicObjects::Type type, float x, float y)
+	void World::addVehicle(DynamicObjects::Type type, float x, float y, float speed)
 	{
-		SpawnPoint spawnPoint(type, x, y);
+		SpawnPoint spawnPoint(type, x, y, speed);
 		vehicleSpawnPointes_.push_back(spawnPoint);
 	}
 
@@ -87,7 +87,7 @@ namespace GEX {
 
 			if (spawningTime_.at(i) <= elapsedSpawningTime_.at(i))
 			{
-				addVehicle(TABLE.at(i).type, TABLE.at(i).x, TABLE.at(i).y);
+				addVehicle(TABLE.at(i).type, TABLE.at(i).x, TABLE.at(i).y, TABLE.at(i).speed);
 				elapsedSpawningTime_.at(i) -= spawningTime_.at(i);
 			}
 		}
@@ -100,8 +100,8 @@ namespace GEX {
 			auto spawnPoint = vehicleSpawnPointes_.back();
 			std::unique_ptr<DynamicObjects> vehicles(new DynamicObjects(spawnPoint.type, textures_));
 
-			vehicles->setPosition(500.f, 500.f);
-			vehicles->setVelocity(50.f, 0.f);
+			vehicles->setPosition(spawnPoint.x, spawnPoint.y);
+			vehicles->setVelocity(spawnPoint.speed, 0.f);
 
 			sceneLayers_[LowerAir]->attachChild(std::move(vehicles));
 			vehicleSpawnPointes_.pop_back();
@@ -276,14 +276,16 @@ namespace GEX {
 		textures_.load(GEX::TextureID::Bunker, "Media/Textures/Bunker.png");
 		textures_.load(GEX::TextureID::Vehicle1, "Media/Textures/redcar2.png");
 		textures_.load(GEX::TextureID::Vehicle2, "Media/Textures/whitecar2.png");
+		textures_.load(GEX::TextureID::Vehicle3, "Media/Textures/truck2.png");
+		textures_.load(GEX::TextureID::Vehicle4, "Media/Textures/redcar.png");
+		textures_.load(GEX::TextureID::Vehicle5, "Media/Textures/whitecar.png");
+		textures_.load(GEX::TextureID::Vehicle6, "Media/Textures/truck.png");
 	}
-
+	
 	void World::buildScene() {
 		// Initalize layers
 		for (int i = 0; i < LayerCount; ++i) {
-			//10.11, 10.25
 			auto category = (i == UpperAir) ? Category::Type::AirSceneLayer : Category::Type::None;
-			//10.11
 			SceneNode::Ptr layer(new SceneNode(category));
 			sceneLayers_.push_back(layer.get());						// raw pointer to that layer(unique pointer).
 			sceneGraph_.attachChild(std::move(layer));
