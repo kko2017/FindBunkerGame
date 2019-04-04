@@ -128,7 +128,6 @@ namespace GEX
 		std::for_each(children_.begin(), children_.end(), std::mem_fn(&SceneNode::removeWrecks));
 	}
 
-	// 9.20
 	void SceneNode::onCommand(const Command & command, sf::Time dt)
 	{
 		// Command current node, if category matches
@@ -140,18 +139,16 @@ namespace GEX
 			child->onCommand(command, dt);
 	}
 
-	//9.20
 	unsigned int SceneNode::getCategory() const
 	{
-		//10.11
 		return defaultCategory_;
 	}
 
-	//10.17
 	float distance(const SceneNode & lhs, const SceneNode & rhs)
 	{
 		return length(lhs.getWorldPosition() - rhs.getWorldPosition());
 	}
+
 	bool collision(const SceneNode & lhs, const SceneNode & rhs)
 	{
 		// to get floatRectangle, use intersects

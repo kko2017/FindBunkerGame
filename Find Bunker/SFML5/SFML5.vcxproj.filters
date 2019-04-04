@@ -75,9 +75,6 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameOverState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -168,9 +165,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceIdentifiers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameOverState.h">

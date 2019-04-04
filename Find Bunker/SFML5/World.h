@@ -6,6 +6,8 @@
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <vector>
+
 #include "SceneNode.h"
 #include "SpriteNode.h"
 #include "TextureManager.h"
@@ -19,7 +21,6 @@ namespace sf {
 	class RenderWindow;
 
 }
-
 
 namespace GEX {
 
@@ -42,9 +43,9 @@ namespace GEX {
 		void								adaptPlayerPosition();
 		void								adaptPlayerVelocity();
 		
-		void								addEnemies();										// add spawnPoints of enemies
-		void								addEnemy(DynamicObjects::Type type, float relX, float relY);
-		void								spawnEnemies();										// call this in the my update function to the spawn point
+		void								addVehicles(sf::Time dt);
+		void								addVehicle(DynamicObjects::Type type, float x, float y, float speed);
+		void								spawnVehicles();
 		void								addBunker(StaticObjects::Type type);
 		void								addBunkers();
 		
@@ -67,21 +68,19 @@ namespace GEX {
 
 		// 10.10
 		struct SpawnPoint {
-			SpawnPoint(DynamicObjects::Type _type, float _x, float _y)
+			SpawnPoint(DynamicObjects::Type _type, float _x, float _y, float _speed)
 				: type(_type)
 				, x(_x)
 				, y(_y)
+				, speed(_speed)
 			{}
 			DynamicObjects::Type type;						// member variable is public so we don't need to add _ to the name
 			float	x;
 			float   y;
+			float	speed;
 		};
 
 	private:
-
-		// you must declare things(fields?) in order
-		// because if those are scrambled, a bug happens and then it is extremely hard to find and fix it.
-
 		sf::RenderWindow&					window_;
 		sf::View							worldView_;			// my viewPort
 		TextureManager						textures_;
@@ -89,20 +88,18 @@ namespace GEX {
 		SceneNode							sceneGraph_;
 		std::vector<SceneNode*>				sceneLayers_;		// it is the vector of a raw pointer
 
-		//9.24
 		CommandQueue						commandQueue_;
 
-
 		sf::FloatRect						worldBounds_;
-		sf::Vector2f						spawnPosition_;
-
-		float								scrollSpeed_;
 
 		DynamicObjects*						character_;
 		StaticObjects*						signPost_;
 
-		//10.10
-		std::vector<SpawnPoint>				enemySpawnPointes_;
+		std::vector<SpawnPoint>				vehicleSpawnPointes_;
+
+		std::vector<int>					randomNums_;
+		std::vector<sf::Time>				spawningTime_;
+		std::vector<sf::Time>				elapsedSpawningTime_;
 	};
 
 }

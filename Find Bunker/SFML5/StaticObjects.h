@@ -21,7 +21,7 @@ namespace GEX {
 		unsigned int						getCategory() const override;
 		sf::FloatRect						getBoundingBox() const override;
 
-		std::vector<std::pair<int, int>>	getObjectPosition();
+		std::vector<std::pair<float, float>>	getObjectPosition();
 
 
 	private:
@@ -31,8 +31,8 @@ namespace GEX {
 		Type								type_;
 		sf::Sprite							sprite_;
 
-		std::vector<std::pair<int, int>>	signPostPosition_;
-		std::vector<std::pair<int, int>>	bunkerPosition_;
+		std::vector<std::pair<float, float>>	signPostPosition_;
+		std::vector<std::pair<float, float>>	bunkerPosition_;
 	};
 
 }

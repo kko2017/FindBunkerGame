@@ -1,15 +1,24 @@
 #include "World.h"
 #include "ParticleNode.h"
+#include "DataTables.h"
 
 #include <random>
 
 namespace GEX {
 
+	// Set the spawn data
+	namespace {
+		const std::vector<SpawnData> TABLE = initializeSpawnData();
+	}
+
+	// Create Random Engine
 	namespace {
 		std::random_device rn;
 		std::mt19937_64 rnd(rn());
-		int min = 0;
-		int max = 7;
+		const int MIN = 0;
+		const int MAX = 7;
+		std::uniform_int_distribution<int> range(MIN, MAX);
+		int randomNumber = 0;
 	}
 
 	World::World(sf::RenderWindow& window)
@@ -19,25 +28,23 @@ namespace GEX {
 		, sceneGraph_()
 		, sceneLayers_()
 		, worldBounds_(0.f, 0.f, worldView_.getSize().x, worldView_.getSize().y)
-		, spawnPosition_(worldView_.getSize().x / 2.f, worldBounds_.height - (worldView_.getSize().y / 2.f))
-		, scrollSpeed_(-50.f)
 		, character_(nullptr)
 		, signPost_(nullptr)
 	{
-
+		for (int i = 0; i < TABLE.size(); i++)
+		{
+			spawningTime_.push_back(TABLE.at(i).time);
+			elapsedSpawningTime_.push_back(TABLE.at(i).time);
+		}
 		loadTextures();
 		buildScene();
-
-		worldView_.setCenter(spawnPosition_);
 	}
 
 	void World::update(sf::Time dt, CommandQueue& commands)
 	{
 
-		//9.24
 		character_->setVelocity(0.f, 0.f);
 
-		//10.22
 		destroyEntitiesOutOfView();
 
 		//run all the commands in the command queue
@@ -45,21 +52,18 @@ namespace GEX {
 			sceneGraph_.onCommand(commandQueue_.pop(), dt);
 		}
 
-		//10.18
 		handleCollisions();
-		//10.22
-		sceneGraph_.removeWrecks();
-
-		adaptPlayerVelocity();
-		sceneGraph_.update(dt, commands);
 		adaptPlayerPosition();
-	
-		//10.10
-		spawnEnemies();
+		adaptPlayerVelocity();
+
+		addVehicles(dt);
+		spawnVehicles();
+
+		sceneGraph_.update(dt, commands);
+		sceneGraph_.removeWrecks();
 
 	}
 
-	//9.24
 	void World::adaptPlayerVelocity() {
 		sf::Vector2f velocity = character_->getVelocity();
 		if (velocity.x != 0.f && velocity.y != 0.f) {
@@ -67,50 +71,40 @@ namespace GEX {
 		}
 	}
 
-	//10.10
-	void World::addEnemies()
+	// Add a vehicle in the specific position.
+	void World::addVehicle(DynamicObjects::Type type, float x, float y, float speed)
 	{
-		/*addEnemy(Actor::Type::Zombie1, -250.f, 200.f);
-		addEnemy(Actor::Type::Zombie2, 0.f, 200.f);
-		addEnemy(Actor::Type::Zombie3, 250.f, 200.f);
+		SpawnPoint spawnPoint(type, x, y, speed);
+		vehicleSpawnPointes_.push_back(spawnPoint);
+	}
 
-		addEnemy(Actor::Type::Zombie1, -250.f, 600.f);
-		addEnemy(Actor::Type::Zombie2, 0.f, 600.f);
+	// Add vehicles in each position.
+	void World::addVehicles(sf::Time dt)
+	{
+		for (int i = 0; i < spawningTime_.size(); i++)
+		{
+			elapsedSpawningTime_.at(i) += dt;
 
-
-		addEnemy(Actor::Type::Zombie3, -70.f, 800.f);
-		addEnemy(Actor::Type::Zombie1, 70.f, 800.f);
-
-		addEnemy(Actor::Type::Zombie1, -170.f, 850.f);
-		addEnemy(Actor::Type::Zombie2, 170.f, 850.f);
-
-		std::sort(enemySpawnPointes_.begin(), enemySpawnPointes_.end(), 
-			[](SpawnPoint lhs, SpawnPoint rhs)
+			if (spawningTime_.at(i) <= elapsedSpawningTime_.at(i))
 			{
-				return lhs.y < rhs.y;
+				addVehicle(TABLE.at(i).type, TABLE.at(i).x, TABLE.at(i).y, TABLE.at(i).speed);
+				elapsedSpawningTime_.at(i) -= spawningTime_.at(i);
 			}
-		);*/
-
+		}
 	}
 
-	void World::addEnemy(DynamicObjects::Type type, float relX, float relY)
+	void World::spawnVehicles()
 	{
-		//SpawnPoint	spawnPoint(type, spawnPosition_.x - relX, spawnPosition_.y = relY);
-		//enemySpawnPointes_.push_back(spawnPoint);
+		while (!vehicleSpawnPointes_.empty())
+		{
+			auto spawnPoint = vehicleSpawnPointes_.back();
+			std::unique_ptr<DynamicObjects> vehicles(new DynamicObjects(spawnPoint.type, textures_));
 
-	}
+			vehicles->setPosition(spawnPoint.x, spawnPoint.y);
+			vehicles->setVelocity(spawnPoint.speed, 0.f);
 
-	void World::spawnEnemies()
-	{
-		while (!enemySpawnPointes_.empty() &&
-			enemySpawnPointes_.back().y > getBattlefieldBounds().top) {
-			
-			auto spawnPoint = enemySpawnPointes_.back();
-			std::unique_ptr<DynamicObjects> enemy(new DynamicObjects(spawnPoint.type, textures_));
-			enemy->setPosition(spawnPoint.x, spawnPoint.y);
-			//enemy->rotate(180);
-			sceneLayers_[UpperAir]->attachChild(std::move(enemy));
-			enemySpawnPointes_.pop_back();
+			sceneLayers_[LowerAir]->attachChild(std::move(vehicles));
+			vehicleSpawnPointes_.pop_back();
 		}
 	}
 
@@ -118,10 +112,24 @@ namespace GEX {
 	{
 		std::unique_ptr<StaticObjects> bunker(new StaticObjects(type, textures_));
 
-		std::uniform_int_distribution<int> range(min, max);
-		int randomNumber = range(rnd);
-		int x = bunker->getObjectPosition()[randomNumber].first;
-		int y = bunker->getObjectPosition()[randomNumber].second;
+		randomNumber = range(rnd);
+		unsigned int i = 0;
+		while (i < randomNums_.size())
+		{
+			if (randomNums_[i] != randomNumber)
+			{
+				i++;
+			}
+			else
+			{
+				randomNumber = range(rnd);
+				i = 0;
+			}
+		}
+		randomNums_.push_back(randomNumber);
+
+		float x = bunker->getObjectPosition()[randomNumber].first;
+		float y = bunker->getObjectPosition()[randomNumber].second;
 
 		bunker->setPosition(x, y);
 		sceneLayers_[UpperAir]->attachChild(std::move(bunker));
@@ -268,14 +276,16 @@ namespace GEX {
 		textures_.load(GEX::TextureID::Bunker, "Media/Textures/Bunker.png");
 		textures_.load(GEX::TextureID::Vehicle1, "Media/Textures/redcar2.png");
 		textures_.load(GEX::TextureID::Vehicle2, "Media/Textures/whitecar2.png");
+		textures_.load(GEX::TextureID::Vehicle3, "Media/Textures/truck2.png");
+		textures_.load(GEX::TextureID::Vehicle4, "Media/Textures/redcar.png");
+		textures_.load(GEX::TextureID::Vehicle5, "Media/Textures/whitecar.png");
+		textures_.load(GEX::TextureID::Vehicle6, "Media/Textures/truck.png");
 	}
-
+	
 	void World::buildScene() {
 		// Initalize layers
 		for (int i = 0; i < LayerCount; ++i) {
-			//10.11, 10.25
 			auto category = (i == UpperAir) ? Category::Type::AirSceneLayer : Category::Type::None;
-			//10.11
 			SceneNode::Ptr layer(new SceneNode(category));
 			sceneLayers_.push_back(layer.get());						// raw pointer to that layer(unique pointer).
 			sceneGraph_.attachChild(std::move(layer));
@@ -296,21 +306,26 @@ namespace GEX {
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
 		sceneLayers_[Background]->attachChild(std::move(backgroundSprite));
 
-		// add player aircraft & game object
+		// add character object
 		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
 		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
-		character->setVelocity(150.f, scrollSpeed_);
 		character_ = character.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(character));
 
+
+		//std::unique_ptr<DynamicObjects> v(new DynamicObjects(DynamicObjects::Type::Vehicle1, textures_));
+		//v->setPosition(500.f, 500.f);
+		//v->setVelocity(100.f, 0.f);
+		//sceneLayers_[UpperAir]->attachChild(std::move(v));
+
 		// add SignPost
 		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
+	
 
-		std::uniform_int_distribution<int> range(min, max);
-		int randomNumber = range(rnd);
-
-		int xPosition = signPost->getObjectPosition()[randomNumber].first;
-		int yPosition = signPost->getObjectPosition()[randomNumber].second;
+		randomNumber = range(rnd);
+		randomNums_.push_back(randomNumber);
+		float xPosition = signPost->getObjectPosition()[randomNumber].first;
+		float yPosition = signPost->getObjectPosition()[randomNumber].second;
 
 		signPost->setPosition(xPosition, yPosition);
 		signPost_ = signPost.get();
@@ -319,8 +334,7 @@ namespace GEX {
 		// add Bunkers
 		addBunkers();
 
-		// add enemy aircrft
-		addEnemies();
+
 	}
 }
 

@@ -17,7 +17,11 @@ namespace GEX {
 		{
 			Character,
 			Vehicle1,
-			Vehicle2
+			Vehicle2,
+			Vehicle3,
+			Vehicle4,
+			Vehicle5,
+			Vehicle6,
 		};
 
 		enum class State {
@@ -25,7 +29,8 @@ namespace GEX {
 			Down,
 			Left,
 			Right,
-			Dead
+			Dead,
+			Drive
 		};
 
 	public:
