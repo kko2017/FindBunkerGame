@@ -8,6 +8,7 @@ namespace GEX {
 	// Set the spawn data
 	namespace {
 		const std::vector<SpawnData> TABLE = initializeSpawnData();
+		const std::vector<SpawnBlockData> TABLE2 = initializeSpawnBlockData();
 	}
 
 	// Create Random Engine
@@ -35,6 +36,7 @@ namespace GEX {
 			spawningTime_.push_back(TABLE.at(i).time);
 			elapsedSpawningTime_.push_back(TABLE.at(i).time);
 		}
+
 		loadTextures();
 		buildScene();
 	}
@@ -140,6 +142,32 @@ namespace GEX {
 		addBunker(StaticObjects::Type::Bunker);
 	}
 
+	void World::addBlock(StaticObjects::Type type, float x, float y)
+	{
+		BlockPoint blockPoint(type, x, y);
+		blockSpawnPointes_.push_back(blockPoint);
+	}
+
+	void World::addBlocks()
+	{
+		for (unsigned int i = 0; i < TABLE2.size(); i++)
+		{
+			addBlock(TABLE2.at(i).type, TABLE2.at(i).x, TABLE2.at(i).y);
+		}
+	}
+
+	void World::spawnBlocks()
+	{
+		while (!blockSpawnPointes_.empty())
+		{
+			auto blockPoint = blockSpawnPointes_.back();
+			std::unique_ptr<StaticObjects> block(new StaticObjects(blockPoint.type, textures_));
+			block->setPosition(blockPoint.x, blockPoint.y);
+			sceneLayers_[Background]->attachChild(std::move(block));
+			blockSpawnPointes_.pop_back();
+		}
+	}
+
 
 	sf::FloatRect World::getViewBounds() const
 	{
@@ -192,7 +220,7 @@ namespace GEX {
 		sceneGraph_.checkSceneCollision(sceneGraph_, collisionPairs);
 
 		for (SceneNode::Pair pair : collisionPairs) {
-			if (matchesCategories(pair, Category::Type::Character, Category::Type::SignPost))
+			if (matchesCategories(pair, Category::Type::Character, Category::Type::Block))
 			{
 				auto& hero = static_cast<DynamicObjects&>(*(pair.first));
 				auto& zombie = static_cast<StaticObjects&>(*(pair.second));
@@ -295,11 +323,8 @@ namespace GEX {
 		sceneLayers_[Behind]->attachChild(std::move(backgroundSprite));
 
 		// block
-		sf::Texture& texture2 = textures_.get(TextureID::Block);
-		sf::IntRect rect(0, 0, 300, 400);
-		std::unique_ptr<SpriteNode> blockSprite(new SpriteNode(texture2, rect));
-		blockSprite->setPosition(0.f, 900.f);
-		sceneLayers_[Background]->attachChild(std::move(blockSprite));
+		addBlocks();
+		spawnBlocks();
 
 
 		// add character object

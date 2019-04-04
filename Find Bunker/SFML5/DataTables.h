@@ -34,8 +34,15 @@ namespace GEX {
 		float				 speed;
 	};
 
+	struct SpawnBlockData {
+		StaticObjects::Type type;
+		float				x;
+		float				y;
+	};
+
 	std::map<DynamicObjects::Type, DynamicObjectsData>	initializeDynamicObjectsData();
 	std::map<StaticObjects::Type, StaticObjectData>		initializeStaticObjectsData();
 	std::vector<SpawnData>								initializeSpawnData();
+	std::vector<SpawnBlockData>							initializeSpawnBlockData();
 }
 

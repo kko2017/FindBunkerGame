@@ -46,6 +46,19 @@ unsigned int GEX::StaticObjects::getCategory() const
 	case Type::Bunker:
 		return Category::Bunker;
 		break;
+	case Type::Block1:
+	case Type::Block2:
+	case Type::Block3:
+	case Type::Block4:
+	case Type::Block5:
+	case Type::Block6:
+	case Type::Block7:
+	case Type::Block8:
+	case Type::Block9:
+	case Type::Block10:
+	case Type::Block11:
+		return Category::Block;
+		break;
 	}
 	return Category::None;
 }

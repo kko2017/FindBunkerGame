@@ -48,6 +48,9 @@ namespace GEX {
 		void								spawnVehicles();
 		void								addBunker(StaticObjects::Type type);
 		void								addBunkers();
+		void								addBlock(StaticObjects::Type type, float x, float y);
+		void								addBlocks();
+		void								spawnBlocks();
 		
 		sf::FloatRect						getViewBounds() const;								// for battle ground view
 		sf::FloatRect						getBattlefieldBounds() const;						//	battle ground view
@@ -81,6 +84,17 @@ namespace GEX {
 			float	speed;
 		};
 
+		struct BlockPoint {
+			BlockPoint(StaticObjects::Type _type, float _x, float _y)
+				: type(_type)
+				, x(_x)
+				, y(_y)
+			{}
+			StaticObjects::Type type;
+			float	x;
+			float	y;
+		};
+
 	private:
 		sf::RenderWindow&					window_;
 		sf::View							worldView_;			// my viewPort
@@ -97,6 +111,7 @@ namespace GEX {
 		StaticObjects*						signPost_;
 
 		std::vector<SpawnPoint>				vehicleSpawnPointes_;
+		std::vector<BlockPoint>				blockSpawnPointes_;
 
 		std::vector<int>					randomNums_;
 		std::vector<sf::Time>				spawningTime_;
