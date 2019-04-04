@@ -329,7 +329,7 @@ namespace GEX {
 
 		signPost->setPosition(xPosition, yPosition);
 		signPost_ = signPost.get();
-		sceneLayers_[UpperAir]->attachChild(std::move(signPost));
+		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
 		
 		// add Bunkers
 		addBunkers();
