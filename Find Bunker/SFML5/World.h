@@ -60,7 +60,8 @@ namespace GEX {
 
 	private:
 		enum Layer {
-			Background = 0,
+			Behind = 0,
+			Background,
 			LowerAir,
 			UpperAir,
 			LayerCount

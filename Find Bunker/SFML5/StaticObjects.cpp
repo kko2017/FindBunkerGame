@@ -38,7 +38,16 @@ GEX::StaticObjects::StaticObjects(Type type, const TextureManager & textures)
 
 unsigned int GEX::StaticObjects::getCategory() const
 {
-	return Category::SignPost;
+	switch (type_)
+	{
+	case Type::SignPost:
+		return Category::SignPost;
+		break;
+	case Type::Bunker:
+		return Category::Bunker;
+		break;
+	}
+	return Category::None;
 }
 
 sf::FloatRect GEX::StaticObjects::getBoundingBox() const

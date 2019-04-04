@@ -1,5 +1,4 @@
 #include "World.h"
-#include "ParticleNode.h"
 #include "DataTables.h"
 
 #include <random>
@@ -31,7 +30,7 @@ namespace GEX {
 		, character_(nullptr)
 		, signPost_(nullptr)
 	{
-		for (int i = 0; i < TABLE.size(); i++)
+		for (unsigned int i = 0; i < TABLE.size(); i++)
 		{
 			spawningTime_.push_back(TABLE.at(i).time);
 			elapsedSpawningTime_.push_back(TABLE.at(i).time);
@@ -81,7 +80,7 @@ namespace GEX {
 	// Add vehicles in each position.
 	void World::addVehicles(sf::Time dt)
 	{
-		for (int i = 0; i < spawningTime_.size(); i++)
+		for (unsigned int i = 0; i < spawningTime_.size(); i++)
 		{
 			elapsedSpawningTime_.at(i) += dt;
 
@@ -156,8 +155,6 @@ namespace GEX {
 		return bounds;
 	}
 
-	//10.18
-
 	bool World::matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
 	{
 		unsigned int category1 = colliders.first->getCategory();
@@ -195,15 +192,17 @@ namespace GEX {
 		sceneGraph_.checkSceneCollision(sceneGraph_, collisionPairs);
 
 		for (SceneNode::Pair pair : collisionPairs) {
-			if (matchesCategories(pair, Category::Type::Character, Category::Type::Vehicle))
+			if (matchesCategories(pair, Category::Type::Character, Category::Type::SignPost))
 			{
 				auto& hero = static_cast<DynamicObjects&>(*(pair.first));
-				auto& zombie = static_cast<DynamicObjects&>(*(pair.second));
+				auto& zombie = static_cast<StaticObjects&>(*(pair.second));
 				
 				auto zpos = zombie.getPosition();
 				auto hpos = hero.getPosition();
+
 				auto diffPos = zpos - hpos;
-				zombie.setPosition(zpos + 0.2f * diffPos);
+				zombie.setPosition(zpos);
+
 				hero.setPosition(hpos - 0.1f * diffPos);
 			}
 			/*else if (matchesCategories(pair, Category::Type::PlayerAircraft, Category::Type::Pickup))
@@ -253,7 +252,6 @@ namespace GEX {
 		return commandQueue_;
 	}
 
-	//10.22, 10.23
 	bool World::hasAlivePlayer() const
 	{
 		return !character_->isDestroyed();
@@ -264,10 +262,8 @@ namespace GEX {
 		return !worldBounds_.contains(character_->getPosition());
 	}
 
-	//10.24
 	void World::loadTextures() {
 		textures_.load(GEX::TextureID::City1, "Media/Textures/City1.png");
-		textures_.load(GEX::TextureID::Particle, "Media/Textures/Particle.png");
 		textures_.load(GEX::TextureID::Character, "Media/Textures/ke2.png");
 		textures_.load(GEX::TextureID::SignPost, "Media/Textures/SignPost.png");
 		textures_.load(GEX::TextureID::Bunker, "Media/Textures/Bunker.png");
@@ -277,6 +273,8 @@ namespace GEX {
 		textures_.load(GEX::TextureID::Vehicle4, "Media/Textures/redcar.png");
 		textures_.load(GEX::TextureID::Vehicle5, "Media/Textures/whitecar.png");
 		textures_.load(GEX::TextureID::Vehicle6, "Media/Textures/truck.png");
+		textures_.load(GEX::TextureID::Block, "Media/Textures/Block1.jpg");
+		
 	}
 	
 	void World::buildScene() {
@@ -288,20 +286,21 @@ namespace GEX {
 			sceneGraph_.attachChild(std::move(layer));
 		}
 
-		// Particle System
-		std::unique_ptr<ParticleNode>smoke(new ParticleNode(Particle::Type::Smoke, textures_));	// smoke part
-		sceneLayers_[LowerAir]->attachChild(std::move(smoke));
-
-		std::unique_ptr<ParticleNode>fire(new ParticleNode(Particle::Type::Propellant, textures_));	// fire part
-		sceneLayers_[LowerAir]->attachChild(std::move(fire));
-
 		// Background
 		sf::Texture& texture = textures_.get(TextureID::City1);
 		sf::IntRect textureRect(worldBounds_);							// it is size of my world
 
 		std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
-		sceneLayers_[Background]->attachChild(std::move(backgroundSprite));
+		sceneLayers_[Behind]->attachChild(std::move(backgroundSprite));
+
+		// block
+		sf::Texture& texture2 = textures_.get(TextureID::Block);
+		sf::IntRect rect(0, 0, 300, 400);
+		std::unique_ptr<SpriteNode> blockSprite(new SpriteNode(texture2, rect));
+		blockSprite->setPosition(0.f, 900.f);
+		sceneLayers_[Background]->attachChild(std::move(blockSprite));
+
 
 		// add character object
 		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
@@ -320,7 +319,7 @@ namespace GEX {
 		signPost->setPosition(xPosition, yPosition);
 		signPost_ = signPost.get();
 		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
-		
+
 		// add Bunkers
 		addBunkers();
 

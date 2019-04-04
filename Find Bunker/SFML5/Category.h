@@ -16,7 +16,7 @@ namespace Category
 		AlliedProjectile = 1 << 5,
 		AirSceneLayer	 = 1 << 6,
 		SignPost	     = 1 << 7,
-		ParticleSystem	 = 1 << 8,
+		Block			 = 1 << 8,
 
 		Projectile = EnemyProjectile | AlliedProjectile
 	};

@@ -5,7 +5,6 @@
 #include "TextureManager.h"
 #include "DynamicObjects.h"
 #include "StaticObjects.h"
-#include "Particle.h"
 
 #include <map>
 
@@ -34,13 +33,6 @@ namespace GEX {
 		float				 y;
 		float				 speed;
 	};
-
-	struct ParticleData {
-
-		sf::Color		color;
-		sf::Time		lifetime;
-	};
-	std::map<Particle::Type, ParticleData>				initializeParticleData();
 
 	std::map<DynamicObjects::Type, DynamicObjectsData>	initializeDynamicObjectsData();
 	std::map<StaticObjects::Type, StaticObjectData>		initializeStaticObjectsData();

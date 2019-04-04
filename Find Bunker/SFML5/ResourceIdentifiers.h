@@ -14,11 +14,9 @@ namespace GEX {
 		Bunker,
 		SignPost,
 		TitleScreen,		
-		Entities,
 		City1,
-		Explosion,
-		Particle,
-		FinishLine
+		Block,
+		Particle
 	};
 
 	enum class FontID {

@@ -3,20 +3,6 @@
 #include "Animation2.h"
 
 
-std::map<GEX::Particle::Type, GEX::ParticleData> GEX::initializeParticleData()
-{
-	std::map<GEX::Particle::Type, GEX::ParticleData> data;
-
-	data[Particle::Type::Propellant].color = sf::Color(255, 255, 50);
-	data[Particle::Type::Propellant].lifetime = sf::seconds(0.6f);
-
-	data[Particle::Type::Smoke].color = sf::Color(50, 50, 50);
-	data[Particle::Type::Smoke].lifetime = sf::seconds(4.f);
-
-	return data;
-	
-}
-
 std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDynamicObjectsData()
 {
 	std::map<DynamicObjects::Type, DynamicObjectsData> data;
