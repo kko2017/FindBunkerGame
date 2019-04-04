@@ -24,7 +24,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	// Set the character' data
 	data[DynamicObjects::Type::Character].texture = TextureID::Character;
 	data[DynamicObjects::Type::Character].isAlive = true;
-	data[DynamicObjects::Type::Character].speed = 50;
+	data[DynamicObjects::Type::Character].speed = 50.f;
 
 	JsonFrameParser frames = JsonFrameParser("Media/Textures/ke2.json");
 
@@ -48,6 +48,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Vehicle1].texture = TextureID::Vehicle1;
 	data[DynamicObjects::Type::Vehicle1].textureRect = sf::IntRect(0,0,96,45);
 	data[DynamicObjects::Type::Vehicle1].isAlive = true;
+	data[DynamicObjects::Type::Vehicle1].speed = 50.f;
 
 	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 96, 45));
 	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
@@ -58,6 +59,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Vehicle2].texture = TextureID::Vehicle2;
 	data[DynamicObjects::Type::Vehicle2].textureRect = sf::IntRect(0,0,95,44);
 	data[DynamicObjects::Type::Vehicle2].isAlive = true;
+	data[DynamicObjects::Type::Vehicle2].speed = 50.f;
 
 	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 95, 44));
 	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
@@ -89,11 +91,9 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 	// Spawn Data of 1st road
 	data.push_back(SpawnData());
 	data[0].type = DynamicObjects::Type::Vehicle1;
-	data[0].time = sf::milliseconds(3000);
-	data[0].xDeparture = 10.f;
-	data[0].yDeparture = 100.f;
-	data[0].xArrival = 2048.f;
-	data[0].yArrival = 100.f;
+	data[0].time = sf::milliseconds(8000);
+	data[0].x = 10.f;
+	data[0].y = 100.f;
 
 	return data;
 }

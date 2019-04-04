@@ -43,10 +43,7 @@ namespace GEX {
 		void								adaptPlayerPosition();
 		void								adaptPlayerVelocity();
 		
-		void								addEnemies();										// add spawnPoints of enemies
-		void								addEnemy(DynamicObjects::Type type, float relX, float relY);
-		void								spawnEnemies();										// call this in the my update function to the spawn point
-		void								addVehicles();
+		void								addVehicles(sf::Time dt);
 		void								addVehicle(DynamicObjects::Type type, float x, float y);
 		void								spawnVehicles();
 		void								addBunker(StaticObjects::Type type);
@@ -96,7 +93,7 @@ namespace GEX {
 		DynamicObjects*						character_;
 		StaticObjects*						signPost_;
 
-		std::vector<SpawnPoint>				enemySpawnPointes_;
+		std::vector<SpawnPoint>				vehicleSpawnPointes_;
 
 		std::vector<int>					randomNums_;
 		std::vector<sf::Time>				spawningTime_;

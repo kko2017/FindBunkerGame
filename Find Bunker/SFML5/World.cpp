@@ -6,6 +6,7 @@
 
 namespace GEX {
 
+	// Set the spawn data
 	namespace {
 		const std::vector<SpawnData> TABLE = initializeSpawnData();
 	}
@@ -30,6 +31,11 @@ namespace GEX {
 		, character_(nullptr)
 		, signPost_(nullptr)
 	{
+		for (int i = 0; i < TABLE.size(); i++)
+		{
+			spawningTime_.push_back(TABLE.at(i).time);
+			elapsedSpawningTime_.push_back(TABLE.at(i).time);
+		}
 		loadTextures();
 		buildScene();
 	}
@@ -47,13 +53,14 @@ namespace GEX {
 		}
 
 		handleCollisions();
-		sceneGraph_.removeWrecks();
-
-		adaptPlayerVelocity();
-		sceneGraph_.update(dt, commands);
 		adaptPlayerPosition();
+		adaptPlayerVelocity();
 
-		spawnEnemies();
+		addVehicles(dt);
+		spawnVehicles();
+
+		sceneGraph_.update(dt, commands);
+		sceneGraph_.removeWrecks();
 
 	}
 
@@ -64,62 +71,41 @@ namespace GEX {
 		}
 	}
 
-	//10.10
-	void World::addEnemies()
-	{
-		/*addEnemy(Actor::Type::Zombie1, -250.f, 200.f);
-		addEnemy(Actor::Type::Zombie2, 0.f, 200.f);
-		addEnemy(Actor::Type::Zombie3, 250.f, 200.f);
-
-		addEnemy(Actor::Type::Zombie1, -250.f, 600.f);
-		addEnemy(Actor::Type::Zombie2, 0.f, 600.f);
-
-
-		addEnemy(Actor::Type::Zombie3, -70.f, 800.f);
-		addEnemy(Actor::Type::Zombie1, 70.f, 800.f);
-
-		addEnemy(Actor::Type::Zombie1, -170.f, 850.f);
-		addEnemy(Actor::Type::Zombie2, 170.f, 850.f);
-
-		std::sort(enemySpawnPointes_.begin(), enemySpawnPointes_.end(), 
-			[](SpawnPoint lhs, SpawnPoint rhs)
-			{
-				return lhs.y < rhs.y;
-			}
-		);*/
-
-	}
-
-	void World::addEnemy(DynamicObjects::Type type, float relX, float relY)
-	{
-		//SpawnPoint	spawnPoint(type, spawnPosition_.x - relX, spawnPosition_.y = relY);
-		//enemySpawnPointes_.push_back(spawnPoint);
-
-	}
-
-	void World::spawnEnemies()
-	{
-		while (!enemySpawnPointes_.empty() &&
-			enemySpawnPointes_.back().y > getBattlefieldBounds().top) {
-			
-			auto spawnPoint = enemySpawnPointes_.back();
-			std::unique_ptr<DynamicObjects> enemy(new DynamicObjects(spawnPoint.type, textures_));
-			enemy->setPosition(spawnPoint.x, spawnPoint.y);
-			sceneLayers_[UpperAir]->attachChild(std::move(enemy));
-			enemySpawnPointes_.pop_back();
-		}
-	}
-
-	void World::addVehicles()
-	{
-	}
-
+	// Add a vehicle in the specific position.
 	void World::addVehicle(DynamicObjects::Type type, float x, float y)
 	{
+		SpawnPoint spawnPoint(type, x, y);
+		vehicleSpawnPointes_.push_back(spawnPoint);
+	}
+
+	// Add vehicles in each position.
+	void World::addVehicles(sf::Time dt)
+	{
+		for (int i = 0; i < spawningTime_.size(); i++)
+		{
+			elapsedSpawningTime_.at(i) += dt;
+
+			if (spawningTime_.at(i) <= elapsedSpawningTime_.at(i))
+			{
+				addVehicle(TABLE.at(i).type, TABLE.at(i).x, TABLE.at(i).y);
+				elapsedSpawningTime_.at(i) -= spawningTime_.at(i);
+			}
+		}
 	}
 
 	void World::spawnVehicles()
 	{
+		while (!vehicleSpawnPointes_.empty())
+		{
+			auto spawnPoint = vehicleSpawnPointes_.back();
+			std::unique_ptr<DynamicObjects> vehicles(new DynamicObjects(spawnPoint.type, textures_));
+
+			vehicles->setPosition(500.f, 500.f);
+			vehicles->setVelocity(50.f, 0.f);
+
+			sceneLayers_[LowerAir]->attachChild(std::move(vehicles));
+			vehicleSpawnPointes_.pop_back();
+		}
 	}
 
 	void World::addBunker(StaticObjects::Type type)
@@ -324,6 +310,12 @@ namespace GEX {
 		character_ = character.get();
 		sceneLayers_[UpperAir]->attachChild(std::move(character));
 
+
+		//std::unique_ptr<DynamicObjects> v(new DynamicObjects(DynamicObjects::Type::Vehicle1, textures_));
+		//v->setPosition(500.f, 500.f);
+		//v->setVelocity(100.f, 0.f);
+		//sceneLayers_[UpperAir]->attachChild(std::move(v));
+
 		// add SignPost
 		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
 	
@@ -340,8 +332,7 @@ namespace GEX {
 		// add Bunkers
 		addBunkers();
 
-		// add enemy aircrft
-		addEnemies();
+
 	}
 }
 

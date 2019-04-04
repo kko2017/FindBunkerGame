@@ -30,10 +30,8 @@ namespace GEX {
 	struct SpawnData {
 		DynamicObjects::Type type;
 		sf::Time			 time;
-		float				 xDeparture;
-		float				 yDeparture;
-		float				 xArrival;
-		float				 yArrival;
+		float				 x;
+		float				 y;
 	};
 
 	struct ParticleData {
