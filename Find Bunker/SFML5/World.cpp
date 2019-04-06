@@ -260,6 +260,7 @@ namespace GEX {
 		for (SceneNode::Pair pair : collisionPairs) {
 			handleBlockCollision(pair, Category::Type::Character, Category::Type::Block);
 			handleSignpostCollision(pair, Category::Type::Character, Category::Type::Signpost);
+			handleVehicleCollision(pair, Category::Type::Character, Category::Type::Vehicle);
 		}
 	}
 

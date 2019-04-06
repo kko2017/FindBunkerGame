@@ -178,29 +178,21 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 	data[1].y = 1455.f;
 	data[1].speed = -100.f;
 
-	//  Spawn Data of 5th road
-	data.push_back(SpawnData());
-	data[2].type = DynamicObjects::Type::RedCarToRight;
-	data[2].time = sf::milliseconds(5500);
-	data[2].x = 10.f;
-	data[2].y = 232.f;
-	data[2].speed = 130.f;
-
 	//  Spawn Data of 6th road
+	data.push_back(SpawnData());
+	data[2].type = DynamicObjects::Type::BusToLeft;
+	data[2].time = sf::milliseconds(5000);
+	data[2].x = 2038.f;
+	data[2].y = 252.f;
+	data[2].speed = -150.f;
+
+	// Spawn Data of 4th road
 	data.push_back(SpawnData());
 	data[3].type = DynamicObjects::Type::WhiteCarToLeft;
 	data[3].time = sf::milliseconds(5000);
 	data[3].x = 2038.f;
-	data[3].y = 282.f;
+	data[3].y = 740.f;
 	data[3].speed = -120.f;
-
-	// Spawn Data of 4th road
-	data.push_back(SpawnData());
-	data[4].type = DynamicObjects::Type::BusToLeft;
-	data[4].time = sf::milliseconds(5000);
-	data[4].x = 2038.f;
-	data[4].y = 740.f;
-	data[4].speed = -120.f;
 
 	return data;
 }

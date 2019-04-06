@@ -5,314 +5,224 @@
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "down (2).png",
       "frame": {
-        "x": 44,
+        "x": 59,
         "y": 0,
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "down (3).png",
       "frame": {
-        "x": 88,
+        "x": 117,
         "y": 0,
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "left (1).png",
       "frame": {
         "x": 0,
-        "y": 49,
-        "w": 44,
-        "h": 48
+        "y": 65,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "left (2).png",
       "frame": {
-        "x": 44,
-        "y": 49,
-        "w": 44,
-        "h": 48
+        "x": 59,
+        "y": 65,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "left (3).png",
       "frame": {
-        "x": 88,
-        "y": 49,
-        "w": 44,
-        "h": 48
+        "x": 117,
+        "y": 65,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "right (1).png",
       "frame": {
         "x": 0,
-        "y": 97,
-        "w": 44,
-        "h": 49
+        "y": 133,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "right (2).png",
       "frame": {
-        "x": 44,
-        "y": 97,
-        "w": 44,
-        "h": 49
+        "x": 59,
+        "y": 133,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "right (3).png",
       "frame": {
-        "x": 88,
-        "y": 97,
-        "w": 44,
-        "h": 49
+        "x": 117,
+        "y": 133,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "up (1).png",
       "frame": {
         "x": 0,
-        "y": 146,
-        "w": 44,
-        "h": 49
+        "y": 195,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "up (2).png",
       "frame": {
-        "x": 44,
-        "y": 146,
-        "w": 44,
-        "h": 49
+        "x": 59,
+        "y": 195,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "up (3).png",
       "frame": {
-        "x": 88,
-        "y": 146,
-        "w": 44,
-        "h": 49
+        "x": 117,
+        "y": 195,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "dead (1).png",
       "frame": {
         "x": 0,
-        "y": 0,
-        "w": 44,
-        "h": 49
+        "y": 257,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "dead (2).png",
       "frame": {
-        "x": 44,
-        "y": 0,
-        "w": 44,
-        "h": 49
+        "x": 59,
+        "y": 257,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     },
     {
       "filename": "dead (3).png",
       "frame": {
-        "x": 88,
-        "y": 0,
-        "w": 44,
-        "h": 49
+        "x": 117,
+        "y": 257,
+        "w": 58,
+        "h": 62
       },
       "rotated": false,
       "trimmed": true,
-      "spriteSourceSize": {
-        "x": 17,
-        "y": 25,
-        "w": 87,
-        "h": 74
-      },
       "sourceSize": {
-        "w": 44,
-        "h": 49
+        "w": 58,
+        "h": 62
       }
     }
   ],
