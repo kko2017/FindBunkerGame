@@ -163,7 +163,7 @@ namespace GEX {
 			auto blockPoint = blockSpawnPointes_.back();
 			std::unique_ptr<StaticObjects> block(new StaticObjects(blockPoint.type, textures_));
 			block->setPosition(blockPoint.x, blockPoint.y);
-			sceneLayers_[Background]->attachChild(std::move(block));
+			sceneLayers_[Behind]->attachChild(std::move(block));
 			blockSpawnPointes_.pop_back();
 		}
 	}
@@ -320,7 +320,7 @@ namespace GEX {
 
 		std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
-		sceneLayers_[Behind]->attachChild(std::move(backgroundSprite));
+		sceneLayers_[Background]->attachChild(std::move(backgroundSprite));
 
 		// block
 		addBlocks();

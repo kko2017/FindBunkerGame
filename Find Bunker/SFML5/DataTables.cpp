@@ -108,23 +108,23 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 
 	// set the block1's data
 	data[StaticObjects::Type::Block1].texture = TextureID::Block;
-	data[StaticObjects::Type::Block1].textureRect = sf::IntRect(0, 0, 400, 500);
+	data[StaticObjects::Type::Block1].textureRect = sf::IntRect(0, 0, 350, 450);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block2].texture = TextureID::Block;
-	data[StaticObjects::Type::Block2].textureRect = sf::IntRect(0, 0, 200, 500);
+	data[StaticObjects::Type::Block2].textureRect = sf::IntRect(0, 0, 245, 450);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block3].texture = TextureID::Block;
-	data[StaticObjects::Type::Block3].textureRect = sf::IntRect(0, 0, 800, 500);
+	data[StaticObjects::Type::Block3].textureRect = sf::IntRect(0, 0, 657, 450);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block4].texture = TextureID::Block;
-	data[StaticObjects::Type::Block4].textureRect = sf::IntRect(0, 0, 100, 500);
+	data[StaticObjects::Type::Block4].textureRect = sf::IntRect(0, 0, 130, 450);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block5].texture = TextureID::Block;
-	data[StaticObjects::Type::Block5].textureRect = sf::IntRect(0, 0, 50, 300);
+	data[StaticObjects::Type::Block5].textureRect = sf::IntRect(0, 0, 150, 300);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block6].texture = TextureID::Block;
@@ -132,23 +132,23 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 
 	// set the block1's data
 	data[StaticObjects::Type::Block7].texture = TextureID::Block;
-	data[StaticObjects::Type::Block7].textureRect = sf::IntRect(0, 0, 700, 300);
+	data[StaticObjects::Type::Block7].textureRect = sf::IntRect(0, 0, 550, 300);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block8].texture = TextureID::Block;
-	data[StaticObjects::Type::Block8].textureRect = sf::IntRect(0, 0, 400, 300);
+	data[StaticObjects::Type::Block8].textureRect = sf::IntRect(0, 0, 390, 300);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block9].texture = TextureID::Block;
-	data[StaticObjects::Type::Block9].textureRect = sf::IntRect(0, 0, 800, 150);
+	data[StaticObjects::Type::Block9].textureRect = sf::IntRect(0, 0, 800, 137);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block10].texture = TextureID::Block;
-	data[StaticObjects::Type::Block10].textureRect = sf::IntRect(0, 0, 400, 150);
+	data[StaticObjects::Type::Block10].textureRect = sf::IntRect(0, 0, 400, 137);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block11].texture = TextureID::Block;
-	data[StaticObjects::Type::Block11].textureRect = sf::IntRect(0, 0, 400, 150);
+	data[StaticObjects::Type::Block11].textureRect = sf::IntRect(0, 0, 400, 137);
 
 	return data;
 }
@@ -200,58 +200,58 @@ std::vector<GEX::SpawnBlockData> GEX::initializeSpawnBlockData()
 
 	data.push_back(SpawnBlockData());
 	data[0].type = StaticObjects::Type::Block1;
-	data[0].x = 0.f;
-	data[0].y = 900.f;
+	data[0].x = 175.f;
+	data[0].y = 1100.f;
 
 	data.push_back(SpawnBlockData());
 	data[1].type = StaticObjects::Type::Block2;
-	data[1].x = 700.f;
-	data[1].y = 900.f;
+	data[1].x = 695.f;
+	data[1].y = 1100.f;
 
 	data.push_back(SpawnBlockData());
 	data[2].type = StaticObjects::Type::Block3;
-	data[2].x = 1300.f;
-	data[2].y = 900.f;
+	data[2].x = 1360.f;
+	data[2].y = 1100.f;
 
 	data.push_back(SpawnBlockData());
 	data[3].type = StaticObjects::Type::Block4;
-	data[3].x = 1900.f;
-	data[3].y = 900.f;
+	data[3].x = 1970.f;
+	data[3].y = 1100.f;
 
 	data.push_back(SpawnBlockData());
 	data[4].type = StaticObjects::Type::Block5;
-	data[4].x = 0.f;
-	data[4].y = 300.f;
+	data[4].x = 23.f;
+	data[4].y = 510.f;
 
 	data.push_back(SpawnBlockData());
 	data[5].type = StaticObjects::Type::Block6;
-	data[5].x = 300.f;
-	data[5].y = 300.f;
+	data[5].x = 563.f;
+	data[5].y = 510.f;
 
 	data.push_back(SpawnBlockData());
 	data[6].type = StaticObjects::Type::Block7;
-	data[6].x = 900.f;
-	data[6].y = 300.f;
+	data[6].x = 1153.f;
+	data[6].y = 510.f;
 
 	data.push_back(SpawnBlockData());
 	data[7].type = StaticObjects::Type::Block8;
-	data[7].x = 1500.f;
-	data[7].y = 300.f;
+	data[7].x = 1845.f;
+	data[7].y = 510.f;
 
 	data.push_back(SpawnBlockData());
 	data[8].type = StaticObjects::Type::Block9;
-	data[8].x = 0.f;
-	data[8].y = 0.f;
+	data[8].x = 410.f;
+	data[8].y = 77.f;
 
 	data.push_back(SpawnBlockData());
 	data[9].type = StaticObjects::Type::Block10;
-	data[9].x = 1000.f;
-	data[9].y = 0.f;
+	data[9].x = 1230.f;
+	data[9].y = 77.f;
 
 	data.push_back(SpawnBlockData());
 	data[10].type = StaticObjects::Type::Block11;
-	data[10].x = 1500.f;
-	data[10].y = 0.f;
+	data[10].x = 1845.f;
+	data[10].y = 77.f;
 
 	return data;
 }
