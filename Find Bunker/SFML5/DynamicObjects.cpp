@@ -44,12 +44,13 @@ namespace GEX {
 		case Type::Character:
 			return Category::Character;
 			break;
-		case Type::Vehicle1:
-		case Type::Vehicle2:
-		case Type::Vehicle3:
-		case Type::Vehicle4:
-		case Type::Vehicle5:
-		case Type::Vehicle6:
+		case Type::RedCarToRight:
+		case Type::WhiteCarToRight:
+		case Type::TruckToRight:
+		case Type::RedCarToLeft:
+		case Type::WhiteCarToLeft:
+		case Type::TruckToLeft:
+		case Type::BusToLeft:
 			return Category::Vehicle;
 			break;
 		}

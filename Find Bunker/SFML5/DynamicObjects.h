@@ -16,12 +16,13 @@ namespace GEX {
 		enum class Type
 		{
 			Character,
-			Vehicle1,
-			Vehicle2,
-			Vehicle3,
-			Vehicle4,
-			Vehicle5,
-			Vehicle6,
+			RedCarToRight,
+			WhiteCarToRight,
+			TruckToRight,
+			RedCarToLeft,
+			WhiteCarToLeft,
+			TruckToLeft,
+			BusToLeft
 		};
 
 		enum class State {

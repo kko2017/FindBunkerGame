@@ -28,59 +28,73 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setDuration(sf::seconds(1.f));
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Left].setRepeating(true);
 
-	// set the vehicle1's data
-	data[DynamicObjects::Type::Vehicle1].texture = TextureID::Vehicle1;
-	data[DynamicObjects::Type::Vehicle1].textureRect = sf::IntRect(0,0,96,45);
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].addFrameSet(frames.getFramesFor("dead"));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setRepeating(true);
 
-	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 96, 45));
-	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
-	data[DynamicObjects::Type::Vehicle1].animations[DynamicObjects::State::Drive].setRepeating(true);
+
+
+	// set the RedCarToRight's data
+	data[DynamicObjects::Type::RedCarToRight].texture = TextureID::RedCarToRight;
+	data[DynamicObjects::Type::RedCarToRight].textureRect = sf::IntRect(0,0,96,45);
+
+	data[DynamicObjects::Type::RedCarToRight].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 96, 45));
+	data[DynamicObjects::Type::RedCarToRight].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::RedCarToRight].animations[DynamicObjects::State::Drive].setRepeating(true);
 	
 
-	// set the vehicle2's data
-	data[DynamicObjects::Type::Vehicle2].texture = TextureID::Vehicle2;
-	data[DynamicObjects::Type::Vehicle2].textureRect = sf::IntRect(0,0,95,44);
+	// set the WhiteCarToRight's data
+	data[DynamicObjects::Type::WhiteCarToRight].texture = TextureID::WhiteCarToRight;
+	data[DynamicObjects::Type::WhiteCarToRight].textureRect = sf::IntRect(0,0,95,44);
 
 
-	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 95, 44));
-	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
-	data[DynamicObjects::Type::Vehicle2].animations[DynamicObjects::State::Drive].setRepeating(true);
+	data[DynamicObjects::Type::WhiteCarToRight].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 95, 44));
+	data[DynamicObjects::Type::WhiteCarToRight].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::WhiteCarToRight].animations[DynamicObjects::State::Drive].setRepeating(true);
 
-	// set the vehicle3's data
-	data[DynamicObjects::Type::Vehicle3].texture = TextureID::Vehicle3;
-	data[DynamicObjects::Type::Vehicle3].textureRect = sf::IntRect(0, 0, 94, 61);
-
-									  
-	data[DynamicObjects::Type::Vehicle3].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 94, 61));
-	data[DynamicObjects::Type::Vehicle3].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
-	data[DynamicObjects::Type::Vehicle3].animations[DynamicObjects::State::Drive].setRepeating(true);
-
-	// set the vehicle4's data
-	data[DynamicObjects::Type::Vehicle4].texture = TextureID::Vehicle4;
-	data[DynamicObjects::Type::Vehicle4].textureRect = sf::IntRect(0,51,96,45);
+	// set the TruckToRight's data
+	data[DynamicObjects::Type::TruckToRight].texture = TextureID::TruckToRight;
+	data[DynamicObjects::Type::TruckToRight].textureRect = sf::IntRect(0, 0, 94, 61);
 
 									  
-	data[DynamicObjects::Type::Vehicle4].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 51, 96, 45));
-	data[DynamicObjects::Type::Vehicle4].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
-	data[DynamicObjects::Type::Vehicle4].animations[DynamicObjects::State::Drive].setRepeating(true);
+	data[DynamicObjects::Type::TruckToRight].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 94, 61));
+	data[DynamicObjects::Type::TruckToRight].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::TruckToRight].animations[DynamicObjects::State::Drive].setRepeating(true);
 
-	// set the vehicle5's data
-	data[DynamicObjects::Type::Vehicle5].texture = TextureID::Vehicle5;
-	data[DynamicObjects::Type::Vehicle5].textureRect = sf::IntRect(0, 52, 96, 44);
-
-									  
-	data[DynamicObjects::Type::Vehicle5].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 52, 96, 44));
-	data[DynamicObjects::Type::Vehicle5].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
-	data[DynamicObjects::Type::Vehicle5].animations[DynamicObjects::State::Drive].setRepeating(true);
-
-	// set the vehicle6's data
-	data[DynamicObjects::Type::Vehicle6].texture = TextureID::Vehicle6;
-	data[DynamicObjects::Type::Vehicle6].textureRect = sf::IntRect(0, 33, 94, 61);
+	// set the RedCarToLeft's data
+	data[DynamicObjects::Type::RedCarToLeft].texture = TextureID::RedCarToLeft;
+	data[DynamicObjects::Type::RedCarToLeft].textureRect = sf::IntRect(0,51,96,45);
 
 									  
-	data[DynamicObjects::Type::Vehicle6].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 33, 94, 61));
-	data[DynamicObjects::Type::Vehicle6].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
-	data[DynamicObjects::Type::Vehicle6].animations[DynamicObjects::State::Drive].setRepeating(true);
+	data[DynamicObjects::Type::RedCarToLeft].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 51, 96, 45));
+	data[DynamicObjects::Type::RedCarToLeft].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::RedCarToLeft].animations[DynamicObjects::State::Drive].setRepeating(true);
+
+	// set the WhiteCarToLeft's data
+	data[DynamicObjects::Type::WhiteCarToLeft].texture = TextureID::WhiteCarToLeft;
+	data[DynamicObjects::Type::WhiteCarToLeft].textureRect = sf::IntRect(0, 52, 96, 44);
+
+									  
+	data[DynamicObjects::Type::WhiteCarToLeft].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 52, 96, 44));
+	data[DynamicObjects::Type::WhiteCarToLeft].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::WhiteCarToLeft].animations[DynamicObjects::State::Drive].setRepeating(true);
+
+	// set the TruckToLeft's data
+	data[DynamicObjects::Type::TruckToLeft].texture = TextureID::TruckToLeft;
+	data[DynamicObjects::Type::TruckToLeft].textureRect = sf::IntRect(0, 33, 94, 61);
+
+									  
+	data[DynamicObjects::Type::TruckToLeft].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 33, 94, 61));
+	data[DynamicObjects::Type::TruckToLeft].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::TruckToLeft].animations[DynamicObjects::State::Drive].setRepeating(true);
+
+	// set the BusToLeft's data
+	data[DynamicObjects::Type::BusToLeft].texture = TextureID::BusToLeft;
+	data[DynamicObjects::Type::BusToLeft].textureRect = sf::IntRect(0, 0, 96, 67);
+
+	data[DynamicObjects::Type::BusToLeft].animations[DynamicObjects::State::Drive].addFrame(sf::IntRect(0, 0, 96, 67));
+	data[DynamicObjects::Type::BusToLeft].animations[DynamicObjects::State::Drive].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::BusToLeft].animations[DynamicObjects::State::Drive].setRepeating(true);
 
 	return data;
 }
@@ -150,7 +164,7 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 
 	// Spawn Data of 2nd road
 	data.push_back(SpawnData());
-	data[0].type = DynamicObjects::Type::Vehicle1;
+	data[0].type = DynamicObjects::Type::RedCarToRight;
 	data[0].time = sf::milliseconds(8000);
 	data[0].x = 10.f;
 	data[0].y = 1405.f;
@@ -158,7 +172,7 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 
 	// Spawn Data of 1st road
 	data.push_back(SpawnData());
-	data[1].type = DynamicObjects::Type::Vehicle6;
+	data[1].type = DynamicObjects::Type::TruckToLeft;
 	data[1].time = sf::milliseconds(8000);
 	data[1].x = 2038.f;
 	data[1].y = 1455.f;
@@ -166,19 +180,27 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 
 	//  Spawn Data of 5th road
 	data.push_back(SpawnData());
-	data[2].type = DynamicObjects::Type::Vehicle3;
-	data[2].time = sf::milliseconds(7000);
+	data[2].type = DynamicObjects::Type::RedCarToRight;
+	data[2].time = sf::milliseconds(5500);
 	data[2].x = 10.f;
 	data[2].y = 232.f;
-	data[2].speed = 80.f;
+	data[2].speed = 130.f;
+
+	//  Spawn Data of 6th road
+	data.push_back(SpawnData());
+	data[3].type = DynamicObjects::Type::WhiteCarToLeft;
+	data[3].time = sf::milliseconds(5000);
+	data[3].x = 2038.f;
+	data[3].y = 282.f;
+	data[3].speed = -120.f;
 
 	// Spawn Data of 4th road
 	data.push_back(SpawnData());
-	data[3].type = DynamicObjects::Type::Vehicle5;
-	data[3].time = sf::milliseconds(5000);
-	data[3].x = 2038.f;
-	data[3].y = 740.f;
-	data[3].speed = -120.f;
+	data[4].type = DynamicObjects::Type::BusToLeft;
+	data[4].time = sf::milliseconds(5000);
+	data[4].x = 2038.f;
+	data[4].y = 740.f;
+	data[4].speed = -120.f;
 
 	return data;
 }

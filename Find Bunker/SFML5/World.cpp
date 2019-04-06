@@ -306,12 +306,13 @@ namespace GEX {
 		textures_.load(GEX::TextureID::Character, "Media/Textures/ke2.png");
 		textures_.load(GEX::TextureID::SignPost, "Media/Textures/SignPost.png");
 		textures_.load(GEX::TextureID::Bunker, "Media/Textures/Bunker.png");
-		textures_.load(GEX::TextureID::Vehicle1, "Media/Textures/redcar2.png");
-		textures_.load(GEX::TextureID::Vehicle2, "Media/Textures/whitecar2.png");
-		textures_.load(GEX::TextureID::Vehicle3, "Media/Textures/truck2.png");
-		textures_.load(GEX::TextureID::Vehicle4, "Media/Textures/redcar.png");
-		textures_.load(GEX::TextureID::Vehicle5, "Media/Textures/whitecar.png");
-		textures_.load(GEX::TextureID::Vehicle6, "Media/Textures/truck.png");
+		textures_.load(GEX::TextureID::RedCarToRight, "Media/Textures/redcar2.png");
+		textures_.load(GEX::TextureID::WhiteCarToRight, "Media/Textures/whitecar2.png");
+		textures_.load(GEX::TextureID::TruckToRight, "Media/Textures/truck2.png");
+		textures_.load(GEX::TextureID::RedCarToLeft, "Media/Textures/redcar.png");
+		textures_.load(GEX::TextureID::WhiteCarToLeft, "Media/Textures/whitecar.png");
+		textures_.load(GEX::TextureID::TruckToLeft, "Media/Textures/truck.png");
+		textures_.load(GEX::TextureID::BusToLeft, "Media/Textures/bus2.png");
 		textures_.load(GEX::TextureID::Block, "Media/Textures/Block1.jpg");
 		
 	}
