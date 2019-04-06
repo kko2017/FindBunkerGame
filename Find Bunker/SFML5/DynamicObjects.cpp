@@ -64,11 +64,6 @@ namespace GEX {
 		return box;
 	}
 
-	float DynamicObjects::getMaxSpeed() const
-	{
-		return TABLE.at(type_).speed;
-	}
-
 	void DynamicObjects::accelerate(sf::Vector2f velocity)
 	{
 		switch (state_)

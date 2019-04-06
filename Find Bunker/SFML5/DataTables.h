@@ -8,13 +8,9 @@
 
 #include <map>
 
-//#include "Animation2.h"
-
 namespace GEX {
 
 	struct DynamicObjectsData {
-		bool		isAlive;
-		float		speed;
 		TextureID	texture;
 		sf::IntRect textureRect;
 

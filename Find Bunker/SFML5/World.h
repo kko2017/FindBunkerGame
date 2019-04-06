@@ -59,6 +59,7 @@ namespace GEX {
 		void								noPassing(SceneNode::Pair& colliders);
 		void								handleBlockCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleSignpostCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+		void								handleVehicleCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleCollisions();
 
 		

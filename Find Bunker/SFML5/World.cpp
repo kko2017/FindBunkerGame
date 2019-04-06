@@ -226,19 +226,28 @@ namespace GEX {
 		{
 			noPassing(colliders);
 			addBunkers();
+			signpost_->destroy();
+		}
+	}
+
+	void World::handleVehicleCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
+	{
+		if (matchesCategories(colliders, type1, type2))
+		{
+			noPassing(colliders);
+			character_->destroy();
 		}
 	}
 
 	void World::destroyEntitiesOutOfView()
 	{
 		Command command;
-		command.category = Category::Type::Character | Category::Type::Signpost;
+		command.category = Category::Type::Vehicle;
 		command.action = derivedAction<Entity>([this](Entity& e, sf::Time dt)
 		{
-			if (!getBattlefieldBounds().intersects(e.getBoundingBox()))
+			if (e.getBoundingBox().width >= 0 && !getBattlefieldBounds().intersects(e.getBoundingBox()))
 				e.remove();
 		});
-
 		commandQueue_.push(command);
 	}
 
@@ -251,25 +260,6 @@ namespace GEX {
 		for (SceneNode::Pair pair : collisionPairs) {
 			handleBlockCollision(pair, Category::Type::Character, Category::Type::Block);
 			handleSignpostCollision(pair, Category::Type::Character, Category::Type::Signpost);
-
-			
-			/*else if (matchesCategories(pair, Category::Type::PlayerAircraft, Category::Type::Pickup))
-			{
-				auto& player = static_cast<Aircraft&>(*(pair.first));
-				auto& pickup = static_cast<Pickup&>(*(pair.second));
-
-				pickup.apply(player);
-				pickup.destroy();
-			}
-			else if ((matchesCategories(pair, Category::Type::PlayerAircraft, Category::Type::EnemyProjectile)) ||
-				(matchesCategories(pair, Category::Type::EnemyAircraft, Category::Type::AlliedProjectile))) 
-			{
-				auto& aircraft = static_cast<Aircraft&>(*(pair.first));
-				auto& projectile = static_cast<Projectile&>(*(pair.second));
-
-				aircraft.damage(projectile.getDamage());
-				projectile.destroy();
-			}*/
 		}
 	}
 
