@@ -10,7 +10,7 @@ namespace GEX {
 	{
 	public:
 		enum class Type {
-			SignPost,
+			Signpost,
 			Bunker,
 			Block1,
 			Block2,

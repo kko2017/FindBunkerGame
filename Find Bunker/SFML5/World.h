@@ -55,8 +55,11 @@ namespace GEX {
 		sf::FloatRect						getViewBounds() const;								// for battle ground view
 		sf::FloatRect						getBattlefieldBounds() const;						//	battle ground view
 		
-		void								handleCollisions();
 		bool								matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+		void								noPassing(SceneNode::Pair& colliders);
+		void								handleBlockCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+		void								handleSignpostCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+		void								handleCollisions();
 
 		
 		void								destroyEntitiesOutOfView();
@@ -108,7 +111,7 @@ namespace GEX {
 		sf::FloatRect						worldBounds_;
 
 		DynamicObjects*						character_;
-		StaticObjects*						signPost_;
+		StaticObjects*						signpost_;
 
 		std::vector<SpawnPoint>				vehicleSpawnPointes_;
 		std::vector<BlockPoint>				blockSpawnPointes_;

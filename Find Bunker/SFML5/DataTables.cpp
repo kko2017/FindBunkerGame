@@ -99,8 +99,8 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 	std::map<StaticObjects::Type, StaticObjectData> data;
 
 	// set the signpost's data
-	data[StaticObjects::Type::SignPost].texture = TextureID::SignPost;
-	data[StaticObjects::Type::SignPost].textureRect = sf::IntRect(0,0,50,49);
+	data[StaticObjects::Type::Signpost].texture = TextureID::SignPost;
+	data[StaticObjects::Type::Signpost].textureRect = sf::IntRect(0,0,50,49);
 
 	// set the bunker's data
 	data[StaticObjects::Type::Bunker].texture = TextureID::Bunker;

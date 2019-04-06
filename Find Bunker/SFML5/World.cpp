@@ -29,7 +29,7 @@ namespace GEX {
 		, sceneLayers_()
 		, worldBounds_(0.f, 0.f, worldView_.getSize().x, worldView_.getSize().y)
 		, character_(nullptr)
-		, signPost_(nullptr)
+		, signpost_(nullptr)
 	{
 		for (unsigned int i = 0; i < TABLE.size(); i++)
 		{
@@ -168,7 +168,6 @@ namespace GEX {
 		}
 	}
 
-
 	sf::FloatRect World::getViewBounds() const
 	{
 		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize()/2.f), worldView_.getSize());	// center minus half size
@@ -200,10 +199,40 @@ namespace GEX {
 		}
 	}
 
+	void World::noPassing(SceneNode::Pair & colliders)
+	{
+		auto& firstObject = static_cast<DynamicObjects&>(*(colliders.first));
+		auto& secondObject = static_cast<StaticObjects&>(*(colliders.second));
+
+		auto sPos = secondObject.getPosition();
+		auto fPos = firstObject.getPosition();
+
+		auto diffPos = sPos - fPos;
+		secondObject.setPosition(sPos);
+		firstObject.setPosition(fPos - 0.05f * diffPos);
+	}
+
+	void World::handleBlockCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
+	{
+		if (matchesCategories(colliders, type1, type2))
+		{
+			noPassing(colliders);
+		}
+	}
+
+	void World::handleSignpostCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
+	{
+		if (matchesCategories(colliders, type1, type2))
+		{
+			noPassing(colliders);
+			addBunkers();
+		}
+	}
+
 	void World::destroyEntitiesOutOfView()
 	{
 		Command command;
-		command.category = Category::Type::Projectile | Category::Type::Vehicle;
+		command.category = Category::Type::Character | Category::Type::Signpost;
 		command.action = derivedAction<Entity>([this](Entity& e, sf::Time dt)
 		{
 			if (!getBattlefieldBounds().intersects(e.getBoundingBox()))
@@ -220,19 +249,10 @@ namespace GEX {
 		sceneGraph_.checkSceneCollision(sceneGraph_, collisionPairs);
 
 		for (SceneNode::Pair pair : collisionPairs) {
-			if (matchesCategories(pair, Category::Type::Character, Category::Type::Block))
-			{
-				auto& hero = static_cast<DynamicObjects&>(*(pair.first));
-				auto& zombie = static_cast<StaticObjects&>(*(pair.second));
-				
-				auto zpos = zombie.getPosition();
-				auto hpos = hero.getPosition();
+			handleBlockCollision(pair, Category::Type::Character, Category::Type::Block);
+			handleSignpostCollision(pair, Category::Type::Character, Category::Type::Signpost);
 
-				auto diffPos = zpos - hpos;
-				zombie.setPosition(zpos);
-
-				hero.setPosition(hpos - 0.1f * diffPos);
-			}
+			
 			/*else if (matchesCategories(pair, Category::Type::PlayerAircraft, Category::Type::Pickup))
 			{
 				auto& player = static_cast<Aircraft&>(*(pair.first));
@@ -253,7 +273,8 @@ namespace GEX {
 		}
 	}
 
-	//9.24
+
+
 	void World::adaptPlayerPosition() {
 
 		const float BORDER_DISTANCE = 40.f;
@@ -326,7 +347,6 @@ namespace GEX {
 		addBlocks();
 		spawnBlocks();
 
-
 		// add character object
 		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
 		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
@@ -334,7 +354,7 @@ namespace GEX {
 		sceneLayers_[UpperAir]->attachChild(std::move(character));
 
 		// add SignPost
-		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));	
+		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::Signpost, textures_));	
 
 		randomNumber = range(rnd);
 		randomNums_.push_back(randomNumber);
@@ -342,13 +362,8 @@ namespace GEX {
 		float yPosition = signPost->getObjectPosition()[randomNumber].second;
 
 		signPost->setPosition(xPosition, yPosition);
-		signPost_ = signPost.get();
+		signpost_ = signPost.get();
 		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
-
-		// add Bunkers
-		addBunkers();
-
-
 	}
 }
 

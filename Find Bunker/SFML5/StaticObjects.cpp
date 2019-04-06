@@ -40,8 +40,8 @@ unsigned int GEX::StaticObjects::getCategory() const
 {
 	switch (type_)
 	{
-	case Type::SignPost:
-		return Category::SignPost;
+	case Type::Signpost:
+		return Category::Signpost;
 		break;
 	case Type::Bunker:
 		return Category::Bunker;
@@ -70,7 +70,7 @@ sf::FloatRect GEX::StaticObjects::getBoundingBox() const
 
 std::vector<std::pair<float, float>> GEX::StaticObjects::getObjectPosition()
 {
-	if (type_ == Type::SignPost)
+	if (type_ == Type::Signpost)
 	{
 		return signPostPosition_;
 	}
