@@ -16,14 +16,22 @@ bool GameState::update(sf::Time dt)
 	GEX::CommandQueue& commands = world_.getCommandQueue();
 	world_.update(dt, commands);
 
-	if (!world_.hasAlivePlayer()) {
-		player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
-		requestStackPush(GEX::StateID::GameOver);
+	if (!world_.hasAlivePlayer())
+	{
+		if (world_.getLives() == 0)
+		{
+			player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
+			requestStackPush(GEX::StateID::GameOver);
+		}
+		else
+		{
+			world_.addCharacter();
+		}
 	}
-	else if (world_.hasPlayerReachedEnd()) {
-		player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
-		requestStackPush(GEX::StateID::GameOver);
-	}
+	//else if (world_.hasPlayerReachedEnd()) {
+	//	player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
+	//	requestStackPush(GEX::StateID::GameOver);
+	//}
 
 	player_.handleRealtimeInput(commands);
 
@@ -35,7 +43,8 @@ bool GameState::handleEvent(const sf::Event & event)
 	GEX::CommandQueue& commands = world_.getCommandQueue();
 	player_.handleEvent(event, commands);
 
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) 
+	{
 		requestStackPush(GEX::StateID::Pause);
 	}
 

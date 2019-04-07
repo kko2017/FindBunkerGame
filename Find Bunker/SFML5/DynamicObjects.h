@@ -16,12 +16,13 @@ namespace GEX {
 		enum class Type
 		{
 			Character,
-			Vehicle1,
-			Vehicle2,
-			Vehicle3,
-			Vehicle4,
-			Vehicle5,
-			Vehicle6,
+			RedCarToRight,
+			WhiteCarToRight,
+			TruckToRight,
+			RedCarToLeft,
+			WhiteCarToLeft,
+			TruckToLeft,
+			BusToLeft
 		};
 
 		enum class State {
@@ -39,10 +40,10 @@ namespace GEX {
 
 		unsigned int	getCategory() const override;
 		sf::FloatRect	getBoundingBox() const override;
-		float			getMaxSpeed() const;
 		virtual			void accelerate(sf::Vector2f velocity) override;
 
 		void			setState(State state);
+		bool			finishedDeadAnimation() const;
 		bool			isMarkedForRemoval() const override;
 
 	private:

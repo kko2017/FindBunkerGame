@@ -10,26 +10,37 @@ namespace GEX {
 	{
 	public:
 		enum class Type {
-			SignPost,
+			Signpost,
 			Bunker,
+			Block1,
+			Block2,
+			Block3,
+			Block4,
+			Block5,
+			Block6,
+			Block7,
+			Block8,
+			Block9,
+			Block10,
+			Block11,
 		};
 
 	public:
-											StaticObjects(Type type, const TextureManager& textures);
-											~StaticObjects() = default;
+												StaticObjects(Type type, const TextureManager& textures);
+												~StaticObjects() = default;
 		
-		unsigned int						getCategory() const override;
-		sf::FloatRect						getBoundingBox() const override;
+		unsigned int							getCategory() const override;
+		sf::FloatRect							getBoundingBox() const override;
 
 		std::vector<std::pair<float, float>>	getObjectPosition();
 
 
 	private:
-		void								drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void									drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
-		Type								type_;
-		sf::Sprite							sprite_;
+		Type									type_;
+		sf::Sprite								sprite_;
 
 		std::vector<std::pair<float, float>>	signPostPosition_;
 		std::vector<std::pair<float, float>>	bunkerPosition_;

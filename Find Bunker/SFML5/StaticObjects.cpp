@@ -38,7 +38,29 @@ GEX::StaticObjects::StaticObjects(Type type, const TextureManager & textures)
 
 unsigned int GEX::StaticObjects::getCategory() const
 {
-	return Category::SignPost;
+	switch (type_)
+	{
+	case Type::Signpost:
+		return Category::Signpost;
+		break;
+	case Type::Bunker:
+		return Category::Bunker;
+		break;
+	case Type::Block1:
+	case Type::Block2:
+	case Type::Block3:
+	case Type::Block4:
+	case Type::Block5:
+	case Type::Block6:
+	case Type::Block7:
+	case Type::Block8:
+	case Type::Block9:
+	case Type::Block10:
+	case Type::Block11:
+		return Category::Block;
+		break;
+	}
+	return Category::None;
 }
 
 sf::FloatRect GEX::StaticObjects::getBoundingBox() const
@@ -48,7 +70,7 @@ sf::FloatRect GEX::StaticObjects::getBoundingBox() const
 
 std::vector<std::pair<float, float>> GEX::StaticObjects::getObjectPosition()
 {
-	if (type_ == Type::SignPost)
+	if (type_ == Type::Signpost)
 	{
 		return signPostPosition_;
 	}

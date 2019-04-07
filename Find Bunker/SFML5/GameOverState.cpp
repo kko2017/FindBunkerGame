@@ -21,9 +21,9 @@ GameOverState::GameOverState(GEX::StateStack & stack, Context context)
 		gameOverText_.setString("Mission Success");
 	}
 
-	gameOverText_.setCharacterSize(70);
+	gameOverText_.setCharacterSize(150);
 	centerOrigin(gameOverText_);
-	gameOverText_.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
+	gameOverText_.setPosition(0.5f * windowSize.x, 0.45f * windowSize.y);
 
 }
 

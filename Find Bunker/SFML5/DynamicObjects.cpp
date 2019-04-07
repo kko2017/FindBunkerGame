@@ -15,7 +15,7 @@ namespace GEX {
 	}
 
 	DynamicObjects::DynamicObjects(Type type, const TextureManager& textures)
-		: Entity(100)
+		: Entity(true)
 		, type_(type)
 		, state_(State::Right)
 		, sprite_(textures.get(TABLE.at(type).texture))
@@ -44,12 +44,13 @@ namespace GEX {
 		case Type::Character:
 			return Category::Character;
 			break;
-		case Type::Vehicle1:
-		case Type::Vehicle2:
-		case Type::Vehicle3:
-		case Type::Vehicle4:
-		case Type::Vehicle5:
-		case Type::Vehicle6:
+		case Type::RedCarToRight:
+		case Type::WhiteCarToRight:
+		case Type::TruckToRight:
+		case Type::RedCarToLeft:
+		case Type::WhiteCarToLeft:
+		case Type::TruckToLeft:
+		case Type::BusToLeft:
 			return Category::Vehicle;
 			break;
 		}
@@ -62,11 +63,6 @@ namespace GEX {
 		box.width -= 30; // tighten up bounding box for more realistic collisions
 		box.left += 15;
 		return box;
-	}
-
-	float DynamicObjects::getMaxSpeed() const
-	{
-		return TABLE.at(type_).speed;
 	}
 
 	void DynamicObjects::accelerate(sf::Vector2f velocity)
@@ -91,10 +87,18 @@ namespace GEX {
 		animations_[state_].restart();
 	}
 
+	bool DynamicObjects::finishedDeadAnimation() const
+	{
+		return state_ == State::Dead && animations_.at(state_).isFinished();
+	}
+
 	bool DynamicObjects::isMarkedForRemoval() const
 	{
-		//return isDestroyed() && animations_[state_].isFinished();
-		return false;
+		if (type_ == Type::Character) {
+			return isDestroyed() && state_ == State::Dead && animations_[state_].isFinished();
+		}
+
+		return isDestroyed();
 	}
 
 	void DynamicObjects::updateStates()
@@ -102,13 +106,6 @@ namespace GEX {
 		if (isDestroyed() && (state_ == State::Up || state_ == State::Down || state_ == State::Right
 			|| state_ == State::Left) && state_ != State::Dead) {
 			state_ = State::Dead;
-			animations_.at(state_).restart();
-		}
-
-		if (state_ == State::Dead && animations_.at(state_).isFinished()) {
-			state_ = State::Up;
-			animations_.at(state_).restart();
-			rebirth(true);
 		}
 
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Right
@@ -116,18 +113,15 @@ namespace GEX {
 			state_ = State::Left;
 		}
 
-
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
 			|| state_ == State::Right) && getVelocity().x > 0.f) {
 			state_ = State::Right;
 		}
 
-
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
 			|| state_ == State::Right) && getVelocity().y < -0.f) {
 			state_ = State::Up;
 		}
-
 
 		if ((state_ == State::Up || state_ == State::Left || state_ == State::Right
 			|| state_ == State::Down) && getVelocity().y > 0.f) {

@@ -46,7 +46,6 @@ namespace GEX {
 		}
 	}
 
-	//9.24
 	void PlayerControl::handleRealtimeInput(CommandQueue & commands)
 	{
 		// traverse all assigned keys, look up action, generate command
@@ -57,7 +56,6 @@ namespace GEX {
 		}
 	}
 
-	//10.22
 	void PlayerControl::setMissionStatus(MissionStatus status)
 	{
 		currentMissionStatus_ = status;
