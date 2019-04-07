@@ -89,11 +89,7 @@ namespace GEX {
 
 	bool DynamicObjects::finishedDeadAnimation() const
 	{
-		if (state_ == State::Dead)
-		{
-			return animations_.at(state_).isFinished();
-		}
-		return false;
+		return state_ == State::Dead && animations_.at(state_).isFinished();
 	}
 
 	bool DynamicObjects::isMarkedForRemoval() const
@@ -110,12 +106,6 @@ namespace GEX {
 		if (isDestroyed() && (state_ == State::Up || state_ == State::Down || state_ == State::Right
 			|| state_ == State::Left) && state_ != State::Dead) {
 			state_ = State::Dead;
-			animations_.at(state_).restart();
-		}
-
-		if (state_ == State::Dead && animations_.at(state_).isFinished()) {
-			state_ = State::Right;
-			rebirth(true);
 		}
 
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Right

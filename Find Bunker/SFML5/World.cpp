@@ -4,16 +4,19 @@
 
 #include <random>
 
-namespace GEX {
+namespace GEX 
+{
 
 	// Set the spawn data
-	namespace {
+	namespace 
+	{
 		const std::vector<SpawnData> TABLE = initializeSpawnData();
 		const std::vector<SpawnBlockData> TABLE2 = initializeSpawnBlockData();
 	}
 
 	// Create Random Engine
-	namespace {
+	namespace 
+	{
 		std::random_device rn;
 		std::mt19937_64 rnd(rn());
 		const int MIN = 0;
@@ -32,7 +35,7 @@ namespace GEX {
 		, character_(nullptr)
 		, signpost_(nullptr)
 		, lives_(2)
-		, gameTime_(sf::seconds(60))
+		, gameTime_(sf::seconds(8))
 	{
 		for (unsigned int i = 0; i < TABLE.size(); i++)
 		{
@@ -48,16 +51,17 @@ namespace GEX {
 	{
 		updateTimer(dt);
 
-		if (!character_->isDestroyed())
+		if (character_->isAlive())
 		{
 			checkGameTimeOver();
 			character_->setVelocity(0.f, 0.f);
-			destroyEntitiesOutOfView();
 
+			destroyEntitiesOutOfView();
 			handleCollisions();
 
 			//run all the commands in the command queue
-			while (!commandQueue_.isEmpty()) {
+			while (!commandQueue_.isEmpty()) 
+			{
 				sceneGraph_.onCommand(commandQueue_.pop(), dt);
 			}
 
@@ -68,10 +72,10 @@ namespace GEX {
 			spawnVehicles();
 
 			updateText();
-		}		
 
-		sceneGraph_.update(dt, commands);
-		sceneGraph_.removeWrecks();
+			sceneGraph_.update(dt, commands);
+			sceneGraph_.removeWrecks();
+		}		
 	}
 
 	void World::adaptPlayerVelocity() {
@@ -220,7 +224,7 @@ namespace GEX {
 
 	void World::checkGameTimeOver()
 	{
-		if (gameTime_ == sf::Time::Zero)
+		if (gameTime_ <= sf::Time::Zero)
 		{
 			character_->destroy();
 			lives_ = 0;

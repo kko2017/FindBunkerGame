@@ -19,8 +19,8 @@ namespace GEX {
 		virtual void		accelerate(sf::Vector2f velocity);
 		void				accelerate(float vx, float vy);
 
-		void				rebirth(bool alive);
 		void				destroy();
+		bool				isAlive() const;
 		bool				isDestroyed() const override;
 
 		//10.22, 10.26 -- add virtual

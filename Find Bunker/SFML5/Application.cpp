@@ -7,7 +7,7 @@
 #include "GameOverState.h"
 #include "FontManager.h"
 
-const sf::Time Application::TimePerFrame  = sf::seconds(1.0f / 60.f); // seconds per frame for 60 fps
+const sf::Time Application::TIMEPERFRAME  = sf::seconds(1.0f / 60.f); // seconds per frame for 60 fps
 
 Application::Application()
 	: window_(sf::VideoMode(2048, 1536), "Find Bunker", sf::Style::Close)
@@ -27,23 +27,22 @@ Application::Application()
 
 void Application::run()
 {		
-
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
-	while (window_.isOpen()) {
+	while (window_.isOpen()) 
+	{
+		timeSinceLastUpdate += clock.restart();
 
-		timeSinceLastUpdate += clock.restart(); // not adding now, reseting
-
-		while (timeSinceLastUpdate > TimePerFrame) {
-			
+		while (timeSinceLastUpdate > TIMEPERFRAME) 
+		{	
+			update(TIMEPERFRAME);
 			processInput();
-			update(TimePerFrame);
 
 			if (stateStack_.isEmpty())
 				window_.close();
 
-			timeSinceLastUpdate -= TimePerFrame;
+			timeSinceLastUpdate -= TIMEPERFRAME;
 		}
 
 		render();

@@ -23,7 +23,7 @@ private:
 	void				registerStates();
 
 private:
-	static const sf::Time		TimePerFrame;
+	static const sf::Time		TIMEPERFRAME;
 
 	sf::RenderWindow			window_;
 	GEX::PlayerControl			player_;

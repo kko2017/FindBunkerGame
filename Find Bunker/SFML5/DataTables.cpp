@@ -172,10 +172,10 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 
 	// Spawn Data of 1st road
 	data.push_back(SpawnData());
-	data[1].type = DynamicObjects::Type::TruckToLeft;
+	data[1].type = DynamicObjects::Type::WhiteCarToLeft;
 	data[1].time = sf::milliseconds(8000);
 	data[1].x = 2038.f;
-	data[1].y = 1455.f;
+	data[1].y = 1448.f;
 	data[1].speed = -100.f;
 
 	//  Spawn Data of 6th road
@@ -188,10 +188,10 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 
 	// Spawn Data of 4th road
 	data.push_back(SpawnData());
-	data[3].type = DynamicObjects::Type::WhiteCarToLeft;
+	data[3].type = DynamicObjects::Type::TruckToLeft;
 	data[3].time = sf::milliseconds(5000);
 	data[3].x = 2038.f;
-	data[3].y = 740.f;
+	data[3].y = 745.f;
 	data[3].speed = -120.f;
 
 	return data;
@@ -209,17 +209,17 @@ std::vector<GEX::SpawnBlockData> GEX::initializeSpawnBlockData()
 	data.push_back(SpawnBlockData());
 	data[1].type = StaticObjects::Type::Block2;
 	data[1].x = 695.f;
-	data[1].y = 1090.f;
+	data[1].y = 1085.f;
 
 	data.push_back(SpawnBlockData());
 	data[2].type = StaticObjects::Type::Block3;
 	data[2].x = 1360.f;
-	data[2].y = 1090.f;
+	data[2].y = 1085.f;
 
 	data.push_back(SpawnBlockData());
 	data[3].type = StaticObjects::Type::Block4;
 	data[3].x = 1970.f;
-	data[3].y = 1090.f;
+	data[3].y = 1085.f;
 
 	data.push_back(SpawnBlockData());
 	data[4].type = StaticObjects::Type::Block5;

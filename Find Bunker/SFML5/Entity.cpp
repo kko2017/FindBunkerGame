@@ -33,16 +33,15 @@ namespace GEX {
 
 	}
 
-	void Entity::rebirth(bool alive)
-	{
-		alive_ = alive;
-		dead_ = false;
-	}
-
 	void Entity::destroy()
 	{
 		alive_ = false;
 		dead_ = true;
+	}
+
+	bool Entity::isAlive() const
+	{
+		return alive_;
 	}
 
 	bool Entity::isDestroyed() const
