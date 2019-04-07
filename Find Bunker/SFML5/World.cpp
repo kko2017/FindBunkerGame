@@ -47,29 +47,31 @@ namespace GEX {
 	void World::update(sf::Time dt, CommandQueue& commands)
 	{
 		updateTimer(dt);
-		checkGameTimeOver();
 
-		character_->setVelocity(0.f, 0.f);
-		destroyEntitiesOutOfView();
+		if (!character_->isDestroyed())
+		{
+			checkGameTimeOver();
+			character_->setVelocity(0.f, 0.f);
+			destroyEntitiesOutOfView();
 
-		handleCollisions();
+			handleCollisions();
 
-		//run all the commands in the command queue
-		while (!commandQueue_.isEmpty()) {
-			sceneGraph_.onCommand(commandQueue_.pop(), dt);
-		}
+			//run all the commands in the command queue
+			while (!commandQueue_.isEmpty()) {
+				sceneGraph_.onCommand(commandQueue_.pop(), dt);
+			}
 
-		adaptPlayerPosition();
-		adaptPlayerVelocity();
+			adaptPlayerPosition();
+			adaptPlayerVelocity();
 
-		addVehicles(dt);
-		spawnVehicles();
+			addVehicles(dt);
+			spawnVehicles();
 
-		updateText();
+			updateText();
+		}		
 
 		sceneGraph_.update(dt, commands);
 		sceneGraph_.removeWrecks();
-
 	}
 
 	void World::adaptPlayerVelocity() {
@@ -349,7 +351,7 @@ namespace GEX {
 
 	bool World::hasAlivePlayer() const
 	{
-		return !character_->isDestroyed();
+		return (!character_->isDestroyed() && !character_->finishedDeadAnimation());
 	}
 
 	void World::loadTextures() {
@@ -398,8 +400,7 @@ namespace GEX {
 		addCharacter();
 
 		// add SignPost
-		addSignpost();
-		
+		addSignpost();		
 	}
 }
 

@@ -5,6 +5,7 @@
 namespace GEX {
 	Entity::Entity(bool alive)
 		: alive_(alive)
+		, dead_(false)
 	{
 	}
 	void Entity::setVelocity(sf::Vector2f velocity) {
@@ -35,16 +36,18 @@ namespace GEX {
 	void Entity::rebirth(bool alive)
 	{
 		alive_ = alive;
+		dead_ = false;
 	}
 
 	void Entity::destroy()
 	{
 		alive_ = false;
+		dead_ = true;
 	}
 
 	bool Entity::isDestroyed() const
 	{
-		return (alive_ == false);
+		return (dead_ == true);
 	}
 
 	void Entity::remove()

@@ -16,10 +16,17 @@ bool GameState::update(sf::Time dt)
 	GEX::CommandQueue& commands = world_.getCommandQueue();
 	world_.update(dt, commands);
 
-	if (!world_.hasAlivePlayer()) {
-		player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
-		requestStackPush(GEX::StateID::GameOver);
-		return false;
+	if (!world_.hasAlivePlayer()) {		
+		if (world_.getLives() == 0)
+		{
+			player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
+			requestStackPush(GEX::StateID::GameOver);
+			return false;
+		}
+		else
+		{
+			world_.addCharacter();
+		}		
 	}
 	//else if (world_.hasPlayerReachedEnd()) {
 	//	player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);

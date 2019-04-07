@@ -43,6 +43,7 @@ namespace GEX {
 		virtual			void accelerate(sf::Vector2f velocity) override;
 
 		void			setState(State state);
+		bool			finishedDeadAnimation() const;
 		bool			isMarkedForRemoval() const override;
 
 	private:

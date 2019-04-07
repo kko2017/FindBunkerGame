@@ -30,7 +30,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].addFrameSet(frames.getFramesFor("dead"));
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setDuration(sf::seconds(1.f));
-	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setRepeating(true);
+	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setRepeating(false);
 
 
 

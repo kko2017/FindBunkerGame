@@ -33,6 +33,7 @@ namespace GEX {
 	private:
 		sf::Vector2f		velocity_;
 		bool				alive_;
+		bool				dead_;
 	};
 
 }

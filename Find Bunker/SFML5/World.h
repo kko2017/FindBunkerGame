@@ -33,6 +33,7 @@ namespace GEX {
 		void								draw();
 		CommandQueue&						getCommandQueue();
 
+		void								addCharacter();
 		int									getLives();
 		bool								hasAlivePlayer() const;
 
@@ -42,7 +43,6 @@ namespace GEX {
 		void								adaptPlayerPosition();
 		void								adaptPlayerVelocity();
 
-		void								addCharacter();
 		void								addSignpost();
 		void								addVehicles(sf::Time dt);
 		void								addVehicle(DynamicObjects::Type type, float x, float y, float speed);

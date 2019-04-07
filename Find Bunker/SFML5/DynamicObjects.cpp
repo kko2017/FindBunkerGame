@@ -15,7 +15,7 @@ namespace GEX {
 	}
 
 	DynamicObjects::DynamicObjects(Type type, const TextureManager& textures)
-		: Entity(100)
+		: Entity(true)
 		, type_(type)
 		, state_(State::Right)
 		, sprite_(textures.get(TABLE.at(type).texture))
@@ -87,10 +87,22 @@ namespace GEX {
 		animations_[state_].restart();
 	}
 
+	bool DynamicObjects::finishedDeadAnimation() const
+	{
+		if (state_ == State::Dead)
+		{
+			return animations_.at(state_).isFinished();
+		}
+		return false;
+	}
+
 	bool DynamicObjects::isMarkedForRemoval() const
 	{
-		//return isDestroyed() && animations_[state_].isFinished();
-		return false;
+		if (type_ == Type::Character) {
+			return isDestroyed() && state_ == State::Dead && animations_[state_].isFinished();
+		}
+
+		return isDestroyed();
 	}
 
 	void DynamicObjects::updateStates()
@@ -102,8 +114,7 @@ namespace GEX {
 		}
 
 		if (state_ == State::Dead && animations_.at(state_).isFinished()) {
-			state_ = State::Up;
-			animations_.at(state_).restart();
+			state_ = State::Right;
 			rebirth(true);
 		}
 
@@ -112,18 +123,15 @@ namespace GEX {
 			state_ = State::Left;
 		}
 
-
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
 			|| state_ == State::Right) && getVelocity().x > 0.f) {
 			state_ = State::Right;
 		}
 
-
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
 			|| state_ == State::Right) && getVelocity().y < -0.f) {
 			state_ = State::Up;
 		}
-
 
 		if ((state_ == State::Up || state_ == State::Left || state_ == State::Right
 			|| state_ == State::Down) && getVelocity().y > 0.f) {
