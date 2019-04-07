@@ -12,15 +12,15 @@
 class Application
 {
 public:
-						Application();
-	void				run();
+								Application();
+	void						run();
 
 private:
 
-	void				processInput();
-	void				update(sf::Time deltaTime);
-	void				render();
-	void				registerStates();
+	void						processInput();
+	void						update(sf::Time deltaTime);
+	void						render();
+	void						registerStates();
 
 private:
 	static const sf::Time		TIMEPERFRAME;

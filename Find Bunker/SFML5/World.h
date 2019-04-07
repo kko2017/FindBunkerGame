@@ -53,14 +53,15 @@ namespace GEX {
 		void								addBlocks();
 		void								spawnBlocks();
 		
-		sf::FloatRect						getViewBounds() const;						// for battle ground view
-		sf::FloatRect						getFieldBounds() const;						//	battle ground view
+		sf::FloatRect						getViewBounds() const;
+		sf::FloatRect						getFieldBounds() const;						
 		
 		bool								matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								noPassing(SceneNode::Pair& colliders);
 		void								handleBlockCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleSignpostCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleVehicleCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+		void								handleBunkerCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleCollisions();
 
 		

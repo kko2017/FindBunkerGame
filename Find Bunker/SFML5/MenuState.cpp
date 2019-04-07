@@ -9,8 +9,6 @@ MenuState::MenuState(GEX::StateStack & stack, Context context)
 	, optionsIndex_(0)
 {
 	sf::Texture& texture = context.textures->get(GEX::TextureID::TitleScreen);
-	
-
 	backgroundSprite_.setTexture(texture);
 
 	// set up menu

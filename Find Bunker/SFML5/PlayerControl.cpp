@@ -13,16 +13,12 @@ namespace GEX {
 		{}
 
 		void operator() (DynamicObjects& object, sf::Time dt) const {
-
 			object.accelerate(velocity);
-
 		}
 		sf::Vector2f velocity;
-		
 	};
 
 	PlayerControl::PlayerControl()
-		//10.22
 		: currentMissionStatus_(MissionStatus::MissionRunning)
 	{
 		// set up bindings
@@ -35,7 +31,6 @@ namespace GEX {
 		initializeAction();
 	}
 	 
-	//9.24
 	void PlayerControl::handleEvent(const sf::Event & event, CommandQueue & commands)
 	{
 		if (event.type == sf::Event::KeyPressed) {

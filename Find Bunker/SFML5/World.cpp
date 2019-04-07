@@ -6,7 +6,6 @@
 
 namespace GEX 
 {
-
 	// Set the spawn data
 	namespace 
 	{
@@ -211,8 +210,8 @@ namespace GEX
 	sf::FloatRect World::getFieldBounds() const
 	{
 		sf::FloatRect bounds = getViewBounds();
-		bounds.top += 100.f;						// to up
-		bounds.height -= 100.f;						// to bottom
+		bounds.top += 100.f;						
+		bounds.height -= 100.f;						
 		
 		return bounds;
 	}
@@ -256,10 +255,12 @@ namespace GEX
 		unsigned int category1 = colliders.first->getCategory();
 		unsigned int category2 = colliders.second->getCategory();
 
-		if (type1 & category1 && type2 & category2) {		// If 1st category first hit to 2nd category, it works.
+		// If 1st category first hit to 2nd category, it works.
+		if (type1 & category1 && type2 & category2) {		
 			return true;
 		}
-		else if (type1 & category2 && type2 & category1) {	// If 2nd category first hit to 1st category, it works.
+		// If 2nd category first hit to 1st category, it works.
+		else if (type1 & category2 && type2 & category1) {	
 			std::swap(colliders.first, colliders.second);
 			return true;
 		}
@@ -306,6 +307,14 @@ namespace GEX
 			noPassing(colliders);
 			character_->destroy();
 			lives_--;
+		}
+	}
+
+	void World::handleBunkerCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
+	{
+		if (matchesCategories(colliders, type1, type2))
+		{
+			noPassing(colliders);
 		}
 	}
 
@@ -379,13 +388,13 @@ namespace GEX
 		for (int i = 0; i < LayerCount; ++i) {
 			auto category = (i == UpperAir) ? Category::Type::AirSceneLayer : Category::Type::None;
 			SceneNode::Ptr layer(new SceneNode(category));
-			sceneLayers_.push_back(layer.get());						// raw pointer to that layer(unique pointer).
+			sceneLayers_.push_back(layer.get());						
 			sceneGraph_.attachChild(std::move(layer));
 		}
 
 		// Background
 		sf::Texture& texture = textures_.get(TextureID::City1);
-		sf::IntRect textureRect(worldBounds_);							// it is size of my world
+		sf::IntRect textureRect(worldBounds_);						
 
 		std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
@@ -396,8 +405,6 @@ namespace GEX
 		textGameTimeAndLives_ = text.get();
 		sceneGraph_.attachChild(std::move(text));
 
-<<<<<<< HEAD
-=======
 		// add blocks
 		addBlocks();
 		spawnBlocks();
@@ -405,7 +412,6 @@ namespace GEX
 		// add character object
 		addCharacter();
 
->>>>>>> feature/Collision_and_Wall
 		// add SignPost
 		addSignpost();		
 	}
