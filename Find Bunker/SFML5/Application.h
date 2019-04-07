@@ -13,24 +13,14 @@ class Application
 {
 public:
 						Application();
-
-
 	void				run();
 
 private:
 
 	void				processInput();
-
 	void				update(sf::Time deltaTime);
 	void				render();
-
-
-	void				updatestatistics(sf::Time deltaTime);
 	void				registerStates();
-
-
-
-
 
 private:
 	static const sf::Time		TimePerFrame;
@@ -40,11 +30,5 @@ private:
 	GEX::TextureManager			textures_;
 
 	GEX::StateStack				stateStack_;
-
-	sf::Text					statisticText_;
-	sf::Time					statisticUpdateTime_;
-	unsigned int				statisticNumFrames_;
-
-
 };
 

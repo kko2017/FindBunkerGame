@@ -1,5 +1,6 @@
 #include "World.h"
 #include "DataTables.h"
+#include "TextNode.h"
 
 #include <random>
 
@@ -30,6 +31,8 @@ namespace GEX {
 		, worldBounds_(0.f, 0.f, worldView_.getSize().x, worldView_.getSize().y)
 		, character_(nullptr)
 		, signpost_(nullptr)
+		, lives_(2)
+		, gameTime_(sf::seconds(60))
 	{
 		for (unsigned int i = 0; i < TABLE.size(); i++)
 		{
@@ -43,6 +46,9 @@ namespace GEX {
 
 	void World::update(sf::Time dt, CommandQueue& commands)
 	{
+		updateTimer(dt);
+		checkGameTimeOver();
+
 		character_->setVelocity(0.f, 0.f);
 		destroyEntitiesOutOfView();
 
@@ -58,6 +64,8 @@ namespace GEX {
 
 		addVehicles(dt);
 		spawnVehicles();
+
+		updateText();
 
 		sceneGraph_.update(dt, commands);
 		sceneGraph_.removeWrecks();
@@ -76,6 +84,28 @@ namespace GEX {
 	{
 		SpawnPoint spawnPoint(type, x, y, speed);
 		vehicleSpawnPointes_.push_back(spawnPoint);
+	}
+
+	void World::addCharacter()
+	{
+		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
+		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
+		character_ = character.get();
+		sceneLayers_[UpperAir]->attachChild(std::move(character));
+	}
+
+	void World::addSignpost()
+	{
+		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::Signpost, textures_));
+
+		randomNumber = range(rnd);
+		randomNums_.push_back(randomNumber);
+		float xPosition = signPost->getObjectPosition()[randomNumber].first;
+		float yPosition = signPost->getObjectPosition()[randomNumber].second;
+
+		signPost->setPosition(xPosition, yPosition);
+		signpost_ = signPost.get();
+		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
 	}
 
 	// Add vehicles in each position.
@@ -172,13 +202,47 @@ namespace GEX {
 		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize()/2.f), worldView_.getSize());	// center minus half size
 	}
 
-	sf::FloatRect World::getBattlefieldBounds() const
+	sf::FloatRect World::getFieldBounds() const
 	{
 		sf::FloatRect bounds = getViewBounds();
 		bounds.top += 100.f;						// to up
 		bounds.height -= 100.f;						// to bottom
 		
 		return bounds;
+	}
+
+	void World::updateTimer(sf::Time dt)
+	{
+		gameTime_ -= dt;
+	}
+
+	void World::checkGameTimeOver()
+	{
+		if (gameTime_ == sf::Time::Zero)
+		{
+			character_->destroy();
+			lives_ = 0;
+		}
+	}
+
+	void World::updateText()
+	{
+		textGameTimeAndLives_->setText("Lives: " + std::to_string(lives_)
+			+ "     Time: " + std::to_string(static_cast<int>(gameTime_.asSeconds()))
+		);
+		textGameTimeAndLives_->setPosition(250.f, 50.f);
+	}
+
+	void World::destroyEntitiesOutOfView()
+	{
+		Command command;
+		command.category = Category::Type::Vehicle;
+		command.action = derivedAction<Entity>([this](Entity& e, sf::Time dt)
+		{
+			if (e.getBoundingBox().width >= 0 && !getFieldBounds().intersects(e.getBoundingBox()))
+				e.remove();
+		});
+		commandQueue_.push(command);
 	}
 
 	bool World::matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
@@ -235,19 +299,8 @@ namespace GEX {
 		{
 			noPassing(colliders);
 			character_->destroy();
+			lives_--;
 		}
-	}
-
-	void World::destroyEntitiesOutOfView()
-	{
-		Command command;
-		command.category = Category::Type::Vehicle;
-		command.action = derivedAction<Entity>([this](Entity& e, sf::Time dt)
-		{
-			if (e.getBoundingBox().width >= 0 && !getBattlefieldBounds().intersects(e.getBoundingBox()))
-				e.remove();
-		});
-		commandQueue_.push(command);
 	}
 
 	void World::handleCollisions()
@@ -289,14 +342,14 @@ namespace GEX {
 		return commandQueue_;
 	}
 
+	int World::getLives()
+	{
+		return lives_;
+	}
+
 	bool World::hasAlivePlayer() const
 	{
 		return !character_->isDestroyed();
-	}
-
-	bool World::hasPlayerReachedEnd() const
-	{
-		return !worldBounds_.contains(character_->getPosition());
 	}
 
 	void World::loadTextures() {
@@ -332,27 +385,21 @@ namespace GEX {
 		backgroundSprite->setPosition(worldBounds_.left, worldBounds_.top);
 		sceneLayers_[Background]->attachChild(std::move(backgroundSprite));
 
-		// block
+		// Text for displaying game time and lives
+		std::unique_ptr<TextNode> text(new TextNode(""));
+		textGameTimeAndLives_ = text.get();
+		sceneGraph_.attachChild(std::move(text));
+
+		// add blocks
 		addBlocks();
 		spawnBlocks();
 
 		// add character object
-		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
-		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
-		character_ = character.get();
-		sceneLayers_[UpperAir]->attachChild(std::move(character));
+		addCharacter();
 
 		// add SignPost
-		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::Signpost, textures_));	
-
-		randomNumber = range(rnd);
-		randomNums_.push_back(randomNumber);
-		float xPosition = signPost->getObjectPosition()[randomNumber].first;
-		float yPosition = signPost->getObjectPosition()[randomNumber].second;
-
-		signPost->setPosition(xPosition, yPosition);
-		signpost_ = signPost.get();
-		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
+		addSignpost();
+		
 	}
 }
 

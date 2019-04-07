@@ -14,20 +14,11 @@ Application::Application()
 	, player_()
 	, textures_()
 	, stateStack_(GEX::State::Context(window_,textures_, player_))
-	, statisticText_()
-	, statisticUpdateTime_()
-	, statisticNumFrames_(0)
 {
 	window_.setKeyRepeatEnabled(false);			//prevent user from keep pressing repeatedly
 	
 	GEX::FontManager::getInstance().load(GEX::FontID::Main,"Media/Sansation.ttf");
-
 	textures_.load(GEX::TextureID::TitleScreen, "Media/Textures/intro.jpg");
-
-	statisticText_.setFont(GEX::FontManager::getInstance().get(GEX::FontID::Main));
-	statisticText_.setPosition(5.0f, 5.0f);
-	statisticText_.setCharacterSize(15);
-	statisticText_.setString("Frames / Second = \nTime / Update =");
 
 	registerStates();
 	stateStack_.pushState(GEX::StateID::Title);
@@ -55,7 +46,6 @@ void Application::run()
 			timeSinceLastUpdate -= TimePerFrame;
 		}
 
-		updatestatistics(timeSinceLastUpdate);
 		render();
 	}
 }
@@ -82,23 +72,7 @@ void Application::render()
 	stateStack_.draw();
 
 	window_.setView(window_.getDefaultView());
-	window_.draw(statisticText_);
 	window_.display();
-}
-
-void Application::updatestatistics(sf::Time deltaTime)
-{
-	statisticUpdateTime_ += deltaTime;
-	statisticNumFrames_ += 1;
-	if (statisticUpdateTime_ > sf::seconds(1)) {
-		statisticText_.setString("Frames / Second = " + std::to_string(statisticNumFrames_) + "\n"
-			+ "Time / Update  = " + std::to_string(statisticUpdateTime_.asMicroseconds() / statisticNumFrames_)
-			+ " ms");
-
-		// why?
-		statisticUpdateTime_ -= sf::seconds(1);
-		statisticNumFrames_ = 0;
-	}
 }
 
 void Application::registerStates()

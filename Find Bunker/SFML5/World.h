@@ -33,16 +33,17 @@ namespace GEX {
 		void								draw();
 		CommandQueue&						getCommandQueue();
 
-		
+		int									getLives();
 		bool								hasAlivePlayer() const;
-		bool								hasPlayerReachedEnd() const;
 
 	private:
 		void								loadTextures();
 		void								buildScene();
 		void								adaptPlayerPosition();
 		void								adaptPlayerVelocity();
-		
+
+		void								addCharacter();
+		void								addSignpost();
 		void								addVehicles(sf::Time dt);
 		void								addVehicle(DynamicObjects::Type type, float x, float y, float speed);
 		void								spawnVehicles();
@@ -52,8 +53,8 @@ namespace GEX {
 		void								addBlocks();
 		void								spawnBlocks();
 		
-		sf::FloatRect						getViewBounds() const;								// for battle ground view
-		sf::FloatRect						getBattlefieldBounds() const;						//	battle ground view
+		sf::FloatRect						getViewBounds() const;						// for battle ground view
+		sf::FloatRect						getFieldBounds() const;						//	battle ground view
 		
 		bool								matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								noPassing(SceneNode::Pair& colliders);
@@ -64,6 +65,10 @@ namespace GEX {
 
 		
 		void								destroyEntitiesOutOfView();
+		void								updateTimer(sf::Time dt);
+		void								checkGameTimeOver();
+		void								updateText();
+
 
 	private:
 		enum Layer {
@@ -101,11 +106,11 @@ namespace GEX {
 
 	private:
 		sf::RenderWindow&					window_;
-		sf::View							worldView_;			// my viewPort
+		sf::View							worldView_;			
 		TextureManager						textures_;
 
 		SceneNode							sceneGraph_;
-		std::vector<SceneNode*>				sceneLayers_;		// it is the vector of a raw pointer
+		std::vector<SceneNode*>				sceneLayers_;		
 
 		CommandQueue						commandQueue_;
 
@@ -120,6 +125,10 @@ namespace GEX {
 		std::vector<int>					randomNums_;
 		std::vector<sf::Time>				spawningTime_;
 		std::vector<sf::Time>				elapsedSpawningTime_;
+
+		int									lives_;
+		sf::Time							gameTime_;
+		TextNode*							textGameTimeAndLives_;
 	};
 
 }
