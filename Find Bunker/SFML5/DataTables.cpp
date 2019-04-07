@@ -113,35 +113,35 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 
 	// set the block1's data
 	data[StaticObjects::Type::Block1].texture = TextureID::Block;
-	data[StaticObjects::Type::Block1].textureRect = sf::IntRect(0, 0, 350, 450);
+	data[StaticObjects::Type::Block1].textureRect = sf::IntRect(0, 0, 350, 430);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block2].texture = TextureID::Block;
-	data[StaticObjects::Type::Block2].textureRect = sf::IntRect(0, 0, 245, 450);
+	data[StaticObjects::Type::Block2].textureRect = sf::IntRect(0, 0, 245, 430);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block3].texture = TextureID::Block;
-	data[StaticObjects::Type::Block3].textureRect = sf::IntRect(0, 0, 657, 450);
+	data[StaticObjects::Type::Block3].textureRect = sf::IntRect(0, 0, 657, 430);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block4].texture = TextureID::Block;
-	data[StaticObjects::Type::Block4].textureRect = sf::IntRect(0, 0, 130, 450);
+	data[StaticObjects::Type::Block4].textureRect = sf::IntRect(0, 0, 130, 430);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block5].texture = TextureID::Block;
-	data[StaticObjects::Type::Block5].textureRect = sf::IntRect(0, 0, 150, 300);
+	data[StaticObjects::Type::Block5].textureRect = sf::IntRect(0, 0, 150, 280);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block6].texture = TextureID::Block;
-	data[StaticObjects::Type::Block6].textureRect = sf::IntRect(0, 0, 500, 300);
+	data[StaticObjects::Type::Block6].textureRect = sf::IntRect(0, 0, 500, 280);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block7].texture = TextureID::Block;
-	data[StaticObjects::Type::Block7].textureRect = sf::IntRect(0, 0, 550, 300);
+	data[StaticObjects::Type::Block7].textureRect = sf::IntRect(0, 0, 550, 280);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block8].texture = TextureID::Block;
-	data[StaticObjects::Type::Block8].textureRect = sf::IntRect(0, 0, 390, 300);
+	data[StaticObjects::Type::Block8].textureRect = sf::IntRect(0, 0, 390, 280);
 
 	// set the block1's data
 	data[StaticObjects::Type::Block9].texture = TextureID::Block;
@@ -204,22 +204,22 @@ std::vector<GEX::SpawnBlockData> GEX::initializeSpawnBlockData()
 	data.push_back(SpawnBlockData());
 	data[0].type = StaticObjects::Type::Block1;
 	data[0].x = 175.f;
-	data[0].y = 1100.f;
+	data[0].y = 1090.f;
 
 	data.push_back(SpawnBlockData());
 	data[1].type = StaticObjects::Type::Block2;
 	data[1].x = 695.f;
-	data[1].y = 1100.f;
+	data[1].y = 1090.f;
 
 	data.push_back(SpawnBlockData());
 	data[2].type = StaticObjects::Type::Block3;
 	data[2].x = 1360.f;
-	data[2].y = 1100.f;
+	data[2].y = 1090.f;
 
 	data.push_back(SpawnBlockData());
 	data[3].type = StaticObjects::Type::Block4;
 	data[3].x = 1970.f;
-	data[3].y = 1100.f;
+	data[3].y = 1090.f;
 
 	data.push_back(SpawnBlockData());
 	data[4].type = StaticObjects::Type::Block5;

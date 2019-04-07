@@ -43,17 +43,16 @@ namespace GEX {
 
 	void World::update(sf::Time dt, CommandQueue& commands)
 	{
-
 		character_->setVelocity(0.f, 0.f);
-
 		destroyEntitiesOutOfView();
+
+		handleCollisions();
 
 		//run all the commands in the command queue
 		while (!commandQueue_.isEmpty()) {
 			sceneGraph_.onCommand(commandQueue_.pop(), dt);
 		}
 
-		handleCollisions();
 		adaptPlayerPosition();
 		adaptPlayerVelocity();
 
@@ -264,11 +263,9 @@ namespace GEX {
 		}
 	}
 
-
-
 	void World::adaptPlayerPosition() {
 
-		const float BORDER_DISTANCE = 40.f;
+		const float BORDER_DISTANCE = 20.f;
 		sf::FloatRect viewBounds(worldView_.getCenter() - worldView_.getSize() / 2.f, worldView_.getSize());
 
 		sf::Vector2f position = character_->getPosition();
