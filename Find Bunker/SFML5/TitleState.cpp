@@ -50,8 +50,7 @@ bool TitleState::handleEvent(const sf::Event & event)
 {
 	if (event.type == sf::Event::KeyPressed) {
 		requestStackPop();
-		requestStackPush(GEX::StateID::Game);
+		requestStackPush(GEX::StateID::Menu);
 	}
-
 	return true;
 }

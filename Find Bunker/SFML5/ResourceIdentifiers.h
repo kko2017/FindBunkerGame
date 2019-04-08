@@ -22,4 +22,14 @@ namespace GEX {
 	enum class FontID {
 		Main
 	};
+
+	enum class MusicID {			// Scoped enum class is made for specific identifiers in music Ids
+		MenuTheme,
+		MissionTheme
+	};
+
+	enum class SoundEffectID {		// Scoped enum class is made for specific identifiers in sound effect Ids
+		CharacterDead,
+		OpenBunker
+	};
 }

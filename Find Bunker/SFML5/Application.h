@@ -6,6 +6,7 @@
 
 
 #include "PlayerControl.h"
+#include "MusicPlayer.h"
 #include "TextureManager.h"
 #include "StateStack.h"
 
@@ -28,7 +29,7 @@ private:
 	sf::RenderWindow			window_;
 	GEX::PlayerControl			player_;
 	GEX::TextureManager			textures_;
-
+	GEX::MusicPlayer			music_;
 	GEX::StateStack				stateStack_;
 };
 

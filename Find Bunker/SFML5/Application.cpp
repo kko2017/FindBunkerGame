@@ -13,7 +13,7 @@ Application::Application()
 	: window_(sf::VideoMode(2048, 1536), "Find Bunker", sf::Style::Close)
 	, player_()
 	, textures_()
-	, stateStack_(GEX::State::Context(window_,textures_, player_))
+	, stateStack_(GEX::State::Context(window_,textures_, player_, music_))
 {
 	window_.setKeyRepeatEnabled(false);			//prevent user from keep pressing repeatedly
 	

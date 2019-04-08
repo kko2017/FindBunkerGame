@@ -19,7 +19,8 @@ public:
 private:
 	enum OptionName {
 		Play = 0,
-		Exit
+		Exit,
+		Ranks	
 	};
 
 	sf::Sprite				backgroundSprite_;

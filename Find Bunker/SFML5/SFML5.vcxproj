@@ -32,6 +32,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="JsonFrameParser.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PlayerControl.cpp" />
     <ClCompile Include="SceneNode.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonFrameParser.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PlayerControl.h" />
     <ClInclude Include="ResourceIdentifiers.h" />

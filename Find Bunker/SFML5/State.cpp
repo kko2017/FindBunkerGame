@@ -6,10 +6,14 @@
 
 namespace GEX {
 	
-	State::Context::Context(sf::RenderWindow & window, TextureManager & textures, PlayerControl & player)
+	State::Context::Context(sf::RenderWindow & window, 
+		TextureManager & textures, 
+		PlayerControl & player,
+		MusicPlayer& music)
 		: window(&window)
 		, textures(&textures)
 		, player(&player)
+		, music(&music)
 	{}
 
 	State::State(StateStack & stack, Context context)
