@@ -6,7 +6,7 @@
 
 namespace GEX 
 {
-	// Set the spawn data
+	// Each container has the spawn data and the spawn block data
 	namespace 
 	{
 		const std::vector<SpawnData> TABLE = initializeSpawnData();
@@ -33,9 +33,12 @@ namespace GEX
 		, worldBounds_(0.f, 0.f, worldView_.getSize().x, worldView_.getSize().y)
 		, character_(nullptr)
 		, signpost_(nullptr)
+		, key_(nullptr)
 		, lives_(2)
 		, gameTime_(sf::seconds(30))
 		, winGame_(false)
+		, isKey_(false)
+		, grabKey_(false)
 	{
 		for (unsigned int i = 0; i < TABLE.size(); i++)
 		{
@@ -80,7 +83,8 @@ namespace GEX
 
 	void World::adaptPlayerVelocity() {
 		sf::Vector2f velocity = character_->getVelocity();
-		if (velocity.x != 0.f && velocity.y != 0.f) {
+		if (velocity.x != 0.f && velocity.y != 0.f) 
+		{
 			character_->setVelocity(velocity / std::sqrt(2.f));
 		}
 	}
@@ -177,6 +181,19 @@ namespace GEX
 		addBunker(StaticObjects::Type::Bunker);
 	}
 
+	void World::addKey(StaticObjects::Type type)
+	{
+		std::unique_ptr<StaticObjects> key(new StaticObjects(type, textures_));
+
+		randomNumber = range(rnd);
+		float x = key->getObjectPosition()[randomNumber].first;
+		float y = key->getObjectPosition()[randomNumber].second;
+
+		key->setPosition(x, y);
+		key_ = key.get();
+		sceneLayers_[UpperAir]->attachChild(std::move(key));
+	}
+
 	void World::addBlock(StaticObjects::Type type, float x, float y)
 	{
 		BlockPoint blockPoint(type, x, y);
@@ -228,6 +245,7 @@ namespace GEX
 		{
 			character_->destroy();
 			lives_ = 0;
+			isKey_ = false;
 		}
 	}
 
@@ -308,6 +326,10 @@ namespace GEX
 			noPassing(colliders);
 			character_->destroy();
 			lives_--;
+			if (lives_ == 0)
+			{
+				isKey_ = false;
+			}
 		}
 	}
 
@@ -315,8 +337,26 @@ namespace GEX
 	{
 		if (matchesCategories(colliders, type1, type2))
 		{
+			if (grabKey_ == true)
+			{
+				winGame_ = true;
+			}
+
 			noPassing(colliders);
-			winGame_ = true;
+			if (isKey_ == false)
+			{
+				addKey(StaticObjects::Type::Key);
+				isKey_ = true;
+			}			
+		}
+	}
+
+	void World::handleKeyCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
+	{
+		if (matchesCategories(colliders, type1, type2))
+		{
+			key_->destroy();
+			grabKey_ = true;
 		}
 	}
 
@@ -331,6 +371,7 @@ namespace GEX
 			handleSignpostCollision(pair, Category::Type::Character, Category::Type::Signpost);
 			handleVehicleCollision(pair, Category::Type::Character, Category::Type::Vehicle);
 			handleBunkerCollision(pair, Category::Type::Character, Category::Type::Bunker);
+			handleKeyCollision(pair, Category::Type::Character, Category::Type::Key);
 		}
 	}
 
@@ -388,13 +429,14 @@ namespace GEX
 		textures_.load(GEX::TextureID::TruckToLeft, "Media/Textures/truck.png");
 		textures_.load(GEX::TextureID::BusToLeft, "Media/Textures/bus2.png");
 		textures_.load(GEX::TextureID::Block, "Media/Textures/Block1.jpg");
+		textures_.load(GEX::TextureID::Key, "Media/Textures/key.png");
 		
 	}
 	
 	void World::buildScene() {
 		// Initalize layers
 		for (int i = 0; i < LayerCount; ++i) {
-			auto category = (i == UpperAir) ? Category::Type::AirSceneLayer : Category::Type::None;
+			auto category = (i == UpperAir) ? Category::Type::Scene : Category::Type::None;
 			SceneNode::Ptr layer(new SceneNode(category));
 			sceneLayers_.push_back(layer.get());						
 			sceneGraph_.attachChild(std::move(layer));

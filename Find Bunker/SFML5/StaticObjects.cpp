@@ -34,6 +34,16 @@ GEX::StaticObjects::StaticObjects(Type type, const TextureManager & textures)
 	bunkerPosition_.emplace_back(948, 687);
 	bunkerPosition_.emplace_back(155, 1353);
 	bunkerPosition_.emplace_back(1972, 1353);
+
+	// Initialize the keyPosition containing the eight positions.
+	keyPosition_.emplace_back(1458, 687);
+	keyPosition_.emplace_back(280, 687);
+	keyPosition_.emplace_back(280, 327);
+	keyPosition_.emplace_back(1458, 327);
+	keyPosition_.emplace_back(1610, 327);
+	keyPosition_.emplace_back(1458, 177);
+	keyPosition_.emplace_back(848, 177);
+	keyPosition_.emplace_back(1870, 837);
 }
 
 unsigned int GEX::StaticObjects::getCategory() const
@@ -45,6 +55,9 @@ unsigned int GEX::StaticObjects::getCategory() const
 		break;
 	case Type::Bunker:
 		return Category::Bunker;
+		break;
+	case Type::Key:
+		return Category::Key;
 		break;
 	case Type::Block1:
 	case Type::Block2:
@@ -74,9 +87,13 @@ std::vector<std::pair<float, float>> GEX::StaticObjects::getObjectPosition()
 	{
 		return signPostPosition_;
 	}
-	else
+	else if (type_ == Type::Bunker)
 	{
 		return bunkerPosition_;
+	}
+	else
+	{
+		return keyPosition_;
 	}
 }
 

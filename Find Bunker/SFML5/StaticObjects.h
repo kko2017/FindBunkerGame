@@ -12,6 +12,7 @@ namespace GEX {
 		enum class Type {
 			Signpost,
 			Bunker,
+			Key,
 			Block1,
 			Block2,
 			Block3,
@@ -44,6 +45,7 @@ namespace GEX {
 
 		std::vector<std::pair<float, float>>	signPostPosition_;
 		std::vector<std::pair<float, float>>	bunkerPosition_;
+		std::vector<std::pair<float, float>>	keyPosition_;
 	};
 
 }

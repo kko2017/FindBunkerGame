@@ -111,6 +111,10 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 	data[StaticObjects::Type::Bunker].texture = TextureID::Bunker;
 	data[StaticObjects::Type::Bunker].textureRect = sf::IntRect(0, 0, 53, 70);
 
+	// set the key's data
+	data[StaticObjects::Type::Key].texture = TextureID::Key;
+	data[StaticObjects::Type::Key].textureRect = sf::IntRect(0, 0, 50, 50);
+
 	// set the block1's data
 	data[StaticObjects::Type::Block1].texture = TextureID::Block;
 	data[StaticObjects::Type::Block1].textureRect = sf::IntRect(0, 0, 350, 430);
@@ -191,7 +195,7 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 	data[3].type = DynamicObjects::Type::TruckToLeft;
 	data[3].time = sf::milliseconds(5000);
 	data[3].x = 2038.f;
-	data[3].y = 745.f;
+	data[3].y = 750.f;
 	data[3].speed = -120.f;
 
 	return data;

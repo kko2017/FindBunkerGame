@@ -16,6 +16,7 @@ namespace GEX {
 		TitleScreen,		
 		City1,
 		Block,
+		Key
 	};
 
 	enum class FontID {

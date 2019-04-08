@@ -50,6 +50,7 @@ namespace GEX {
 		void								spawnVehicles();
 		void								addBunker(StaticObjects::Type type);
 		void								addBunkers();
+		void								addKey(StaticObjects::Type type);
 		void								addBlock(StaticObjects::Type type, float x, float y);
 		void								addBlocks();
 		void								spawnBlocks();
@@ -63,6 +64,7 @@ namespace GEX {
 		void								handleSignpostCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleVehicleCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleBunkerCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+		void								handleKeyCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleCollisions();
 
 		
@@ -81,7 +83,6 @@ namespace GEX {
 			LayerCount
 		};
 
-		// 10.10
 		struct SpawnPoint {
 			SpawnPoint(DynamicObjects::Type _type, float _x, float _y, float _speed)
 				: type(_type)
@@ -89,7 +90,7 @@ namespace GEX {
 				, y(_y)
 				, speed(_speed)
 			{}
-			DynamicObjects::Type type;						// member variable is public so we don't need to add _ to the name
+			DynamicObjects::Type type;
 			float	x;
 			float   y;
 			float	speed;
@@ -120,6 +121,7 @@ namespace GEX {
 
 		DynamicObjects*						character_;
 		StaticObjects*						signpost_;
+		StaticObjects*						key_;
 
 		std::vector<SpawnPoint>				vehicleSpawnPointes_;
 		std::vector<BlockPoint>				blockSpawnPointes_;
@@ -132,6 +134,8 @@ namespace GEX {
 		sf::Time							gameTime_;
 		TextNode*							textGameTimeAndLives_;
 		bool								winGame_;
+		bool								isKey_;
+		bool								grabKey_;
 	};
 
 }
