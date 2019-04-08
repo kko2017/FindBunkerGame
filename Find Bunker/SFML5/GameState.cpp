@@ -26,7 +26,6 @@ bool GameState::update(sf::Time dt)
 		if (world_.getLives() == 0)
 		{
 			player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
-			saveRecord();
 			requestStackPush(GEX::StateID::GameOver);
 		}
 		else
@@ -35,8 +34,8 @@ bool GameState::update(sf::Time dt)
 		}
 	}
 	else if (world_.winGame()) {
-		player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
 		saveRecord();
+		player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
 		requestStackPush(GEX::StateID::GameOver);
 	}
 
@@ -63,12 +62,12 @@ void GameState::saveRecord()
 	std::vector<int> records;
 
 	std::ifstream is;
-	std::string record;
+	std::string record = "";
 	std::string fileName = "Record/highRecord.txt";
 
 	is.open(fileName);
 
-	if (std::getline(is, record))
+	while (std::getline(is, record))
 	{
 		int tmp = std::stoi(record);
 		records.push_back(tmp);
@@ -81,12 +80,12 @@ void GameState::saveRecord()
 
 	std::remove(fileName.c_str());
 
-	//std::ofstream outFile(fileName, std::ios::app);
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	std::string tmp = std::to_string(records[i]);
-	//	outFile << tmp;
-	//}
+	std::ofstream outFile(fileName, std::ios::app);
+	for (int i = 0; i < 10; i++)
+	{
+		std::string tmp = std::to_string(records[i]);
+		outFile << tmp << std::endl;
+	}
 
-	//outFile.close();
+	outFile.close();
 }
