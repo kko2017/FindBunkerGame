@@ -34,7 +34,8 @@ namespace GEX
 		, character_(nullptr)
 		, signpost_(nullptr)
 		, lives_(2)
-		, gameTime_(sf::seconds(8))
+		, gameTime_(sf::seconds(30))
+		, winGame_(false)
 	{
 		for (unsigned int i = 0; i < TABLE.size(); i++)
 		{
@@ -315,6 +316,7 @@ namespace GEX
 		if (matchesCategories(colliders, type1, type2))
 		{
 			noPassing(colliders);
+			winGame_ = true;
 		}
 	}
 
@@ -328,6 +330,7 @@ namespace GEX
 			handleBlockCollision(pair, Category::Type::Character, Category::Type::Block);
 			handleSignpostCollision(pair, Category::Type::Character, Category::Type::Signpost);
 			handleVehicleCollision(pair, Category::Type::Character, Category::Type::Vehicle);
+			handleBunkerCollision(pair, Category::Type::Character, Category::Type::Bunker);
 		}
 	}
 
@@ -365,6 +368,11 @@ namespace GEX
 	bool World::hasAlivePlayer() const
 	{
 		return (!character_->isDestroyed() && !character_->finishedDeadAnimation());
+	}
+
+	bool World::winGame() const
+	{
+		return winGame_;
 	}
 
 	void World::loadTextures() {

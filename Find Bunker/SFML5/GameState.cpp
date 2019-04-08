@@ -28,10 +28,10 @@ bool GameState::update(sf::Time dt)
 			world_.addCharacter();
 		}
 	}
-	//else if (world_.hasPlayerReachedEnd()) {
-	//	player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
-	//	requestStackPush(GEX::StateID::GameOver);
-	//}
+	else if (world_.winGame()) {
+		player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
+		requestStackPush(GEX::StateID::GameOver);
+	}
 
 	player_.handleRealtimeInput(commands);
 

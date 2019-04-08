@@ -36,6 +36,7 @@ namespace GEX {
 		void								addCharacter();
 		int									getLives();
 		bool								hasAlivePlayer() const;
+		bool								winGame() const;
 
 	private:
 		void								loadTextures();
@@ -130,6 +131,7 @@ namespace GEX {
 		int									lives_;
 		sf::Time							gameTime_;
 		TextNode*							textGameTimeAndLives_;
+		bool								winGame_;
 	};
 
 }
