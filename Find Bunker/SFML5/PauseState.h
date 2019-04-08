@@ -7,8 +7,8 @@
 class PauseState : public GEX::State
 {
 public:
-	PauseState(GEX::StateStack& stack, Context context);
-
+					PauseState(GEX::StateStack& stack, Context context);
+					~PauseState();											// Destructor sets the false of paused method for music
 	void			draw() override;
 	bool			update(sf::Time dt) override;
 	bool			handleEvent(const sf::Event& event) override;

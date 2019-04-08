@@ -13,9 +13,10 @@ public:
 	bool			update(sf::Time dt) override;
 	bool			handleEvent(const sf::Event& event) override;
 
+	void			saveRecord();
+
 private:
 	GEX::World world_;
 	GEX::PlayerControl& player_;
-
 };
 

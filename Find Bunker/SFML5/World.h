@@ -35,6 +35,7 @@ namespace GEX {
 
 		void								addCharacter();
 		int									getLives();
+		int									getFinalElapsedTime();
 		bool								hasAlivePlayer() const;
 		bool								winGame() const;
 

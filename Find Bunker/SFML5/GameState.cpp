@@ -1,5 +1,8 @@
 #include "GameState.h"
 
+#include <vector>
+#include <fstream>
+
 GameState::GameState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, world_(*context.window)   // part of game state, render window
@@ -12,7 +15,7 @@ void GameState::draw()
 {
 	world_.draw();
 }
-//10.23
+
 bool GameState::update(sf::Time dt)
 {
 	GEX::CommandQueue& commands = world_.getCommandQueue();
@@ -23,6 +26,7 @@ bool GameState::update(sf::Time dt)
 		if (world_.getLives() == 0)
 		{
 			player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
+			saveRecord();
 			requestStackPush(GEX::StateID::GameOver);
 		}
 		else
@@ -32,6 +36,7 @@ bool GameState::update(sf::Time dt)
 	}
 	else if (world_.winGame()) {
 		player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
+		saveRecord();
 		requestStackPush(GEX::StateID::GameOver);
 	}
 
@@ -51,4 +56,37 @@ bool GameState::handleEvent(const sf::Event & event)
 	}
 
 	return true;
+}
+
+void GameState::saveRecord()
+{
+	std::vector<int> records;
+
+	std::ifstream is;
+	std::string record;
+	std::string fileName = "Record/highRecord.txt";
+
+	is.open(fileName);
+
+	if (std::getline(is, record))
+	{
+		int tmp = std::stoi(record);
+		records.push_back(tmp);
+	}
+
+	is.close();
+
+	records.push_back(world_.getFinalElapsedTime());
+	std::sort(records.begin(), records.end());
+
+	std::remove(fileName.c_str());
+
+	//std::ofstream outFile(fileName, std::ios::app);
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	std::string tmp = std::to_string(records[i]);
+	//	outFile << tmp;
+	//}
+
+	//outFile.close();
 }

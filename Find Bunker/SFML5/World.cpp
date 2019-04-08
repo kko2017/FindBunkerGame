@@ -35,7 +35,7 @@ namespace GEX
 		, signpost_(nullptr)
 		, key_(nullptr)
 		, lives_(2)
-		, gameTime_(sf::seconds(30))
+		, gameTime_(sf::seconds(35))
 		, winGame_(false)
 		, isKey_(false)
 		, grabKey_(false)
@@ -404,6 +404,12 @@ namespace GEX
 	int World::getLives()
 	{
 		return lives_;
+	}
+
+	int World::getFinalElapsedTime()
+	{
+		int elapsedTime = static_cast<int>(gameTime_.asSeconds());
+		return 35 - elapsedTime;
 	}
 
 	bool World::hasAlivePlayer() const
