@@ -101,7 +101,7 @@ namespace GEX
 		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
 		character->setPosition(worldView_.getSize().x / 2.f, (worldView_.getSize().y));
 		character_ = character.get();
-		sceneLayers_[UpperAir]->attachChild(std::move(character));
+		sceneLayers_[UpperField]->attachChild(std::move(character));
 	}
 
 	void World::addSignpost()
@@ -115,7 +115,7 @@ namespace GEX
 
 		signPost->setPosition(xPosition, yPosition);
 		signpost_ = signPost.get();
-		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
+		sceneLayers_[UpperField]->attachChild(std::move(signPost));
 	}
 
 	// Add vehicles in each position.
@@ -143,7 +143,7 @@ namespace GEX
 			vehicles->setPosition(spawnPoint.x, spawnPoint.y);
 			vehicles->setVelocity(spawnPoint.speed, 0.f);
 
-			sceneLayers_[LowerAir]->attachChild(std::move(vehicles));
+			sceneLayers_[LowerField]->attachChild(std::move(vehicles));
 			vehicleSpawnPointes_.pop_back();
 		}
 	}
@@ -172,7 +172,7 @@ namespace GEX
 		float y = bunker->getObjectPosition()[randomNumber].second;
 
 		bunker->setPosition(x, y);
-		sceneLayers_[UpperAir]->attachChild(std::move(bunker));
+		sceneLayers_[LowerField]->attachChild(std::move(bunker));
 	}
 
 	void World::addBunkers()
@@ -191,7 +191,7 @@ namespace GEX
 
 		key->setPosition(x, y);
 		key_ = key.get();
-		sceneLayers_[UpperAir]->attachChild(std::move(key));
+		sceneLayers_[UpperField]->attachChild(std::move(key));
 	}
 
 	void World::addBlock(StaticObjects::Type type, float x, float y)
@@ -222,7 +222,7 @@ namespace GEX
 
 	sf::FloatRect World::getViewBounds() const
 	{
-		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize()/2.f), worldView_.getSize());	// center minus half size
+		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize()/2.f), worldView_.getSize());
 	}
 
 	sf::FloatRect World::getFieldBounds() const
@@ -436,7 +436,7 @@ namespace GEX
 	void World::buildScene() {
 		// Initalize layers
 		for (int i = 0; i < LayerCount; ++i) {
-			auto category = (i == UpperAir) ? Category::Type::Scene : Category::Type::None;
+			auto category = (i == UpperField) ? Category::Type::Scene : Category::Type::None;
 			SceneNode::Ptr layer(new SceneNode(category));
 			sceneLayers_.push_back(layer.get());						
 			sceneGraph_.attachChild(std::move(layer));

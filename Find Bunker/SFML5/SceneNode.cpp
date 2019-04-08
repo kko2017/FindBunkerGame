@@ -122,8 +122,8 @@ namespace GEX
 
 	void SceneNode::removeWrecks()
 	{
-		auto wreckFieldBegin = std::remove_if(children_.begin(), children_.end(), std::mem_fn(&SceneNode::isMarkedForRemoval));
-		children_.erase(wreckFieldBegin, children_.end());
+		auto wreckUpperFieldBegin = std::remove_if(children_.begin(), children_.end(), std::mem_fn(&SceneNode::isMarkedForRemoval));
+		children_.erase(wreckUpperFieldBegin, children_.end());
 
 		std::for_each(children_.begin(), children_.end(), std::mem_fn(&SceneNode::removeWrecks));
 	}

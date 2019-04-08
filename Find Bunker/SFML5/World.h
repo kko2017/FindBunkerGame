@@ -78,8 +78,8 @@ namespace GEX {
 		enum Layer {
 			Behind = 0,
 			Background,
-			LowerAir,
-			UpperAir,
+			LowerField,
+			UpperField,
 			LayerCount
 		};
 

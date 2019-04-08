@@ -17,7 +17,7 @@ namespace GEX {
 	{
 		Command();		
 		std::function<void(SceneNode&, sf::Time)>	action;						// function pointer
-		unsigned int								category;					// bit field, enumeration
+		unsigned int								category;					// bit UpperField, enumeration
 
 	};
 
