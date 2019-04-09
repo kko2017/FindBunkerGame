@@ -5,7 +5,7 @@
 
 GameState::GameState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
-	, world_(*context.window)   // part of game state, render window
+	, world_(*context.window, *context.sound)   // part of game state, render window
 	, player_(*context.player)
 {
 	context.music->play(GEX::MusicID::MissionTheme);

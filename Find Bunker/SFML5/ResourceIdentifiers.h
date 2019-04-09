@@ -30,6 +30,9 @@ namespace GEX {
 
 	enum class SoundEffectID {		// Scoped enum class is made for specific identifiers in sound effect Ids
 		CharacterDead,
-		OpenBunker
+		KnockBunker,
+		OpenBunker,
+		GetKey,
+		GetSignpost
 	};
 }

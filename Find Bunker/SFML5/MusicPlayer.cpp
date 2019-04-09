@@ -6,8 +6,8 @@ GEX::MusicPlayer::MusicPlayer()
 	, filenames_()
 	, volume_(25)
 {
-	filenames_[MusicID::MissionTheme] = "Media/Music/Polaroid.flac";
-	filenames_[MusicID::MenuTheme] = "Media/Music/Requiem_Titanic.flac";
+	filenames_[MusicID::MissionTheme] = "Media/Music/suspect.flac";
+	filenames_[MusicID::MenuTheme] = "Media/Music/Extreme_Energy_ROCK.flac";
 }
 
 // set up the play of the music

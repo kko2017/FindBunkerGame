@@ -11,9 +11,6 @@ MenuState::MenuState(GEX::StateStack & stack, Context context)
 	sf::Texture& texture = context.textures->get(GEX::TextureID::TitleScreen);
 	backgroundSprite_.setTexture(texture);
 
-	// set up menu
-
-
 	// play option
 	sf::Text playOption;
 	playOption.setFillColor(sf::Color::Black);
@@ -106,7 +103,5 @@ void MenuState::updateOptionText()
 		text.setFillColor(sf::Color::White);
 		text.setOutlineColor(sf::Color::Black);
 	}
-
 	options_[optionsIndex_].setFillColor(sf::Color::Magenta);
-
 }

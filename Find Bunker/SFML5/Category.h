@@ -15,5 +15,6 @@ namespace Category
 		Scene			 = 1 << 4,
 		Signpost	     = 1 << 5,
 		Block			 = 1 << 6,
+		SoundEffect		 = 1 << 7
 	};
 }

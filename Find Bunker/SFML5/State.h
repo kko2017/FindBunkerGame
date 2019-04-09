@@ -17,6 +17,7 @@ namespace GEX {
 	// forward declarations
 	class PlayerControl;
 	class StateStack;
+	class SoundPlayer;
 
 	class State
 	{
@@ -27,12 +28,14 @@ namespace GEX {
 			Context(sf::RenderWindow& window, 
 				TextureManager& textures, 
 				PlayerControl& player, 
-				MusicPlayer& music);
+				MusicPlayer& music,
+				SoundPlayer& sound);
 
 			sf::RenderWindow*	window;
 			TextureManager*		textures;
 			PlayerControl*		player;
 			MusicPlayer*		music;
+			SoundPlayer*		sound;
 		};
 
 	public:

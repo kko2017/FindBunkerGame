@@ -33,7 +33,6 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setRepeating(false);
 
 
-
 	// set the RedCarToRight's data
 	data[DynamicObjects::Type::RedCarToRight].texture = TextureID::RedCarToRight;
 	data[DynamicObjects::Type::RedCarToRight].textureRect = sf::IntRect(0,0,96,45);

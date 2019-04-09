@@ -5,7 +5,6 @@
 
 PauseState::PauseState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
-	, backgroundSprite_()
 	, pausedText_()
 	, instructionText_()
 {
@@ -69,11 +68,10 @@ bool PauseState::handleEvent(const sf::Event & event)
 	if (event.key.code == sf::Keyboard::Escape)
 		requestStackPop();
 
-	if (event.key.code == sf::Keyboard::BackSpace) {
+	if (event.key.code == sf::Keyboard::BackSpace) 
+	{
 		requestStackClear();
 		requestStackPush(GEX::StateID::Menu);
 	}
-
-
 	return false;
 }

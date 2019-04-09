@@ -23,11 +23,14 @@ namespace sf {
 }
 
 namespace GEX {
+	// forward declaration
+	class SoundPlayer;
+	class TextNode;
 
 	class World
 	{
 	public:
-		explicit							World(sf::RenderWindow& window);
+		explicit							World(sf::RenderTarget& outputTarget, SoundPlayer& sounds);
 
 		void								update(sf::Time dt, CommandQueue& commands);
 		void								draw();
@@ -73,7 +76,7 @@ namespace GEX {
 		void								updateTimer(sf::Time dt);
 		void								checkGameTimeOver();
 		void								updateText();
-
+		void								updateSounds();
 
 	private:
 		enum Layer {
@@ -109,9 +112,12 @@ namespace GEX {
 		};
 
 	private:
-		sf::RenderWindow&					window_;
+
+		sf::RenderTarget&					target_;
+		sf::RenderTexture					sceneTexture_;
 		sf::View							worldView_;			
 		TextureManager						textures_;
+		SoundPlayer&						sounds_;
 
 		SceneNode							sceneGraph_;
 		std::vector<SceneNode*>				sceneLayers_;		

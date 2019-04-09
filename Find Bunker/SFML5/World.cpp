@@ -1,5 +1,6 @@
 #include "World.h"
 #include "DataTables.h"
+#include "SoundNode.h"
 #include "TextNode.h"
 
 #include <random>
@@ -24,10 +25,11 @@ namespace GEX
 		int randomNumber = 0;
 	}
 
-	World::World(sf::RenderWindow& window)
-		: window_(window)
-		, worldView_(window.getDefaultView())
+	World::World(sf::RenderTarget& outputTarget, SoundPlayer& sounds)
+		: target_(outputTarget)
+		, worldView_(outputTarget.getDefaultView())
 		, textures_()
+		, sounds_(sounds)
 		, sceneGraph_()
 		, sceneLayers_()
 		, worldBounds_(0.f, 0.f, worldView_.getSize().x, worldView_.getSize().y)
@@ -40,6 +42,8 @@ namespace GEX
 		, isKey_(false)
 		, grabKey_(false)
 	{
+		sceneTexture_.create(target_.getSize().x, target_.getSize().y);
+
 		for (unsigned int i = 0; i < TABLE.size(); i++)
 		{
 			spawningTime_.push_back(TABLE.at(i).time);
@@ -222,15 +226,15 @@ namespace GEX
 
 	sf::FloatRect World::getViewBounds() const
 	{
-		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize()/2.f), worldView_.getSize());
+		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize() / 2.f), worldView_.getSize());
 	}
 
 	sf::FloatRect World::getFieldBounds() const
 	{
 		sf::FloatRect bounds = getViewBounds();
 		bounds.top += 100.f;						
-		bounds.height -= 100.f;						
-		
+		bounds.height -= 100.f;					
+
 		return bounds;
 	}
 
@@ -244,6 +248,7 @@ namespace GEX
 		if (gameTime_ <= sf::Time::Zero)
 		{
 			character_->destroy();
+			character_->playLocalSound(commandQueue_, SoundEffectID::CharacterDead);
 			lives_ = 0;
 			isKey_ = false;
 		}
@@ -255,6 +260,12 @@ namespace GEX
 			+ "     Time: " + std::to_string(static_cast<int>(gameTime_.asSeconds()))
 		);
 		textGameTimeAndLives_->setPosition(250.f, 50.f);
+	}
+
+	void World::updateSounds()
+	{
+		sounds_.setListnerPosition(character_->getWorldPosition());
+		sounds_.removeStoppedSounds();
 	}
 
 	void World::destroyEntitiesOutOfView()
@@ -314,6 +325,7 @@ namespace GEX
 		if (matchesCategories(colliders, type1, type2))
 		{
 			noPassing(colliders);
+			character_->playLocalSound(commandQueue_, SoundEffectID::GetSignpost);
 			addBunkers();
 			signpost_->destroy();
 		}
@@ -325,6 +337,7 @@ namespace GEX
 		{
 			noPassing(colliders);
 			character_->destroy();
+			character_->playLocalSound(commandQueue_, SoundEffectID::CharacterDead);
 			lives_--;
 			if (lives_ == 0)
 			{
@@ -339,12 +352,14 @@ namespace GEX
 		{
 			if (grabKey_ == true)
 			{
+				character_->playLocalSound(commandQueue_, SoundEffectID::OpenBunker);
 				winGame_ = true;
 			}
 
 			noPassing(colliders);
 			if (isKey_ == false)
 			{
+				character_->playLocalSound(commandQueue_, SoundEffectID::KnockBunker);
 				addKey(StaticObjects::Type::Key);
 				isKey_ = true;
 			}			
@@ -356,6 +371,7 @@ namespace GEX
 		if (matchesCategories(colliders, type1, type2))
 		{
 			key_->destroy();
+			character_->playLocalSound(commandQueue_, SoundEffectID::GetKey);
 			grabKey_ = true;
 		}
 	}
@@ -392,8 +408,8 @@ namespace GEX
 
 	void World::draw()
 	{
-		window_.setView(worldView_);
-		window_.draw(sceneGraph_);
+		target_.setView(worldView_);
+		target_.draw(sceneGraph_);
 	}
 
 	CommandQueue & World::getCommandQueue()
@@ -447,6 +463,10 @@ namespace GEX
 			sceneLayers_.push_back(layer.get());						
 			sceneGraph_.attachChild(std::move(layer));
 		}
+
+		//Sound Effects
+		std::unique_ptr<SoundNode> sNode(new SoundNode(sounds_));
+		sceneGraph_.attachChild(std::move(sNode));
 
 		// Background
 		sf::Texture& texture = textures_.get(TextureID::City1);

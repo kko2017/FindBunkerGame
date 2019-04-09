@@ -1,6 +1,3 @@
-// 10.3
-//
-
 #pragma once
 #include "TextureManager.h"
 #include "DynamicObjects.h"

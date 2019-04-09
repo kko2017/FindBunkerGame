@@ -1,10 +1,13 @@
 #include "DynamicObjects.h"
+#include "Command.h"
+#include "TextNode.h"
+#include "Utility.h"
+#include "DataTables.h"
+#include "SoundNode.h"
+#include "CommandQueue.h"
 #include "TextureManager.h"
 #include "JsonFrameParser.h"
 #include "TextureManager.h"
-#include "Utility.h"
-#include "DataTables.h"
-#include "TextNode.h"
 
 namespace GEX {
 
@@ -99,6 +102,16 @@ namespace GEX {
 		}
 
 		return isDestroyed();
+	}
+
+	void DynamicObjects::playLocalSound(CommandQueue & commands, SoundEffectID effect)
+	{
+		Command playSoundCommand;
+		playSoundCommand.category = Category::Type::SoundEffect;
+		playSoundCommand.action = derivedAction<SoundNode>(
+			std::bind(&SoundNode::playSound, std::placeholders::_1, effect, getWorldPosition()));
+
+		commands.push(playSoundCommand);
 	}
 
 	void DynamicObjects::updateStates()

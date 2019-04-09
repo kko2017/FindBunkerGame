@@ -10,6 +10,7 @@ namespace GEX
 		Game,
 		Pause,
 		GameOver,
+		Rank,
 		None
 	};
 }
