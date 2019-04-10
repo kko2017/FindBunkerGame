@@ -1,10 +1,13 @@
 #include "DynamicObjects.h"
+#include "Command.h"
+#include "TextNode.h"
+#include "Utility.h"
+#include "DataTables.h"
+#include "SoundNode.h"
+#include "CommandQueue.h"
 #include "TextureManager.h"
 #include "JsonFrameParser.h"
 #include "TextureManager.h"
-#include "Utility.h"
-#include "DataTables.h"
-#include "TextNode.h"
 
 namespace GEX {
 
@@ -15,7 +18,7 @@ namespace GEX {
 	}
 
 	DynamicObjects::DynamicObjects(Type type, const TextureManager& textures)
-		: Entity(100)
+		: Entity(true)
 		, type_(type)
 		, state_(State::Right)
 		, sprite_(textures.get(TABLE.at(type).texture))
@@ -33,6 +36,11 @@ namespace GEX {
 			state_ = State::Drive;
 		}
 
+		if (DynamicObjects::getCategory() == Category::Type::People)
+		{
+			state_ = State::Up;
+		}
+
 		sprite_.setTextureRect(sf::IntRect());
 		centerOrigin(sprite_);
 	}
@@ -44,13 +52,19 @@ namespace GEX {
 		case Type::Character:
 			return Category::Character;
 			break;
-		case Type::Vehicle1:
-		case Type::Vehicle2:
-		case Type::Vehicle3:
-		case Type::Vehicle4:
-		case Type::Vehicle5:
-		case Type::Vehicle6:
+		case Type::RedCarToRight:
+		case Type::WhiteCarToRight:
+		case Type::TruckToRight:
+		case Type::RedCarToLeft:
+		case Type::WhiteCarToLeft:
+		case Type::TruckToLeft:
+		case Type::BusToLeft:
 			return Category::Vehicle;
+			break;
+		case Type::Boy:
+		case Type::Girl:
+		case Type::Police:
+			return Category::People;
 			break;
 		}
 		return Category::None;
@@ -62,11 +76,6 @@ namespace GEX {
 		box.width -= 30; // tighten up bounding box for more realistic collisions
 		box.left += 15;
 		return box;
-	}
-
-	float DynamicObjects::getMaxSpeed() const
-	{
-		return TABLE.at(type_).speed;
 	}
 
 	void DynamicObjects::accelerate(sf::Vector2f velocity)
@@ -91,10 +100,28 @@ namespace GEX {
 		animations_[state_].restart();
 	}
 
+	bool DynamicObjects::finishedDeadAnimation() const
+	{
+		return state_ == State::Dead && animations_.at(state_).isFinished();
+	}
+
 	bool DynamicObjects::isMarkedForRemoval() const
 	{
-		//return isDestroyed() && animations_[state_].isFinished();
-		return false;
+		if (type_ == Type::Character) {
+			return isDestroyed() && state_ == State::Dead && animations_[state_].isFinished();
+		}
+
+		return isDestroyed();
+	}
+
+	void DynamicObjects::playLocalSound(CommandQueue & commands, SoundEffectID effect)
+	{
+		Command playSoundCommand;
+		playSoundCommand.category = Category::Type::SoundEffect;
+		playSoundCommand.action = derivedAction<SoundNode>(
+			std::bind(&SoundNode::playSound, std::placeholders::_1, effect, getWorldPosition()));
+
+		commands.push(playSoundCommand);
 	}
 
 	void DynamicObjects::updateStates()
@@ -102,13 +129,6 @@ namespace GEX {
 		if (isDestroyed() && (state_ == State::Up || state_ == State::Down || state_ == State::Right
 			|| state_ == State::Left) && state_ != State::Dead) {
 			state_ = State::Dead;
-			animations_.at(state_).restart();
-		}
-
-		if (state_ == State::Dead && animations_.at(state_).isFinished()) {
-			state_ = State::Up;
-			animations_.at(state_).restart();
-			rebirth(true);
 		}
 
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Right
@@ -116,18 +136,15 @@ namespace GEX {
 			state_ = State::Left;
 		}
 
-
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
 			|| state_ == State::Right) && getVelocity().x > 0.f) {
 			state_ = State::Right;
 		}
 
-
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
 			|| state_ == State::Right) && getVelocity().y < -0.f) {
 			state_ = State::Up;
 		}
-
 
 		if ((state_ == State::Up || state_ == State::Left || state_ == State::Right
 			|| state_ == State::Down) && getVelocity().y > 0.f) {

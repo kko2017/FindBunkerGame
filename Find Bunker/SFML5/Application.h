@@ -6,45 +6,32 @@
 
 
 #include "PlayerControl.h"
+#include "MusicPlayer.h"
+#include "SoundPlayer.h"
 #include "TextureManager.h"
 #include "StateStack.h"
 
 class Application
 {
 public:
-						Application();
-
-
-	void				run();
+								Application();
+	void						run();
 
 private:
 
-	void				processInput();
-
-	void				update(sf::Time deltaTime);
-	void				render();
-
-
-	void				updatestatistics(sf::Time deltaTime);
-	void				registerStates();
-
-
-
-
+	void						processInput();
+	void						update(sf::Time deltaTime);
+	void						render();
+	void						registerStates();
 
 private:
-	static const sf::Time		TimePerFrame;
+	static const sf::Time		TIMEPERFRAME;
 
 	sf::RenderWindow			window_;
 	GEX::PlayerControl			player_;
 	GEX::TextureManager			textures_;
-
+	GEX::MusicPlayer			music_;
+	GEX::SoundPlayer			sound_;
 	GEX::StateStack				stateStack_;
-
-	sf::Text					statisticText_;
-	sf::Time					statisticUpdateTime_;
-	unsigned int				statisticNumFrames_;
-
-
 };
 

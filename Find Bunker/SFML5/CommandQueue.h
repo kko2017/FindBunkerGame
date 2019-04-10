@@ -6,8 +6,6 @@
 #include <queue>
 
 namespace GEX {
-
-
 	class CommandQueue
 	{
 	public:		
@@ -18,6 +16,5 @@ namespace GEX {
 	private:
 		std::queue<Command>		queue_;
 	};
-
 }
 

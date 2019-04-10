@@ -2,19 +2,13 @@
 #include "Utility.h"
 #include "FontManager.h"
 
-
 MenuState::MenuState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, options_()
 	, optionsIndex_(0)
 {
 	sf::Texture& texture = context.textures->get(GEX::TextureID::TitleScreen);
-	
-
 	backgroundSprite_.setTexture(texture);
-
-	// set up menu
-
 
 	// play option
 	sf::Text playOption;
@@ -29,6 +23,19 @@ MenuState::MenuState(GEX::StateStack & stack, Context context)
 	playOption.setPosition(context.window->getView().getSize() / 2.f);
 	options_.push_back(playOption);
 
+	// score option
+	sf::Text scoreOption;
+	scoreOption.setFillColor(sf::Color::Black);
+	scoreOption.setOutlineColor(sf::Color::Red);
+	scoreOption.setOutlineThickness(3.5f);
+	scoreOption.setStyle(sf::Text::Italic);
+	scoreOption.setCharacterSize(80);
+	scoreOption.setFont(GEX::FontManager::getInstance().get(GEX::FontID::Main));
+	scoreOption.setString("Score Board");
+	centerOrigin(scoreOption);
+	scoreOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 100.f));
+	options_.push_back(scoreOption);
+
 	// exit option
 	sf::Text exitOption;
 	exitOption.setFillColor(sf::Color::Black);
@@ -39,10 +46,12 @@ MenuState::MenuState(GEX::StateStack & stack, Context context)
 	exitOption.setFont(GEX::FontManager::getInstance().get(GEX::FontID::Main));
 	exitOption.setString("Exit");
 	centerOrigin(exitOption);
-	exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 80.f));
+	exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 200.f));
 	options_.push_back(exitOption);
 
 	updateOptionText();
+
+	context.music->play(GEX::MusicID::MenuTheme);
 }
 
 void MenuState::draw()
@@ -52,7 +61,8 @@ void MenuState::draw()
 	window.setView(window.getDefaultView());	
 	window.draw(backgroundSprite_);
 
-	for (const sf::Text& text : options_) {
+	for (const sf::Text& text : options_) 
+	{
 		window.draw(text);
 	}
 
@@ -68,16 +78,25 @@ bool MenuState::handleEvent(const sf::Event & event)
 	if (event.type != sf::Event::KeyPressed)
 		return true;
 
-	if (event.key.code == sf::Keyboard::Return) {
-		if (optionsIndex_ == Play) {
+	if (event.key.code == sf::Keyboard::Return) 
+	{
+		if (optionsIndex_ == Play) 
+		{
 			requestStackPop();
-			requestStackPush(GEX::StateID::Game);
+			requestStackPush(GEX::StateID::Intro);
 		}
-		else if (optionsIndex_ == Exit) {
+		else if (optionsIndex_ == Score)
+		{
+			requestStackPop();
+			requestStackPush(GEX::StateID::Score);
+		}
+		else if (optionsIndex_ == Exit) 
+		{
 			requestStackPop();
 		}
 	}
-	else if (event.key.code == sf::Keyboard::Up) {
+	else if (event.key.code == sf::Keyboard::Up) 
+	{
 		if (optionsIndex_ > 0)
 			optionsIndex_--;
 		else
@@ -85,7 +104,8 @@ bool MenuState::handleEvent(const sf::Event & event)
 
 		updateOptionText();
 	}
-	else if (event.key.code == sf::Keyboard::Down) {
+	else if (event.key.code == sf::Keyboard::Down) 
+	{
 		if (optionsIndex_ < options_.size() - 1)
 			optionsIndex_++;
 		else
@@ -106,7 +126,5 @@ void MenuState::updateOptionText()
 		text.setFillColor(sf::Color::White);
 		text.setOutlineColor(sf::Color::Black);
 	}
-
 	options_[optionsIndex_].setFillColor(sf::Color::Magenta);
-
 }

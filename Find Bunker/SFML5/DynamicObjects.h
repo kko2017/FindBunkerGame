@@ -1,7 +1,10 @@
 #pragma once
 #include "Entity.h"
-#include <SFML/Graphics/Sprite.hpp>
+#include "Command.h"
 #include "Animation2.h"
+#include "ResourceIdentifiers.h"
+
+#include <SFML/Graphics/Sprite.hpp>
 #include <map>
 
 
@@ -16,12 +19,16 @@ namespace GEX {
 		enum class Type
 		{
 			Character,
-			Vehicle1,
-			Vehicle2,
-			Vehicle3,
-			Vehicle4,
-			Vehicle5,
-			Vehicle6,
+			RedCarToRight,
+			WhiteCarToRight,
+			TruckToRight,
+			RedCarToLeft,
+			WhiteCarToLeft,
+			TruckToLeft,
+			BusToLeft,
+			Boy,
+			Girl,
+			Police
 		};
 
 		enum class State {
@@ -39,11 +46,13 @@ namespace GEX {
 
 		unsigned int	getCategory() const override;
 		sf::FloatRect	getBoundingBox() const override;
-		float			getMaxSpeed() const;
 		virtual			void accelerate(sf::Vector2f velocity) override;
 
 		void			setState(State state);
+		bool			finishedDeadAnimation() const;
 		bool			isMarkedForRemoval() const override;
+		void			playLocalSound(CommandQueue& commands,
+										SoundEffectID effect);						// Plays the sound for specific action of the objects
 
 	private:
 		void			updateStates();

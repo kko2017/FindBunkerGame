@@ -5,7 +5,6 @@
 
 PauseState::PauseState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
-	, backgroundSprite_()
 	, pausedText_()
 	, instructionText_()
 {
@@ -31,6 +30,14 @@ PauseState::PauseState(GEX::StateStack & stack, Context context)
 	sf::Vector2f viewSize = context.window->getView().getSize();
 	pausedText_.setPosition(0.5f * viewSize.x, 0.4f * viewSize.y);
 	instructionText_.setPosition(0.5f * viewSize.x, 0.5f * viewSize.y);
+
+	context.music->setPaused(true);
+}
+
+// Destructor sets the false of paused method for music
+PauseState::~PauseState()
+{
+	getContext().music->setPaused(false);
 }
 
 void PauseState::draw()
@@ -61,11 +68,10 @@ bool PauseState::handleEvent(const sf::Event & event)
 	if (event.key.code == sf::Keyboard::Escape)
 		requestStackPop();
 
-	if (event.key.code == sf::Keyboard::BackSpace) {
+	if (event.key.code == sf::Keyboard::BackSpace) 
+	{
 		requestStackClear();
 		requestStackPush(GEX::StateID::Menu);
 	}
-
-
 	return false;
 }

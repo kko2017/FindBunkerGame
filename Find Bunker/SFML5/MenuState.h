@@ -1,9 +1,7 @@
 //
 //
 #pragma once
-
 #include "State.h"
-
 
 class MenuState : public GEX::State
 {
@@ -19,6 +17,7 @@ public:
 private:
 	enum OptionName {
 		Play = 0,
+		Score,
 		Exit
 	};
 
@@ -26,6 +25,5 @@ private:
 
 	std::vector<sf::Text>	options_;					// less than a size of text
 	std::size_t				optionsIndex_;				// index of array
-
 };
 

@@ -2,26 +2,42 @@
 
 namespace GEX {
 
-	enum class TextureID {
-	
+	enum class TextureID {	
 		Character,
-		Vehicle1,
-		Vehicle2,
-		Vehicle3,
-		Vehicle4,
-		Vehicle5,
-		Vehicle6,
+		City1,
+		Block,
+		Key,
+		Boy,
+		Girl,
+		Police,
+		RedCarToRight,
+		WhiteCarToRight,
+		TruckToRight,
+		RedCarToLeft,
+		WhiteCarToLeft,
+		TruckToLeft,
+		BusToLeft,
 		Bunker,
 		SignPost,
-		TitleScreen,		
-		Entities,
-		City1,
-		Explosion,
-		Particle,
-		FinishLine
+		TitleScreen,
+		IntroScreen,
+		ScoreScreen,
 	};
 
 	enum class FontID {
 		Main
+	};
+
+	enum class MusicID {			// Scoped enum class is made for specific identifiers in music Ids
+		MenuTheme,
+		MissionTheme
+	};
+
+	enum class SoundEffectID {		// Scoped enum class is made for specific identifiers in sound effect Ids
+		CharacterDead,
+		KnockBunker,
+		OpenBunker,
+		GetKey,
+		GetSignpost
 	};
 }

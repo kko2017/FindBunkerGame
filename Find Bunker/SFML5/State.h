@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "StateIdentifier.h"
 #include "CommandQueue.h"
+#include "MusicPlayer.h"
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -16,6 +17,7 @@ namespace GEX {
 	// forward declarations
 	class PlayerControl;
 	class StateStack;
+	class SoundPlayer;
 
 	class State
 	{
@@ -23,11 +25,17 @@ namespace GEX {
 		typedef std::unique_ptr<State> Ptr;
 		struct Context {
 
-			Context(sf::RenderWindow& window, TextureManager& textures, PlayerControl& player);
+			Context(sf::RenderWindow& window, 
+				TextureManager& textures, 
+				PlayerControl& player, 
+				MusicPlayer& music,
+				SoundPlayer& sound);
 
 			sf::RenderWindow*	window;
 			TextureManager*		textures;
 			PlayerControl*		player;
+			MusicPlayer*		music;
+			SoundPlayer*		sound;
 		};
 
 	public:

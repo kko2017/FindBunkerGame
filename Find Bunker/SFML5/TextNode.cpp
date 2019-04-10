@@ -6,7 +6,10 @@
 GEX::TextNode::TextNode(const std::string & text)
 {
 	text_.setFont(GEX::FontManager::getInstance().get(GEX::FontID::Main));
-	text_.setCharacterSize(20);
+	text_.setFillColor(sf::Color::White);
+	text_.setOutlineColor(sf::Color::Red);
+	text_.setOutlineThickness(3.5f);
+	text_.setCharacterSize(50);
 	setText(text);
 }
 

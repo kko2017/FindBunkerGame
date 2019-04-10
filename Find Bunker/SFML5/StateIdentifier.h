@@ -10,6 +10,8 @@ namespace GEX
 		Game,
 		Pause,
 		GameOver,
+		Intro,
+		Score,
 		None
 	};
 }

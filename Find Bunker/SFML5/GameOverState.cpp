@@ -6,6 +6,7 @@
 GameOverState::GameOverState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, gameOverText_()
+	, text_()
 	, elapsedTime_(sf::Time::Zero)
 {
 	sf::Font& font = GEX::FontManager::getInstance().get(GEX::FontID::Main);
@@ -21,9 +22,15 @@ GameOverState::GameOverState(GEX::StateStack & stack, Context context)
 		gameOverText_.setString("Mission Success");
 	}
 
-	gameOverText_.setCharacterSize(70);
+	gameOverText_.setCharacterSize(150);
 	centerOrigin(gameOverText_);
-	gameOverText_.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
+	gameOverText_.setPosition(0.5f * windowSize.x, 0.45f * windowSize.y);
+
+	text_.setFont(font);
+	text_.setCharacterSize(50);
+	text_.setString("Press any key to score board");
+	centerOrigin(text_);
+	text_.setPosition(1000.f, 1000.f);
 
 }
 
@@ -38,14 +45,15 @@ void GameOverState::draw()
 
 	window.draw(backgroundShape);
 	window.draw(gameOverText_);
+	window.draw(text_);
 }
 
 bool GameOverState::update(sf::Time dt)
 {
 	elapsedTime_ += dt;
-	if (elapsedTime_ > sf::seconds(3)) {
+	if (elapsedTime_ > sf::seconds(1.f)) {
 		requestStackClear();
-		requestStackPush(GEX::StateID::Menu);
+		requestStackPush(GEX::StateID::Score);
 	}
 
 	return false;
