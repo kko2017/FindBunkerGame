@@ -232,7 +232,7 @@ namespace GEX
 
 		std::unique_ptr<DynamicObjects> boy2(new DynamicObjects(DynamicObjects::Type::Boy, textures_));
 		boy2->setPosition(985.f, 930.f);
-		sceneLayers_[LowerField]->attachChild(std::move(boy2));
+		sceneLayers_[UpperField]->attachChild(std::move(boy2));
 	}
 
 	void World::addGirls(DynamicObjects::Type type)
