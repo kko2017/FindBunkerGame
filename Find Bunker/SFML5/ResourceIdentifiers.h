@@ -4,6 +4,12 @@ namespace GEX {
 
 	enum class TextureID {	
 		Character,
+		City1,
+		Block,
+		Key,
+		Boy,
+		Girl,
+		Police,
 		RedCarToRight,
 		WhiteCarToRight,
 		TruckToRight,
@@ -13,10 +19,9 @@ namespace GEX {
 		BusToLeft,
 		Bunker,
 		SignPost,
-		TitleScreen,		
-		City1,
-		Block,
-		Key
+		TitleScreen,
+		IntroScreen,
+		ScoreScreen,
 	};
 
 	enum class FontID {

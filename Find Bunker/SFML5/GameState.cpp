@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <fstream>
+#include <ctime>
 
 GameState::GameState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
@@ -27,16 +28,19 @@ bool GameState::update(sf::Time dt)
 		{
 			player_.setMissionStatus(GEX::MissionStatus::MissionFailure);
 			requestStackPush(GEX::StateID::GameOver);
+			return false;
 		}
 		else
 		{
 			world_.addCharacter();
 		}
 	}
-	else if (world_.winGame()) {
+	else if (world_.winGame()) 
+	{
 		saveRecord();
 		player_.setMissionStatus(GEX::MissionStatus::MissionSuccess);
 		requestStackPush(GEX::StateID::GameOver);
+		return false;
 	}
 
 	player_.handleRealtimeInput(commands);
@@ -59,7 +63,20 @@ bool GameState::handleEvent(const sf::Event & event)
 
 void GameState::saveRecord()
 {
-	std::vector<int> records;
+	
+	// get current date
+	std::time_t now;
+	struct tm timeInfo;
+	char buffer[20];
+
+	time(&now);
+	localtime_s(&timeInfo, &now);
+
+	strftime(buffer, 20, "%m-%d-%Y", &timeInfo);
+	std::string str(buffer);
+
+	// get socres
+	std::vector<std::string> records;
 
 	std::ifstream is;
 	std::string record = "";
@@ -69,23 +86,33 @@ void GameState::saveRecord()
 
 	while (std::getline(is, record))
 	{
-		int tmp = std::stoi(record);
-		records.push_back(tmp);
+		records.push_back(record);
 	}
 
 	is.close();
 
-	records.push_back(world_.getFinalElapsedTime());
-	std::sort(records.begin(), records.end());
-
-	std::remove(fileName.c_str());
-
-	std::ofstream outFile(fileName, std::ios::app);
-	for (int i = 0; i < 10; i++)
+	static std::string tmp = "";
+	if (tmp != std::to_string(world_.getFinalElapsedTime()) + "sec     " + str)
 	{
-		std::string tmp = std::to_string(records[i]);
-		outFile << tmp << std::endl;
+		tmp = "";
 	}
 
-	outFile.close();
+	if (tmp == "")
+	{
+		tmp = std::to_string(world_.getFinalElapsedTime()) + "sec     " + str;
+		records.push_back(tmp);
+		std::sort(records.begin(), records.end());
+
+		std::remove(fileName.c_str());
+
+		std::ofstream outFile(fileName, std::ios::app);
+		for (int i = 0; i < records.size(); i++)
+		{
+			std::string tmp = records[i];
+			outFile << tmp << std::endl;
+		}
+
+		records.clear();
+		outFile.close();
+	}
 }

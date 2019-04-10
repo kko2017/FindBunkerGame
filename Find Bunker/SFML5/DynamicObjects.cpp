@@ -36,6 +36,11 @@ namespace GEX {
 			state_ = State::Drive;
 		}
 
+		if (DynamicObjects::getCategory() == Category::Type::People)
+		{
+			state_ = State::Up;
+		}
+
 		sprite_.setTextureRect(sf::IntRect());
 		centerOrigin(sprite_);
 	}
@@ -55,6 +60,11 @@ namespace GEX {
 		case Type::TruckToLeft:
 		case Type::BusToLeft:
 			return Category::Vehicle;
+			break;
+		case Type::Boy:
+		case Type::Girl:
+		case Type::Police:
+			return Category::People;
 			break;
 		}
 		return Category::None;

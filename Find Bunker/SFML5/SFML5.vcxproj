@@ -30,12 +30,14 @@
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="IntroState.cpp" />
     <ClCompile Include="JsonFrameParser.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PlayerControl.cpp" />
     <ClCompile Include="SceneNode.cpp" />
+    <ClCompile Include="ScoreState.cpp" />
     <ClCompile Include="SoundNode.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -62,6 +64,7 @@
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameOverState.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IntroState.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonFrameParser.h" />
     <ClInclude Include="MenuState.h" />
@@ -70,6 +73,7 @@
     <ClInclude Include="PlayerControl.h" />
     <ClInclude Include="ResourceIdentifiers.h" />
     <ClInclude Include="SceneNode.h" />
+    <ClInclude Include="ScoreState.h" />
     <ClInclude Include="SoundNode.h" />
     <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="SpriteNode.h" />

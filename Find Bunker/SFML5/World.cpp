@@ -58,7 +58,7 @@ namespace GEX
 	{
 		updateTimer(dt);
 
-		if (character_->isAlive())
+		if (!character_->isDestroyed())
 		{
 			checkGameTimeOver();
 			character_->setVelocity(0.f, 0.f);
@@ -224,6 +224,39 @@ namespace GEX
 		}
 	}
 
+	void World::addBoys(DynamicObjects::Type type)
+	{
+		std::unique_ptr<DynamicObjects> boy1(new DynamicObjects(DynamicObjects::Type::Boy, textures_));
+		boy1->setPosition(1255.f, 170.f);
+		sceneLayers_[LowerField]->attachChild(std::move(boy1));
+
+		std::unique_ptr<DynamicObjects> boy2(new DynamicObjects(DynamicObjects::Type::Boy, textures_));
+		boy2->setPosition(985.f, 930.f);
+		sceneLayers_[LowerField]->attachChild(std::move(boy2));
+	}
+
+	void World::addGirls(DynamicObjects::Type type)
+	{
+		std::unique_ptr<DynamicObjects> girl1(new DynamicObjects(DynamicObjects::Type::Girl, textures_));
+		girl1->setPosition(600.f, 680.f);
+		sceneLayers_[LowerField]->attachChild(std::move(girl1));
+
+		std::unique_ptr<DynamicObjects> girl2(new DynamicObjects(DynamicObjects::Type::Girl, textures_));
+		girl2->setPosition(1720.f, 1150.f);
+		sceneLayers_[LowerField]->attachChild(std::move(girl2));
+	}
+
+	void World::addPoliceOfficers(DynamicObjects::Type type)
+	{
+		std::unique_ptr<DynamicObjects> police1(new DynamicObjects(DynamicObjects::Type::Police, textures_));
+		police1->setPosition(230.f, 500.f);
+		sceneLayers_[LowerField]->attachChild(std::move(police1));
+
+		std::unique_ptr<DynamicObjects> police2(new DynamicObjects(DynamicObjects::Type::Police, textures_));
+		police2->setPosition(1610.f, 500.f);
+		sceneLayers_[LowerField]->attachChild(std::move(police2));
+	}
+
 	sf::FloatRect World::getViewBounds() const
 	{
 		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize() / 2.f), worldView_.getSize());
@@ -376,6 +409,14 @@ namespace GEX
 		}
 	}
 
+	void World::handlePeopleCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
+	{
+		if (matchesCategories(colliders, type1, type2))
+		{
+			noPassing(colliders);
+		}
+	}
+
 	void World::handleCollisions()
 	{
 		// build a list of colliding pairs of SceneNodes
@@ -388,6 +429,7 @@ namespace GEX
 			handleVehicleCollision(pair, Category::Type::Character, Category::Type::Vehicle);
 			handleBunkerCollision(pair, Category::Type::Character, Category::Type::Bunker);
 			handleKeyCollision(pair, Category::Type::Character, Category::Type::Key);
+			handlePeopleCollision(pair, Category::Type::Character, Category::Type::People);
 		}
 	}
 
@@ -452,7 +494,9 @@ namespace GEX
 		textures_.load(GEX::TextureID::BusToLeft, "Media/Textures/bus2.png");
 		textures_.load(GEX::TextureID::Block, "Media/Textures/Block1.jpg");
 		textures_.load(GEX::TextureID::Key, "Media/Textures/key.png");
-		
+		textures_.load(GEX::TextureID::Boy, "Media/Textures/boy.png");	
+		textures_.load(GEX::TextureID::Girl, "Media/Textures/girl.png");	
+		textures_.load(GEX::TextureID::Police, "Media/Textures/policeman.png");	
 	}
 	
 	void World::buildScene() {
@@ -490,6 +534,11 @@ namespace GEX
 
 		// add SignPost
 		addSignpost();		
+
+		// add People
+		addBoys(DynamicObjects::Type::Boy);
+		addGirls(DynamicObjects::Type::Girl);
+		addPoliceOfficers(DynamicObjects::Type::Police);
 	}
 }
 

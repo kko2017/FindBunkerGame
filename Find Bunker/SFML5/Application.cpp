@@ -1,8 +1,10 @@
 #include "Application.h"
 #include "State.h"
 #include "GameState.h"
+#include "ScoreState.h"
 #include "TitleState.h"
 #include "MenuState.h"
+#include "IntroState.h"
 #include "PauseState.h"
 #include "GameOverState.h"
 #include "FontManager.h"
@@ -18,7 +20,9 @@ Application::Application()
 	window_.setKeyRepeatEnabled(false);			//prevent user from keep pressing repeatedly
 	
 	GEX::FontManager::getInstance().load(GEX::FontID::Main,"Media/Sansation.ttf");
-	textures_.load(GEX::TextureID::TitleScreen, "Media/Textures/intro.jpg");
+	textures_.load(GEX::TextureID::TitleScreen, "Media/Textures/Title.jpg");
+	textures_.load(GEX::TextureID::IntroScreen, "Media/Textures/Intro.png");
+	textures_.load(GEX::TextureID::ScoreScreen, "Media/Textures/Rank.png");
 
 	registerStates();
 	stateStack_.pushState(GEX::StateID::Title);
@@ -77,9 +81,11 @@ void Application::render()
 void Application::registerStates()
 {
 	stateStack_.registerState<TitleState>(GEX::StateID::Title);
+	stateStack_.registerState<IntroState>(GEX::StateID::Intro);
 	stateStack_.registerState<MenuState>(GEX::StateID::Menu);
 	stateStack_.registerState<GameState>(GEX::StateID::Game);
 	stateStack_.registerState<PauseState>(GEX::StateID::Pause);
+	stateStack_.registerState<ScoreState>(GEX::StateID::Score);
 	stateStack_.registerState<GameOverState>(GEX::StateID::GameOver);
 }
 

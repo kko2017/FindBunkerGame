@@ -32,6 +32,33 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setDuration(sf::seconds(1.f));
 	data[DynamicObjects::Type::Character].animations[DynamicObjects::State::Dead].setRepeating(false);
 
+	// set the Boy's data
+	data[DynamicObjects::Type::Boy].texture = TextureID::Boy;
+
+	frames = JsonFrameParser("Media/Textures/boy.json");
+
+	data[DynamicObjects::Type::Boy].animations[DynamicObjects::State::Up].addFrameSet(frames.getFramesFor("up"));
+	data[DynamicObjects::Type::Boy].animations[DynamicObjects::State::Up].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Boy].animations[DynamicObjects::State::Up].setRepeating(true);
+
+	// set the Girl's data
+	data[DynamicObjects::Type::Girl].texture = TextureID::Girl;
+
+	frames = JsonFrameParser("Media/Textures/girl.json");
+
+	data[DynamicObjects::Type::Girl].animations[DynamicObjects::State::Up].addFrameSet(frames.getFramesFor("up"));
+	data[DynamicObjects::Type::Girl].animations[DynamicObjects::State::Up].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Girl].animations[DynamicObjects::State::Up].setRepeating(true);
+
+	// set the Police Officer's data
+	data[DynamicObjects::Type::Police].texture = TextureID::Police;
+
+	frames = JsonFrameParser("Media/Textures/policeman.json");
+
+	data[DynamicObjects::Type::Police].animations[DynamicObjects::State::Up].addFrameSet(frames.getFramesFor("up"));
+	data[DynamicObjects::Type::Police].animations[DynamicObjects::State::Up].setDuration(sf::seconds(1.f));
+	data[DynamicObjects::Type::Police].animations[DynamicObjects::State::Up].setRepeating(true);
+
 
 	// set the RedCarToRight's data
 	data[DynamicObjects::Type::RedCarToRight].texture = TextureID::RedCarToRight;

@@ -4,13 +4,12 @@
 // manage game resoures
 
 #pragma once
-#include <map>	   // container
-#include <memory> // for using smart pointer 
+#include <map>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "ResourceIdentifiers.h"
 
 namespace GEX {
-
 	
 	class TextureManager
 	{
@@ -25,4 +24,3 @@ namespace GEX {
 		std::map<TextureID, std::unique_ptr<sf::Texture>>	textures_;
 	};
 }
-

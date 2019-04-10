@@ -15,6 +15,7 @@ public:
 
 private:
 	sf::Text		gameOverText_;
+	sf::Text		text_;
 	sf::Time		elapsedTime_;
 };
 

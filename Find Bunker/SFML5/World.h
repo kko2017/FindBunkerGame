@@ -58,6 +58,10 @@ namespace GEX {
 		void								addBlock(StaticObjects::Type type, float x, float y);
 		void								addBlocks();
 		void								spawnBlocks();
+		void								addBoys(DynamicObjects::Type type);
+		void								addGirls(DynamicObjects::Type type);
+		void								addPoliceOfficers(DynamicObjects::Type type);
+
 		
 		sf::FloatRect						getViewBounds() const;
 		sf::FloatRect						getFieldBounds() const;						
@@ -69,6 +73,7 @@ namespace GEX {
 		void								handleVehicleCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleBunkerCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleKeyCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+		void								handlePeopleCollision(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
 		void								handleCollisions();
 
 		

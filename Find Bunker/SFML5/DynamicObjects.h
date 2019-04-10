@@ -25,7 +25,10 @@ namespace GEX {
 			RedCarToLeft,
 			WhiteCarToLeft,
 			TruckToLeft,
-			BusToLeft
+			BusToLeft,
+			Boy,
+			Girl,
+			Police
 		};
 
 		enum class State {
