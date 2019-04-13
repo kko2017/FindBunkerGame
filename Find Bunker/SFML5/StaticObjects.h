@@ -42,7 +42,7 @@ namespace GEX {
 	class StaticObjects : public Entity
 	{
 	public:
-		enum class Type {
+		enum class Type {						// Scoped enumeration class is for specific identifier in the type of the objects
 			Signpost,
 			Bunker,
 			Key,
@@ -60,17 +60,18 @@ namespace GEX {
 		};
 
 	public:
-												StaticObjects(Type type, const TextureManager& textures);
-												~StaticObjects() = default;
+												StaticObjects(Type type, const TextureManager& textures);	// constuctor that passes the type and the textures
+												~StaticObjects() = default;									// default destructor
 		
-		unsigned int							getCategory() const override;
-		sf::FloatRect							getBoundingBox() const override;
+		unsigned int							getCategory() const override;								// get category type by the state type
+		sf::FloatRect							getBoundingBox() const override;							// get the bounding box of the objects
 
-		std::vector<std::pair<float, float>>	getObjectPosition();
+		std::vector<std::pair<float, float>>	getObjectPosition();										// getter for the position of the static object
 
 
 	private:
-		void									drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void									drawCurrent(sf::RenderTarget& target,						// draw the current object
+																sf::RenderStates states) const override;
 
 	private:
 		Type									type_;

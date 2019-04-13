@@ -40,19 +40,19 @@
 
 namespace GEX {
 
-	struct DynamicObjectsData {
+	struct DynamicObjectsData {										// this struct holds the data of Dynamic Objects
 		TextureID	texture;
 		sf::IntRect textureRect;
 
 		std::map<DynamicObjects::State, Animation2> animations;
 	};
 
-	struct StaticObjectData {
+	struct StaticObjectData {										// this struct holds the data of Static Objects
 		TextureID	texture;
 		sf::IntRect textureRect;
 	};
 
-	struct SpawnData {
+	struct SpawnData {												// this struct give the information of spawning objects
 		DynamicObjects::Type type;
 		sf::Time			 time;
 		float				 x;
@@ -60,15 +60,15 @@ namespace GEX {
 		float				 speed;
 	};
 
-	struct SpawnBlockData {
+	struct SpawnBlockData {											// this struct give the information of spawning blocks
 		StaticObjects::Type type;
 		float				x;
 		float				y;
 	};
 
-	std::map<DynamicObjects::Type, DynamicObjectsData>	initializeDynamicObjectsData();
-	std::map<StaticObjects::Type, StaticObjectData>		initializeStaticObjectsData();
-	std::vector<SpawnData>								initializeSpawnData();
-	std::vector<SpawnBlockData>							initializeSpawnBlockData();
+	std::map<DynamicObjects::Type, DynamicObjectsData>	initializeDynamicObjectsData();	// this method initializes the dynamic object data
+	std::map<StaticObjects::Type, StaticObjectData>		initializeStaticObjectsData();	// this method initializes the static object data
+	std::vector<SpawnData>								initializeSpawnData();			// this method initializes the spawining object data
+	std::vector<SpawnBlockData>							initializeSpawnBlockData();		// this method initializes the spawining block data
 }
 

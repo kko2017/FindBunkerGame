@@ -47,24 +47,24 @@ using Frame = sf::IntRect;
 namespace GEX {
 
 	class Animation2{
-	public:
-		explicit Animation2(bool repeat = true);
+	public:																		
+		explicit Animation2(bool repeat = true);								// Constructor has the boolean repeat as a parameter
 
-		void						addFrame(Frame frame);
-		void						addFrameSet(std::vector<Frame> frames);
+		void						addFrame(Frame frame);						// Add frames
+		void						addFrameSet(std::vector<Frame> frames);		// Add frameset
 
-		void						setDuration(sf::Time duration);
-		sf::Time					getDuration() const;
+		void						setDuration(sf::Time duration);				// Setter of duration
+		sf::Time					getDuration() const;						// Getter of duration
 
-		void						setRepeating(bool flag);
-		bool						isRepeating() const;
+		void						setRepeating(bool flag);					// set repeating animation
+		bool						isRepeating() const;						// checks if the animation needs to be repeating
 
-		void						restart();
-		bool						isFinished() const;
+		void						restart();									// Restart the animation
+		bool						isFinished() const;							// Checks if the animation is finished
 
-		Frame						getCurrentFrame() const;		
+		Frame						getCurrentFrame() const;					// Getter for current frame
 
-		Frame						update(sf::Time dt);
+		Frame						update(sf::Time dt);						// Update it following sf::Time
 	
 	private:
 

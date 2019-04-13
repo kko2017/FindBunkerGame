@@ -35,15 +35,15 @@
 
 #include "State.h"
 
-class PauseState : public GEX::State
+class PauseState : public GEX::State										// and this class inherits from State class
 {
 public:
-					PauseState(GEX::StateStack& stack, Context context);
-					~PauseState();											
+					PauseState(GEX::StateStack& stack, Context context);	// Constructor has StateStack by reference and Context as a parameter
+					~PauseState();											// Destructor sets the false of paused method for music
 	void			draw() override;
-	bool			update(sf::Time dt) override;
-	bool			handleEvent(const sf::Event& event) override;
-
+	bool			update(sf::Time dt) override;							 // Draw function sets the current view
+	bool			handleEvent(const sf::Event& event) override;			 // Update function controls world scrolling and entity movement
+																			 // HandleEvent function handles events 
 private:
 	sf::Text		pausedText_;
 	sf::Text		instructionText_;

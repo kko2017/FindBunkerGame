@@ -35,6 +35,7 @@
 
 namespace Category
 {
+	// This scoped enumeration is for unique identifier in each categorized types. 
 	enum Type
 	{
 		None			 = 0,

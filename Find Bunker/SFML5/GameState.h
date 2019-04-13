@@ -37,16 +37,16 @@
 #include "World.h"
 #include "PlayerControl.h"
 
-class GameState : public GEX::State
+class GameState : public GEX::State									// inherits from the State class
 {
 public:
-	GameState(GEX::StateStack& stack, Context context);
-	
-	void			draw() override;
-	bool			update(sf::Time dt) override;
-	bool			handleEvent(const sf::Event& event) override;
+	GameState(GEX::StateStack& stack, Context context);				// Constructor containing StateStack by reference and Context as parameters
 
-	void			saveRecord();
+	void			draw() override;								// draw function overriding State draw member function sets the world view
+	bool			update(sf::Time dt) override;					// update function updates update of world and real time input of playerControl
+	bool			handleEvent(const sf::Event& event) override;	// this function handles pause events when pressing esc on the keyboard
+
+	void			saveRecord();									// function that updates the score
 
 private:
 	GEX::World world_;

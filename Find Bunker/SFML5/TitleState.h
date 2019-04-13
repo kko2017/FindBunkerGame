@@ -33,14 +33,14 @@
 #pragma once
 #include "State.h"
 
-class TitleState : public GEX::State
+class TitleState : public GEX::State											// inherits from the State class
 {
 public:
-	TitleState(GEX::StateStack& stack, Context context);
+	TitleState(GEX::StateStack& stack, Context context);						// Constructor containing StateStack by reference and Context as parameters
 
-	void						draw() override;
-	bool						update(sf::Time dt) override;
-	bool						handleEvent(const sf::Event& event) override;
+	void						draw() override;								// draw function overriding draw member function of State class draws the current view
+	bool						update(sf::Time dt) override;					// update function makes the text flickering 
+	bool						handleEvent(const sf::Event& event) override;	// this function handles events when pressing any buttons
 
 private:
 	sf::Sprite					backgroundSprite_;

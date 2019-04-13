@@ -33,15 +33,15 @@
 #pragma once
 #include "State.h"
 
-class GameOverState : public GEX::State
+class GameOverState : public GEX::State									// inherits from the State class
 {
 public:
-	GameOverState(GEX::StateStack& stack, Context context);
+	GameOverState(GEX::StateStack& stack, Context context);				// Constructor containing StateStack by reference and Context as parameters
 
 
-	void			draw() override;
-	bool	update(sf::Time dt) override;
-	bool			handleEvent(const sf::Event& event) override;
+	void			draw() override;									// draw function overriding State draw member function sets the world view
+	bool	update(sf::Time dt) override;								// update function updates update of world and real time input of playerControl
+	bool			handleEvent(const sf::Event& event) override;		// the handle event function
 
 private:
 	sf::Text		gameOverText_;

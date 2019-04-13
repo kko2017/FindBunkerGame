@@ -36,7 +36,7 @@
 namespace GEX
 {
 
-	enum class StateID
+	enum class StateID		// StateID enum class is scoped enumeration for a unique identifier in each state
 	{
 		Title,
 		Menu,

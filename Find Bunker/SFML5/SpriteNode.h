@@ -38,14 +38,15 @@
 
 namespace GEX {
 
-	class SpriteNode : public SceneNode
+	class SpriteNode : public SceneNode												// inherits from SceneNode
 	{
 	public:
-		explicit		SpriteNode(const sf::Texture& texture);
-		SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);
+		explicit		SpriteNode(const sf::Texture& texture);						// explicit constructor having constant Texture by reference as a parameter		
+		SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);		// constructor having constant Texture by reference and constant IntRect by reference as paramters
 
 	private:
-		virtual void	drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void	drawCurrent(sf::RenderTarget& target,
+								sf::RenderStates states) const override;			// this function overriding drawCurrent of SceneNode draws current scene of sprite
 
 	private:
 		sf::Sprite		sprite_;

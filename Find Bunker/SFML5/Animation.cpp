@@ -34,7 +34,7 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
-
+// Default constructor initiallizes the member variables
 GEX::Animation::Animation()
 	: sprite_()
 	, frameSize_()
@@ -45,6 +45,7 @@ GEX::Animation::Animation()
 	, repeat_(false)
 {}
 
+// Copy constructor initiallizes the member variables
 GEX::Animation::Animation(const sf::Texture & texture)
 	: sprite_(texture)
 	, frameSize_()
@@ -55,76 +56,79 @@ GEX::Animation::Animation(const sf::Texture & texture)
 	, repeat_(false)
 {}
 
-void GEX::Animation::setTexture(const sf::Texture & texture)
-{
-	sprite_.setTexture(texture);
-}
-
-const sf::Texture * GEX::Animation::getTexture() const
-{
-	return sprite_.getTexture();
-}
-
+// Setter of the frame size
 void GEX::Animation::setFrameSize(sf::Vector2i frameSize)
 {
 	frameSize_ = frameSize;
 }
 
+// Getter of the frame size
 sf::Vector2i GEX::Animation::getFrameSize() const
 {
 	return frameSize_;
 }
 
+// Setter of the number of frames
 void GEX::Animation::setNumFrames(std::size_t numFrames)
 {
 	numberOfFrames_ = numFrames;
 }
 
+// Getter of the number of frames
 std::size_t GEX::Animation::getNumFrames() const
 {
 	return numberOfFrames_;
 }
 
+// Setter of the duration
 void GEX::Animation::setDuration(sf::Time duration)
 {
 	duration_ = duration;
 }
 
+// Getter of the duration
 sf::Time GEX::Animation::getDuration() const
 {
 	return duration_;
 }
 
+// Set repeating animation
 void GEX::Animation::setRepeating(bool flag)
 {
 	repeat_ = flag;
 }
 
+// if the animation of the entity is repeating, then it is ture
 bool GEX::Animation::isRepeating() const
 {
 	return repeat_;
 }
 
+// Restart the animation
 void GEX::Animation::restart()
 {
 	currentFrame_ = 0;
 }
 
+// Checks whether or not game is finished
 bool GEX::Animation::isFinished() const
 {
 	return currentFrame_ >= numberOfFrames_;
 }
 
+// Get local bounds of animation
 sf::FloatRect GEX::Animation::getLocalBounds() const
 {
 	return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(getFrameSize()));
 }
 
+// Get global bounds of animation
 sf::FloatRect GEX::Animation::getGlobalBounds() const
 {
 	return getTransform().transformRect(getLocalBounds());
 }
 
+// Update the animation
 void GEX::Animation::update(sf::Time dt)
 {
 	sf::Time timePerFrame = duration_ / static_cast<float>(numberOfFrames_);
@@ -162,6 +166,7 @@ void GEX::Animation::update(sf::Time dt)
 
 }
 
+// This draw method is overriden by draw() in sf::Drawable
 void GEX::Animation::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();

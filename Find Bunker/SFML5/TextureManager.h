@@ -41,11 +41,11 @@ namespace GEX {
 	class TextureManager
 	{
 	public:
-		TextureManager();
-		~TextureManager();
+		TextureManager();														// default constructor			
+		~TextureManager();														// default destructor
 
-		void				load(TextureID id, const std::string& path);   // no need to copy string thats why use &.
-		sf::Texture&		get(TextureID id) const;
+		void				load(TextureID id, const std::string& path);   		// this function loads textures
+		sf::Texture&		get(TextureID id) const;							// this function gets textures
 
 	private:
 		std::map<TextureID, std::unique_ptr<sf::Texture>>	textures_;

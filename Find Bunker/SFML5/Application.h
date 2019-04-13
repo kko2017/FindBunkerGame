@@ -47,16 +47,16 @@
 class Application
 {
 public:
-								Application();
-	void						run();
+								Application();					// Default constructor	
+	void						run();							// Run the game
 
 private:
 
 	void						processInput();
-	void						update(sf::Time deltaTime);
-	void						render();
-	void						registerStates();
-
+	void						update(sf::Time deltaTime);		// Process pending events
+	void						render();						// Update the game logic by the delta time
+	void						registerStates();				// Render the window
+																// Register States
 private:
 	static const sf::Time		TIMEPERFRAME;
 

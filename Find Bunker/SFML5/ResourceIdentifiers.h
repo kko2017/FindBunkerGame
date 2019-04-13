@@ -35,7 +35,7 @@
 
 namespace GEX {
 
-	enum class TextureID {	
+	enum class TextureID {			// Scoped enum class is made for specific identifiers in texture Ids
 		Character,
 		City1,
 		Block,
@@ -57,7 +57,7 @@ namespace GEX {
 		ScoreScreen,
 	};
 
-	enum class FontID {
+	enum class FontID {				// Scoped enum class is made for specific identifiers in font Id
 		Main
 	};
 

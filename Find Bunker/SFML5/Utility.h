@@ -40,6 +40,7 @@ namespace sf {
 	class Text;
 }
 
+// this function makes origins of Sprite, Text, and animation centered
 void centerOrigin(sf::Sprite& sprite);
 void centerOrigin(sf::Text& text);
 void centerOrigin(GEX::Animation& animation);

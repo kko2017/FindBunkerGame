@@ -48,9 +48,9 @@ namespace GEX {
 	class SoundPlayer
 	{
 	public:
-		SoundPlayer();										// Default Constructor
-		~SoundPlayer() = default;							// Default Destructor
-		SoundPlayer(const SoundPlayer&) = delete;			// Delete the copy constructor
+		SoundPlayer();																// Default Constructor
+		~SoundPlayer() = default;													// Default Destructor
+		SoundPlayer(const SoundPlayer&) = delete;									// Delete the copy constructor
 		SoundPlayer&			operator=(const SoundPlayer&) = delete;				// Delete the operator= of the copy constructor
 
 		void					play(SoundEffectID effect);							// set up the play of the sound

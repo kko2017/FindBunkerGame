@@ -42,37 +42,35 @@
 
 namespace GEX {
 
-	class Animation : public sf::Drawable, public sf::Transformable
+	class Animation : public sf::Drawable, public sf::Transformable				// Inherits from the drawable, the transformable
 	{
 	public:
-									Animation();
-									Animation(const sf::Texture& texture);
+		Animation();															// Default constructor	
+		Animation(const sf::Texture& texture);									// Copy constructor
 
-		void						setTexture(const sf::Texture& texture);
-		const sf::Texture*			getTexture() const;
+		void						setFrameSize(sf::Vector2i frameSize);		// Setter of the frame size
+		sf::Vector2i				getFrameSize() const;						// Getter of the frame size
 
-		void						setFrameSize(sf::Vector2i frameSize);
-		sf::Vector2i				getFrameSize() const;
+		void						setNumFrames(std::size_t numFrames);		// Setter of the number of frames
+		std::size_t					getNumFrames() const;						// Getter of the number of frames
 
-		void						setNumFrames(std::size_t numFrames);
-		std::size_t					getNumFrames() const;
+		void						setDuration(sf::Time duration);				// Setter of the duration
+		sf::Time					getDuration() const;						// Getter of the duration
 
-		void						setDuration(sf::Time duration);
-		sf::Time					getDuration() const;
+		void						setRepeating(bool flag);					// Set repeating animation
+		bool						isRepeating() const;						// if the animation of the entity is repeating, then it is tur
 
-		void						setRepeating(bool flag);
-		bool						isRepeating() const;
+		void						restart();									// Restart the animation
+		bool						isFinished() const;							// Checks whether or not game is finished
 
-		void						restart();
-		bool						isFinished() const;
+		sf::FloatRect				getLocalBounds() const;						// Get local bounds of animation
+		sf::FloatRect				getGlobalBounds() const;					// Get global bounds of animation
 
-		sf::FloatRect				getLocalBounds() const;
-		sf::FloatRect				getGlobalBounds() const;
-
-		void						update(sf::Time dt);
+		void						update(sf::Time dt);						// Update the animation
 
 	private:
-		void						draw(sf::RenderTarget& target, sf::RenderStates states) const override; // override draw() in sf::Drawable
+		void						draw(sf::RenderTarget& target,
+									sf::RenderStates states) const override; 	// This draw method is overriden by draw() in sf::Drawable
 
 	private:
 		sf::Sprite					sprite_;

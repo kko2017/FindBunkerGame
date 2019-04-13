@@ -44,14 +44,14 @@ namespace GEX {
 	// forward declartion
 	class CommandQueue;
 
-	enum class Action {
+	enum class Action {				// Scoped enum class is made for specific identifiers in actions
 		MoveLeft,
 		MoveRight,
 		MoveUp,
 		MoveDown,
 	};
 
-	enum class MissionStatus {
+	enum class MissionStatus {		// Scoped enum class is made for specific identifiers in mission status
 		MissionRunning,
 		MissionSuccess,
 		MissionFailure
@@ -61,18 +61,22 @@ namespace GEX {
 	class PlayerControl
 	{
 	public:
-						PlayerControl();
+						PlayerControl();												// Default Constructor			
 
-		void			handleEvent(const sf::Event& event, CommandQueue& commands);
-		void			handleRealtimeInput(CommandQueue& commands);
+		void			handleEvent(const sf::Event& event, CommandQueue& commands);	// handleEvent function reacts SFML events
+																						// Event by reference passes the original one to the ins
+																						// so, if I change the instance of Event, the original one is also changed.
+																						// Reference prevents from creating unnecessary copy.
 
-		void			setMissionStatus(MissionStatus status);
-		MissionStatus	getMissionStatus() const;
+		void			handleRealtimeInput(CommandQueue& commands);					// handleRealTimeInput function handles real-time input
+
+		void			setMissionStatus(MissionStatus status);							// Setter for mission status
+		MissionStatus	getMissionStatus() const;										// Getter for mission status
 
 	private:
-		void			initializeAction();
-		static bool		isRealTimeAction(Action action);
-	
+		void			initializeAction();												// intializeAction function sets all movements
+		static bool		isRealTimeAction(Action action);								// isRealTimeAction checks real-time action
+																						
 	private:
 		std::map<sf::Keyboard::Key, Action>		keyBindings_;
 		std::map<Action, Command>				actionBindings_;

@@ -49,7 +49,7 @@ namespace GEX {
 	class DynamicObjects : public Entity
 	{
 	public:
-		enum class Type
+		enum class Type															// Scoped enumeration class is for specific identifier in the type of the objects
 		{
 			Character,
 			RedCarToRight,
@@ -64,7 +64,7 @@ namespace GEX {
 			Police
 		};
 
-		enum class State {
+		enum class State {														// Scoped enumeration class is for specific identifier in the state of the objects
 			Up,
 			Down,
 			Left,
@@ -74,24 +74,26 @@ namespace GEX {
 		};
 
 	public:
-		DynamicObjects(Type type, const TextureManager& textures);
-		~DynamicObjects() = default;
+		DynamicObjects(Type type, const TextureManager& textures);				// constuctor that passes the type and the textures
+		~DynamicObjects() = default;											// default destructor
 
-		unsigned int	getCategory() const override;
-		sf::FloatRect	getBoundingBox() const override;
-		virtual			void accelerate(sf::Vector2f velocity) override;
+		unsigned int	getCategory() const override;							// get category type by the state type
+		sf::FloatRect	getBoundingBox() const override;						// get the bounding box of the objects
+		virtual			void accelerate(sf::Vector2f velocity) override;		// set acceleration of the velocity of the objects
 
-		void			setState(State state);
-		bool			finishedDeadAnimation() const;
-		bool			isMarkedForRemoval() const override;
+		void			setState(State state);									// set the state of the objects
+		bool			finishedDeadAnimation() const;							// checks whether the death animation is finished
+		bool			isMarkedForRemoval() const override;					// checks whether the objects is marked for removal
 		void			playLocalSound(CommandQueue& commands,
-										SoundEffectID effect);						// Plays the sound for specific action of the objects
+										SoundEffectID effect);					// Plays the sound for specific action of the objects
 
 	private:
-		void			updateStates();
-		void			updateCurrent(sf::Time dt, GEX::CommandQueue& commands) override;
-		void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
-
+		void			updateStates();											// update the states of the objects 
+		void			updateCurrent(sf::Time dt,
+						GEX::CommandQueue& commands) override;					// update the current events of the objects
+		void			drawCurrent(sf::RenderTarget& target,
+						sf::RenderStates states) const override;				// draw the current object
+																	
 	private:
 		Type										type_;
 		State										state_;

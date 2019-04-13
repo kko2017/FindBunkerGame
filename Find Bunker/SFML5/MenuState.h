@@ -33,19 +33,19 @@
 #pragma once
 #include "State.h"
 
-class MenuState : public GEX::State
+class MenuState : public GEX::State										// inherits from the State Class
 {
 public:
-	MenuState(GEX::StateStack& stack, Context context);
+	MenuState(GEX::StateStack& stack, Context context);					// Constructor containing StateStack by reference and Context as parameters
 
-	void			draw() override;
-	bool			update(sf::Time dt) override;
-	bool			handleEvent(const sf::Event& event) override;
+	void			draw() override;									// draw function overriding draw member function of State class draws the Menu State view
+	bool			update(sf::Time dt) override;						// boolean for update is true
+	bool			handleEvent(const sf::Event& event) override;		// this function handles events when choosing the act such as up, down, and enter
 
-	void			updateOptionText();
+	void			updateOptionText();									// this function updates the color of option texts
 
 private:
-	enum OptionName {
+	enum OptionName {													// Enumeration is made for specific identifier about play, score, and exit
 		Play = 0,
 		Score,
 		Exit

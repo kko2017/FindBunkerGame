@@ -35,14 +35,15 @@
 #include <SFML/Graphics/Text.hpp>
 
 namespace GEX {
-	class TextNode : public SceneNode
+	class TextNode : public SceneNode											// inherits from SceneNode
 	{
 	public:
-		explicit		TextNode(const std::string& text);		
-		void			setText(const std::string& text);
+		explicit		TextNode(const std::string& text);						// Constsructor passes text string as parameter and prevent implicting conversion
+		void			setText(const std::string& text);						// set the text
 
 	private:
-		void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void			drawCurrent(sf::RenderTarget& target,
+									sf::RenderStates states) const override;	// Draw the current text
 
 	private:
 		sf::Text		text_;

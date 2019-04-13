@@ -36,12 +36,12 @@
 #include <queue>
 
 namespace GEX {
-	class CommandQueue
-	{
-	public:		
-		void		push(const Command& command);
-		Command		pop();
-		bool		isEmpty() const;
+	class CommandQueue								// CommandQueue class is the way to transport commands to world and scene node
+	{												// Queue is FIFO data structure
+	public:
+		void		push(const Command& command);	// Push function inserts command by reference at the end of the queue
+		Command		pop();							// Pop function removes command from the front of the queue
+		bool		isEmpty() const;				// isEmpty function checks whether or not the container is empty
 
 	private:
 		std::queue<Command>		queue_;

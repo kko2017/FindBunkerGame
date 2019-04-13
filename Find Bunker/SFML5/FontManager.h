@@ -45,13 +45,13 @@ namespace GEX {
 	class FontManager {
 	
 	private:
-		FontManager() = default;		// = default means totaly same with default contstrutor like {}
+		FontManager() = default;											// Default Constructor
 	
 	public:
-		static FontManager&		getInstance();
+		static FontManager&		getInstance();								// Get the instance of FontManager
 
-		void					load(FontID id, const std::string& path);
-		sf::Font&				get(FontID id) const;
+		void					load(FontID id, const std::string& path);	// Load the font style from the file
+		sf::Font&				get(FontID id) const;						// Get the font style
 
 	private:
 		static FontManager*								instance_;

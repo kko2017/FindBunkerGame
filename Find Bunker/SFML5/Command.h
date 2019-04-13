@@ -39,23 +39,23 @@
 namespace GEX {
 
 	// forward declaration
-	class SceneNode;	// full decoration
+	class SceneNode;
 
 	struct Command
 	{
-		Command();		
-		std::function<void(SceneNode&, sf::Time)>	action;						// function pointer
-		unsigned int								category;					// bit UpperField, enumeration
+		Command();																// default constuctor
+		std::function<void(SceneNode&, sf::Time)>	action;						// function object can be called on any object represented by a SceneNode
+		unsigned int								category;					// category bits
 
 	};
 
-	template <typename GameObject, typename Function>							// template means place holder
+	template <typename GameObject, typename Function>
 	std::function<void(SceneNode&, sf::Time)> derivedAction(Function fn) {
 		return [=](SceneNode& node, sf::Time dt) {
 
-			assert(dynamic_cast<GameObject*>(&node) != nullptr);
+			assert(dynamic_cast<GameObject*>(&node) != nullptr);				// Assert checks if cast is not null pointer
 
-			fn(static_cast<GameObject&>(node), dt);
+			fn(static_cast<GameObject&>(node), dt);								// downcast node and invoke function on it
 		};
 	}
 
