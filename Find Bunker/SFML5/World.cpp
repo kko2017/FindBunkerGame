@@ -57,6 +57,8 @@ namespace GEX
 		int randomNumber = 0;
 	}
 
+	// explicit constructor having RenderTarget and SoundPlayer by references  as a parameter
+	// it initiallizes all member variables
 	World::World(sf::RenderTarget& outputTarget, SoundPlayer& sounds)
 		: target_(outputTarget)
 		, worldView_(outputTarget.getDefaultView())
@@ -86,6 +88,7 @@ namespace GEX
 		buildScene();
 	}
 
+	// update function controls world scrolling and entity movement
 	void World::update(sf::Time dt, CommandQueue& commands)
 	{
 		updateTimer(dt);
@@ -117,6 +120,7 @@ namespace GEX
 		}		
 	}
 
+	// Adapt Player velocity
 	void World::adaptPlayerVelocity() {
 		sf::Vector2f velocity = character_->getVelocity();
 		if (velocity.x != 0.f && velocity.y != 0.f) 
@@ -132,6 +136,7 @@ namespace GEX
 		vehicleSpawnPointes_.push_back(spawnPoint);
 	}
 
+	// add the charcter on the game
 	void World::addCharacter()
 	{
 		std::unique_ptr<DynamicObjects> character(new DynamicObjects(DynamicObjects::Type::Character, textures_));
@@ -140,6 +145,7 @@ namespace GEX
 		sceneLayers_[UpperField]->attachChild(std::move(character));
 	}
 
+	// add signpost on the game
 	void World::addSignpost()
 	{
 		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::Signpost, textures_));
@@ -169,6 +175,7 @@ namespace GEX
 		}
 	}
 
+	// sapwn vehicles added on the specified position
 	void World::spawnVehicles()
 	{
 		while (!vehicleSpawnPointes_.empty())
@@ -184,6 +191,7 @@ namespace GEX
 		}
 	}
 
+	// add a bunker on the game
 	void World::addBunker(StaticObjects::Type type)
 	{
 		std::unique_ptr<StaticObjects> bunker(new StaticObjects(type, textures_));
@@ -211,12 +219,14 @@ namespace GEX
 		sceneLayers_[LowerField]->attachChild(std::move(bunker));
 	}
 
+	// add bunkers on the game
 	void World::addBunkers()
 	{
 		addBunker(StaticObjects::Type::Bunker);
 		addBunker(StaticObjects::Type::Bunker);
 	}
 
+	// add a key on the game 
 	void World::addKey(StaticObjects::Type type)
 	{
 		std::unique_ptr<StaticObjects> key(new StaticObjects(type, textures_));
@@ -230,12 +240,14 @@ namespace GEX
 		sceneLayers_[UpperField]->attachChild(std::move(key));
 	}
 
+	// add a block on the game
 	void World::addBlock(StaticObjects::Type type, float x, float y)
 	{
 		BlockPoint blockPoint(type, x, y);
 		blockSpawnPointes_.push_back(blockPoint);
 	}
 
+	// add blocks on the game
 	void World::addBlocks()
 	{
 		for (unsigned int i = 0; i < TABLE2.size(); i++)
@@ -244,6 +256,7 @@ namespace GEX
 		}
 	}
 
+	// spawn blocks added on the specified position
 	void World::spawnBlocks()
 	{
 		while (!blockSpawnPointes_.empty())
@@ -256,6 +269,7 @@ namespace GEX
 		}
 	}
 
+	// add boys on the game
 	void World::addBoys(DynamicObjects::Type type)
 	{
 		std::unique_ptr<DynamicObjects> boy1(new DynamicObjects(DynamicObjects::Type::Boy, textures_));
@@ -267,6 +281,7 @@ namespace GEX
 		sceneLayers_[UpperField]->attachChild(std::move(boy2));
 	}
 
+	// add girls on the game
 	void World::addGirls(DynamicObjects::Type type)
 	{
 		std::unique_ptr<DynamicObjects> girl1(new DynamicObjects(DynamicObjects::Type::Girl, textures_));
@@ -278,6 +293,7 @@ namespace GEX
 		sceneLayers_[LowerField]->attachChild(std::move(girl2));
 	}
 
+	// add police officers on the game
 	void World::addPoliceOfficers(DynamicObjects::Type type)
 	{
 		std::unique_ptr<DynamicObjects> police1(new DynamicObjects(DynamicObjects::Type::Police, textures_));
@@ -289,11 +305,13 @@ namespace GEX
 		sceneLayers_[LowerField]->attachChild(std::move(police2));
 	}
 
+	// get the view bounds of the screen
 	sf::FloatRect World::getViewBounds() const
 	{
 		return sf::FloatRect(worldView_.getCenter() - (worldView_.getSize() / 2.f), worldView_.getSize());
 	}
 
+	// get the field bounds
 	sf::FloatRect World::getFieldBounds() const
 	{
 		sf::FloatRect bounds = getViewBounds();
@@ -303,11 +321,13 @@ namespace GEX
 		return bounds;
 	}
 
+	// update the timer
 	void World::updateTimer(sf::Time dt)
 	{
 		gameTime_ -= dt;
 	}
 
+	// checks whether time is over
 	void World::checkGameTimeOver()
 	{
 		if (gameTime_ <= sf::Time::Zero)
@@ -319,6 +339,7 @@ namespace GEX
 		}
 	}
 
+	// update the lives and timer text
 	void World::updateText()
 	{
 		textGameTimeAndLives_->setText("Lives: " + std::to_string(lives_)
@@ -327,12 +348,14 @@ namespace GEX
 		textGameTimeAndLives_->setPosition(250.f, 50.f);
 	}
 
+	// update the sound effect
 	void World::updateSounds()
 	{
 		sounds_.setListnerPosition(character_->getWorldPosition());
 		sounds_.removeStoppedSounds();
 	}
 
+	// entities are removed once they are out of the screen
 	void World::destroyEntitiesOutOfView()
 	{
 		Command command;
@@ -345,6 +368,7 @@ namespace GEX
 		commandQueue_.push(command);
 	}
 
+	// checks that two objects collides with each other
 	bool World::matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
 	{
 		unsigned int category1 = colliders.first->getCategory();
@@ -364,6 +388,7 @@ namespace GEX
 		}
 	}
 
+	// method for the character to be unable to pass through objects
 	void World::noPassing(SceneNode::Pair & colliders)
 	{
 		auto& firstObject = static_cast<DynamicObjects&>(*(colliders.first));
@@ -377,6 +402,7 @@ namespace GEX
 		firstObject.setPosition(fPos - 0.05f * diffPos);
 	}
 
+	// character is unable to pass through blocks
 	void World::handleBlockCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
 	{
 		if (matchesCategories(colliders, type1, type2))
@@ -385,6 +411,7 @@ namespace GEX
 		}
 	}
 
+	// bunkers are randomly generated after the character meets the signpost
 	void World::handleSignpostCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
 	{
 		if (matchesCategories(colliders, type1, type2))
@@ -396,6 +423,7 @@ namespace GEX
 		}
 	}
 
+	// character is killed right after the character collided with the vehicle
 	void World::handleVehicleCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
 	{
 		if (matchesCategories(colliders, type1, type2))
@@ -411,6 +439,8 @@ namespace GEX
 		}
 	}
 
+	// key is generated in random after the character without a key meets the bunker,
+	// player wins the game after the character with a key meets the bunker
 	void World::handleBunkerCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
 	{
 		if (matchesCategories(colliders, type1, type2))
@@ -431,6 +461,7 @@ namespace GEX
 		}
 	}
 
+	// player has the key right after player reaches a key
 	void World::handleKeyCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
 	{
 		if (matchesCategories(colliders, type1, type2))
@@ -441,6 +472,7 @@ namespace GEX
 		}
 	}
 
+	// character is unable to pass through people
 	void World::handlePeopleCollision(SceneNode::Pair & colliders, Category::Type type1, Category::Type type2)
 	{
 		if (matchesCategories(colliders, type1, type2))
@@ -449,6 +481,7 @@ namespace GEX
 		}
 	}
 
+	// This method implemente all handle collisions.
 	void World::handleCollisions()
 	{
 		// build a list of colliding pairs of SceneNodes
@@ -465,6 +498,7 @@ namespace GEX
 		}
 	}
 
+	// this function sets up the area that the player can move around
 	void World::adaptPlayerPosition() {
 
 		const float BORDER_DISTANCE = 20.f;
@@ -480,38 +514,45 @@ namespace GEX
 		character_->setPosition(position);
 	}
 
+	// draw function sets the current view and delegates the work to SceneNode 
 	void World::draw()
 	{
 		target_.setView(worldView_);
 		target_.draw(sceneGraph_);
 	}
 
+	// getter function to access CommandQueue from outside the world
 	CommandQueue & World::getCommandQueue()
 	{
 		return commandQueue_;
 	}
 
+	// getter for lives
 	int World::getLives()
 	{
 		return lives_;
 	}
 
+	// getter for final elapsed time
 	int World::getFinalElapsedTime()
 	{
 		int elapsedTime = static_cast<int>(gameTime_.asSeconds());
 		return 35 - elapsedTime;
 	}
 
+	// check whether the player is alive
 	bool World::hasAlivePlayer() const
 	{
 		return (!character_->isDestroyed() && !character_->finishedDeadAnimation());
 	}
 
+	// check that the player fulfills the condition of the win
 	bool World::winGame() const
 	{
 		return winGame_;
 	}
 
+	// this function loads textures
 	void World::loadTextures() {
 		textures_.load(GEX::TextureID::City1, "Media/Textures/City1.png");
 		textures_.load(GEX::TextureID::Character, "Media/Textures/ke2.png");
@@ -531,6 +572,7 @@ namespace GEX
 		textures_.load(GEX::TextureID::Police, "Media/Textures/policeman.png");	
 	}
 	
+	// this function builds scene
 	void World::buildScene() {
 		// Initalize layers
 		for (int i = 0; i < LayerCount; ++i) {
@@ -540,7 +582,7 @@ namespace GEX
 			sceneGraph_.attachChild(std::move(layer));
 		}
 
-		//Sound Effects
+		// Sound Effects
 		std::unique_ptr<SoundNode> sNode(new SoundNode(sounds_));
 		sceneGraph_.attachChild(std::move(sNode));
 

@@ -37,6 +37,7 @@
 
 #include <fstream>
 
+// Constructor containing StateStack by reference and Context as parameters
 ScoreState::ScoreState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, pressKeyText_()
@@ -59,23 +60,27 @@ ScoreState::ScoreState(GEX::StateStack & stack, Context context)
 	setScoreText(context);
 }
 
+// draw function overriding State draw member function sets the world view
 void ScoreState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
 	window.draw(backgroundSprite_);
 
-	if (showText_) {
+	if (showText_) 
+	{
 		window.draw(pressKeyText_);
 	}
 
 	window.draw(scoreText_);
 }
 
+// update function updates update of world and real time input of playerControl
 bool ScoreState::update(sf::Time dt)
 {
 	textEffectTime_ += dt;
 
-	if (textEffectTime_ >= sf::seconds(0.5f)) {
+	if (textEffectTime_ >= sf::seconds(0.5f)) 
+	{
 		showText_ = !showText_;
 		textEffectTime_ = sf::Time::Zero;
 	}
@@ -83,15 +88,18 @@ bool ScoreState::update(sf::Time dt)
 	return true;
 }
 
+// this function handles pause events when pressing esc on the keyboard
 bool ScoreState::handleEvent(const sf::Event & event)
 {
-	if (event.type == sf::Event::KeyPressed) {
+	if (event.type == sf::Event::KeyPressed) 
+	{
 		requestStackPop();
 		requestStackPush(GEX::StateID::Menu);
 	}
 	return true;
 }
 
+// Set the score text
 void ScoreState::setScoreText(Context context)
 {
 	setScore();
@@ -106,6 +114,7 @@ void ScoreState::setScoreText(Context context)
 	scoreText_.setPosition(1700.f, 700.f);
 }
 
+// set score
 void ScoreState::setScore()
 {
 	std::ifstream is;

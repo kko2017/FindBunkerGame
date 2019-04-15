@@ -33,8 +33,8 @@
 #include "Command.h"
 #include "Category.h"
 
+// default constuctor initializes member variables
 GEX::Command::Command() 
 : action()
 , category(Category::Type::None)
-{
-}
+{}

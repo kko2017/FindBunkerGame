@@ -34,6 +34,8 @@
 #include "Utility.h"
 #include "FontManager.h"
 
+// Constructor containing StateStack by reference and Context as parameters
+// initiallizes member variables
 MenuState::MenuState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, options_()
@@ -86,6 +88,7 @@ MenuState::MenuState(GEX::StateStack & stack, Context context)
 	context.music->play(GEX::MusicID::MenuTheme);
 }
 
+// draw function overriding draw member function of State class draws the Menu State view
 void MenuState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
@@ -100,11 +103,13 @@ void MenuState::draw()
 
 }
 
+// boolean for update is true
 bool MenuState::update(sf::Time dt)
 {
 	return true;
 }
 
+// this function handles events when choosing the act such as up, down, and enter
 bool MenuState::handleEvent(const sf::Event & event)
 {
 	if (event.type != sf::Event::KeyPressed)
@@ -149,12 +154,14 @@ bool MenuState::handleEvent(const sf::Event & event)
 	return true;
 }
 
+// this function updates the color of option texts
 void MenuState::updateOptionText()
 {
 	if (options_.empty())
 		return;
 
-	for (sf::Text& text : options_) {
+	for (sf::Text& text : options_) 
+	{
 		text.setFillColor(sf::Color::White);
 		text.setOutlineColor(sf::Color::Black);
 	}

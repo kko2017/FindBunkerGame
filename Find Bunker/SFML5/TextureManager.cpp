@@ -36,14 +36,15 @@
 
 namespace GEX {
 
-
+	// default constructor	
 	TextureManager::TextureManager()
 	{}
 
-
+	// default destructor
 	TextureManager::~TextureManager()
 	{}
 
+	// this function loads textures
 	void GEX::TextureManager::load(TextureID id, const std::string & path)
 	{
 		std::unique_ptr<sf::Texture> texture(new sf::Texture());
@@ -59,6 +60,7 @@ namespace GEX {
 
 	}
 
+	// this function gets textures
 	sf::Texture& TextureManager::get(TextureID id) const
 	{
 		auto found = textures_.find(id);

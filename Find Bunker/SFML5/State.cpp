@@ -35,6 +35,7 @@
 
 namespace GEX {
 	
+	// Context struct has RenderWindow, Texture, Font, PlayerControl, MusicPlayer, and SoundPlayer as parameters
 	State::Context::Context(sf::RenderWindow & window, 
 		TextureManager & textures, 
 		PlayerControl & player,
@@ -47,29 +48,36 @@ namespace GEX {
 		, sound(&sound)
 	{}
 
+	// Constructor has StateStack by reference and Context as a parameter
+	// It initializes all member variables
 	State::State(StateStack & stack, Context context)
 		: stack_(&stack)
 		, context_(context)
 	{}
 
+	// Defaul destructor
 	State::~State()
 	{}
 
+	// This method requests adding states from the active stack
 	void State::requestStackPush(GEX::StateID stateID)
 	{
 		stack_->pushState(stateID);
 	}
 
+	// This method requests removing states from the active stack
 	void State::requestStackPop()
 	{
 		stack_->popState();
 	}
 
+	// This method requests completely emptying the active stack
 	void State::requestStackClear()
 	{
 		stack_->clearStates();
 	}
 
+	// This getter method returns context
 	State::Context State::getContext() const
 	{
 		return context_;

@@ -35,6 +35,8 @@
 #include "FontManager.h"
 #include <SFML/Graphics/RenderTarget.hpp>
 
+// Constsructor passes text string as parameter and prevent implicting conversion
+// It initiallizes the member variable
 GEX::TextNode::TextNode(const std::string & text)
 {
 	text_.setFont(GEX::FontManager::getInstance().get(GEX::FontID::Main));
@@ -45,12 +47,14 @@ GEX::TextNode::TextNode(const std::string & text)
 	setText(text);
 }
 
+// Set the text
 void GEX::TextNode::setText(const std::string & text)
 {
 	text_.setString(text);
 	centerOrigin(text_);
 }
 
+// Draw the current text
 void GEX::TextNode::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(text_, states);

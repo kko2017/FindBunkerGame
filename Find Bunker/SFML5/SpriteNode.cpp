@@ -34,13 +34,15 @@
 
 namespace GEX {
 
-
+	// explicit constructor having constant Texture by reference as a parameter
 	SpriteNode::SpriteNode(const sf::Texture& texture) : sprite_(texture)
 	{}
 
+	// constructor having constant Texture by reference and constant IntRect by reference as paramters
 	SpriteNode::SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect) : sprite_(texture, textureRect)
 	{}
 
+	// this function overriding drawCurrent of SceneNode draws current scene of sprite
 	void SpriteNode::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		target.draw(sprite_, states);

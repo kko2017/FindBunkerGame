@@ -34,7 +34,7 @@
 #include "JsonFrameParser.h"
 #include "Animation2.h"
 
-
+// this method initializes the dynamic object data
 std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDynamicObjectsData()
 {
 	std::map<DynamicObjects::Type, DynamicObjectsData> data;
@@ -157,6 +157,7 @@ std::map<GEX::DynamicObjects::Type, GEX::DynamicObjectsData> GEX::initializeDyna
 	return data;
 }
 
+// this method initializes the static object data
 std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticObjectsData()
 {
 	std::map<StaticObjects::Type, StaticObjectData> data;
@@ -220,6 +221,7 @@ std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> GEX::initializeStaticO
 	return data;
 }
 
+// this method initializes the spawining object data
 std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 {
 	std::vector<SpawnData> data;
@@ -259,6 +261,7 @@ std::vector<GEX::SpawnData> GEX::initializeSpawnData()
 	return data;
 }
 
+// this method initializes the spawining block data
 std::vector<GEX::SpawnBlockData> GEX::initializeSpawnBlockData()
 {
 	std::vector<SpawnBlockData> data;

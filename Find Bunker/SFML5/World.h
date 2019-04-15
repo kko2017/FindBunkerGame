@@ -94,7 +94,7 @@ namespace GEX {
 
 		
 		sf::FloatRect						getViewBounds() const;										// get the view bounds of the screen
-		sf::FloatRect						getFieldBounds() const;										// get the battle field bounds
+		sf::FloatRect						getFieldBounds() const;										// get the field bounds
 		
 		bool								matchesCategories(SceneNode::Pair& colliders,				// checks that two objects collides with each other
 															Category::Type type1, Category::Type type2);
@@ -111,14 +111,14 @@ namespace GEX {
 															Category::Type type1, Category::Type type2);
 		void								handlePeopleCollision(SceneNode::Pair& colliders,			// character is unable to pass through people
 															Category::Type type1, Category::Type type2);
-		void								handleCollisions();											// implemented all handle collisions.
+		void								handleCollisions();											// This method implemente all handle collisions.
 
 		
 		void								destroyEntitiesOutOfView();									// entities are removed once they are out of the screen
 		void								updateTimer(sf::Time dt);									// update the timer
 		void								checkGameTimeOver();										// checks whether time is over
 		void								updateText();												// update the lives and timer text
-		void								updateSounds();												// update the sound effect.
+		void								updateSounds();												// update the sound effect
 
 	private:
 		enum Layer {																					// scoped enumeration for a unique identifier in each layer

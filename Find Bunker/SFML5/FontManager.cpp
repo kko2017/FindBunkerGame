@@ -37,6 +37,7 @@ namespace GEX {
 
 	FontManager* FontManager::instance_ = nullptr;
 
+	// Get the instance of FontManager
 	FontManager & FontManager::getInstance()
 	{
 		if (!instance_)
@@ -45,6 +46,7 @@ namespace GEX {
 		return *FontManager::instance_;
 	}
 
+	// Load the font style from the file
 	void FontManager::load(FontID id, const std::string & path)
 	{
 		std::unique_ptr<sf::Font> font(new sf::Font);
@@ -54,10 +56,10 @@ namespace GEX {
 
 		auto rc = fonts_.insert(std::make_pair(id, std::move(font)));
 		if (!rc.second)
-			assert(0);	// big problem
-
+			assert(0);
 	}
 
+	// Get the font style
 	sf::Font & FontManager::get(FontID id) const
 	{
 		auto found = fonts_.find(id);

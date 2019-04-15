@@ -34,19 +34,21 @@
 
 namespace GEX {
 
-
+	// Push function inserts command by reference at the end of the queue
 	void CommandQueue::push(const Command & command)
 	{
 		queue_.push(command);
 	}
+
+	// Pop function removes command from the front of the queue
 	Command CommandQueue::pop()
 	{
 		auto cmd = queue_.front();
 		queue_.pop();
-		return cmd;
-		
+		return cmd;		
 	}
 
+	// isEmpty function checks whether or not the container is empty
 	bool CommandQueue::isEmpty() const
 	{
 		return queue_.empty();

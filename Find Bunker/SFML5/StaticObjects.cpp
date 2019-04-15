@@ -37,9 +37,12 @@
 #include <random>
 
 namespace {
+	// the TABLE container holds the data of the static objects 
 	const std::map<GEX::StaticObjects::Type, GEX::StaticObjectData> TABLE = GEX::initializeStaticObjectsData();
 }
 
+// StaticObjects constuctor that passes the type and the textureManager
+// initiallizes all member variables
 GEX::StaticObjects::StaticObjects(Type type, const TextureManager & textures)
 	: Entity(true)
 	, type_(type)
@@ -78,6 +81,7 @@ GEX::StaticObjects::StaticObjects(Type type, const TextureManager & textures)
 	keyPosition_.emplace_back(1870, 837);
 }
 
+// get category type by the state type
 unsigned int GEX::StaticObjects::getCategory() const
 {
 	switch (type_)
@@ -108,11 +112,13 @@ unsigned int GEX::StaticObjects::getCategory() const
 	return Category::None;
 }
 
+// get the bounding box of the objects
 sf::FloatRect GEX::StaticObjects::getBoundingBox() const
 {
 	return getWorldTransform().transformRect(sprite_.getGlobalBounds());
 }
 
+// Vector has x and y position of static objects.
 std::vector<std::pair<float, float>> GEX::StaticObjects::getObjectPosition()
 {
 	if (type_ == Type::Signpost)
@@ -129,6 +135,7 @@ std::vector<std::pair<float, float>> GEX::StaticObjects::getObjectPosition()
 	}
 }
 
+// Draw current state
 void GEX::StaticObjects::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite_, states);

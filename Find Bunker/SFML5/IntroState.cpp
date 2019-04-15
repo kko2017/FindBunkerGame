@@ -35,6 +35,7 @@
 #include "Utility.h"
 #include "FontManager.h"
 
+// Constructor containing StateStack by reference and Context as parameters
 IntroState::IntroState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, pressKeyText_()
@@ -57,23 +58,27 @@ IntroState::IntroState(GEX::StateStack & stack, Context context)
 	setIntroText(context);
 }
 
+// draw function overriding State draw member function sets the world view
 void IntroState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
 	window.draw(backgroundSprite_);
 
-	if (showText_) {
+	if (showText_) 
+	{
 		window.draw(pressKeyText_);
 	}
 
 	window.draw(scoreText_);
 }
 
+// update function updates update of world and real time input of playerControl
 bool IntroState::update(sf::Time dt)
 {
 	textEffectTime_ += dt;
 
-	if (textEffectTime_ >= sf::seconds(0.5f)) {
+	if (textEffectTime_ >= sf::seconds(0.5f)) 
+	{
 		showText_ = !showText_;
 		textEffectTime_ = sf::Time::Zero;
 	}
@@ -81,15 +86,18 @@ bool IntroState::update(sf::Time dt)
 	return true;
 }
 
+// this function handles pause events when pressing esc on the keyboard
 bool IntroState::handleEvent(const sf::Event & event)
 {
-	if (event.type == sf::Event::KeyPressed) {
+	if (event.type == sf::Event::KeyPressed) 
+	{
 		requestStackPop();
 		requestStackPush(GEX::StateID::Game);
 	}
 	return true;
 }
 
+// Set the intro text
 void IntroState::setIntroText(Context context)
 {
 	scoreText_.setFillColor(sf::Color::White);

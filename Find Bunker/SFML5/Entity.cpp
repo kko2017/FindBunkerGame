@@ -35,29 +35,39 @@
 
 
 namespace GEX {
+
+	// constructor having alive as parameters
 	Entity::Entity(bool alive)
 		: alive_(alive)
 		, dead_(false)
+	{}
+
+	// setter for velocity
+	void Entity::setVelocity(sf::Vector2f velocity) 
 	{
-	}
-	void Entity::setVelocity(sf::Vector2f velocity) {
 		velocity_ = velocity;
 	}
 
-	void Entity::setVelocity(float vx, float vy) {
+	// setter for velocity
+	void Entity::setVelocity(float vx, float vy) 
+	{
 		velocity_.x = vx;
 		velocity_.y = vy;
 	}
 
-	sf::Vector2f Entity::getVelocity() const {
+	// getter for velocity
+	sf::Vector2f Entity::getVelocity() const 
+	{
 		return velocity_;
 	}
 
+	// set up the acceleration
 	void Entity::accelerate(sf::Vector2f velocity)
 	{
 		velocity_ += velocity;
 	}
 
+	// set up the acceleration
 	void Entity::accelerate(float vx, float vy)
 	{
 		velocity_.x += vx;
@@ -65,28 +75,34 @@ namespace GEX {
 
 	}
 
+	// destroy the objects
 	void Entity::destroy()
 	{
 		alive_ = false;
 		dead_ = true;
 	}
 
+	// checks whether it is alive
 	bool Entity::isAlive() const
 	{
 		return alive_;
 	}
 
+	// checks whether it is destroyed
 	bool Entity::isDestroyed() const
 	{
 		return (dead_ == true);
 	}
 
+	// remove it from the scene
 	void Entity::remove()
 	{
 		destroy();
 	}
 
-	void Entity::updateCurrent(sf::Time dt, CommandQueue& commands) {
+	// this function updates the current move
+	void Entity::updateCurrent(sf::Time dt, CommandQueue& commands)
+	{
 		move(velocity_ * dt.asSeconds());
 	}
 }

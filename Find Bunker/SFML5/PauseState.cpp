@@ -34,7 +34,7 @@
 #include "Utility.h"
 #include "FontManager.h"
 
-
+// Constructor has StateStack by reference and Context as a parameter 
 PauseState::PauseState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, pausedText_()
@@ -72,6 +72,7 @@ PauseState::~PauseState()
 	getContext().music->setPaused(false);
 }
 
+// Draw function sets the current view
 void PauseState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
@@ -87,11 +88,13 @@ void PauseState::draw()
 
 }
 
+// Update function controls world scrolling and entity movement
 bool PauseState::update(sf::Time dt)
 {
 	return false;
 }
 
+// HandleEvent function handles events
 bool PauseState::handleEvent(const sf::Event & event)
 {
 	if (event.type != sf::Event::KeyPressed)

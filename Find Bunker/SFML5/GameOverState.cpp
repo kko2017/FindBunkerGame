@@ -35,6 +35,8 @@
 #include "Utility.h"
 #include "PlayerControl.h"
 
+// Constructor containing StateStack by reference and Context as parameters
+// initializes the all member variables
 GameOverState::GameOverState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, gameOverText_()
@@ -45,11 +47,13 @@ GameOverState::GameOverState(GEX::StateStack & stack, Context context)
 	sf::Vector2f windowSize(context.window->getSize());
 	gameOverText_.setFont(font);
 
-	if (context.player->getMissionStatus() == GEX::MissionStatus::MissionFailure) {
+	if (context.player->getMissionStatus() == GEX::MissionStatus::MissionFailure) 
+	{
 		
 		gameOverText_.setString("Mission Failure");
 	}
-	else {
+	else 
+	{
 
 		gameOverText_.setString("Mission Success");
 	}
@@ -66,6 +70,7 @@ GameOverState::GameOverState(GEX::StateStack & stack, Context context)
 
 }
 
+// draw function overriding State draw member function sets the world view
 void GameOverState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
@@ -80,10 +85,12 @@ void GameOverState::draw()
 	window.draw(text_);
 }
 
+// update function updates update of world and real time input of playerControl
 bool GameOverState::update(sf::Time dt)
 {
 	elapsedTime_ += dt;
-	if (elapsedTime_ > sf::seconds(1.f)) {
+	if (elapsedTime_ > sf::seconds(1.f)) 
+	{
 		requestStackClear();
 		requestStackPush(GEX::StateID::Score);
 	}
@@ -91,6 +98,7 @@ bool GameOverState::update(sf::Time dt)
 	return false;
 }
 
+// this function handles pause events when pressing esc on the keyboard
 bool GameOverState::handleEvent(const sf::Event & event)
 {
 	return false;

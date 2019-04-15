@@ -35,6 +35,8 @@
 #include "Utility.h"
 #include "FontManager.h"
 
+// Constructor containing StateStack by reference and Context as parameters
+// It initiallizes all member variables
 TitleState::TitleState(GEX::StateStack & stack, Context context)
 	: State(stack, context)
 	, text_()
@@ -55,6 +57,7 @@ TitleState::TitleState(GEX::StateStack & stack, Context context)
 
 }
 
+// draw function overriding draw member function of State class draws the current view
 void TitleState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
@@ -66,6 +69,7 @@ void TitleState::draw()
 
 }
 
+// update function makes the text flickering 
 bool TitleState::update(sf::Time dt)
 {
 	textEffectTime_ += dt;
@@ -78,6 +82,7 @@ bool TitleState::update(sf::Time dt)
 	return true;
 }
 
+// this function handles events when pressing any buttons
 bool TitleState::handleEvent(const sf::Event & event)
 {
 	if (event.type == sf::Event::KeyPressed) {
