@@ -607,25 +607,10 @@ namespace GEX
 		addCharacter();
 
 		// add SignPost
-<<<<<<< HEAD
-		std::unique_ptr<StaticObjects> signPost(new StaticObjects(StaticObjects::Type::SignPost, textures_));
-	
+		addSignpost();
 
-		randomNumber = range(rnd);
-		randomNums_.push_back(randomNumber);
-		float xPosition = signPost->getObjectPosition()[randomNumber].first;
-		float yPosition = signPost->getObjectPosition()[randomNumber].second;
-
-		signPost->setPosition(xPosition, yPosition);
-		signPost_ = signPost.get();
-		sceneLayers_[LowerAir]->attachChild(std::move(signPost));
-		
 		// add Bunkers
-		addBunkers();
-
-=======
-		addSignpost();		
->>>>>>> feature/RankState
+		addBunkers();			
 
 		// add People
 		addBoys(DynamicObjects::Type::Boy);
