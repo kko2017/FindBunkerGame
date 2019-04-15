@@ -1,3 +1,35 @@
+/**
+* @file
+* DynamicObjects.cpp
+* @author
+* Kwangeun Oh
+* @version 1.0
+*
+*
+* @DESCRIPTION
+* This is the Find Bunker game
+*
+* @section LICENSE
+*
+*
+* Copyright 2019
+* Permission to use, copy, modify, and/or distribute this software for
+* any purpose with or without fee is hereby granted, provided that the
+* above copyright notice and this permission notice appear in all copies.
+*
+* THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+* WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+* MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+* ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+* WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+* ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+* OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+*
+* @section Academic Integrity
+* I certify that this work is solely my own and complies with
+* NBCC Academic Integrity Policy (policy 1111)
+*/
+
 #include "DynamicObjects.h"
 #include "Command.h"
 #include "TextNode.h"
@@ -17,6 +49,8 @@ namespace GEX {
 		const std::map<DynamicObjects::Type, DynamicObjectsData> TABLE = initializeDynamicObjectsData();
 	}
 
+	// DynamicObjects constuctor that passes the type and the textures
+	// initiallizes all member variables
 	DynamicObjects::DynamicObjects(Type type, const TextureManager& textures)
 		: Entity(true)
 		, type_(type)
@@ -45,6 +79,7 @@ namespace GEX {
 		centerOrigin(sprite_);
 	}
 
+	// get category type by the state type
 	unsigned int DynamicObjects::getCategory() const
 	{
 		switch (type_)
@@ -70,6 +105,7 @@ namespace GEX {
 		return Category::None;
 	}
 
+	// get the bounding box of the objects
 	sf::FloatRect DynamicObjects::getBoundingBox() const
 	{
 		auto box = getWorldTransform().transformRect(sprite_.getGlobalBounds());
@@ -78,6 +114,7 @@ namespace GEX {
 		return box;
 	}
 
+	// set acceleration of the velocity of the objects
 	void DynamicObjects::accelerate(sf::Vector2f velocity)
 	{
 		switch (state_)
@@ -94,26 +131,31 @@ namespace GEX {
 		}
 	}
 
+	// set the state of the objects
 	void DynamicObjects::setState(State state)
 	{
 		state_ = state;
 		animations_[state_].restart();
 	}
 
+	// checks whether the death animation is finished
 	bool DynamicObjects::finishedDeadAnimation() const
 	{
 		return state_ == State::Dead && animations_.at(state_).isFinished();
 	}
 
+	// checks whether the objects is marked for removal
 	bool DynamicObjects::isMarkedForRemoval() const
 	{
-		if (type_ == Type::Character) {
+		if (type_ == Type::Character) 
+		{
 			return isDestroyed() && state_ == State::Dead && animations_[state_].isFinished();
 		}
 
 		return isDestroyed();
 	}
 
+	// Plays the sound for specific action of the objects
 	void DynamicObjects::playLocalSound(CommandQueue & commands, SoundEffectID effect)
 	{
 		Command playSoundCommand;
@@ -124,34 +166,41 @@ namespace GEX {
 		commands.push(playSoundCommand);
 	}
 
+	// update the states of the objects
 	void DynamicObjects::updateStates()
 	{
 		if (isDestroyed() && (state_ == State::Up || state_ == State::Down || state_ == State::Right
-			|| state_ == State::Left) && state_ != State::Dead) {
+			|| state_ == State::Left) && state_ != State::Dead) 
+		{
 			state_ = State::Dead;
 		}
 
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Right
-			|| state_ == State::Left) && getVelocity().x < -0.f) {
+			|| state_ == State::Left) && getVelocity().x < -0.f) 
+		{
 			state_ = State::Left;
 		}
 
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
-			|| state_ == State::Right) && getVelocity().x > 0.f) {
+			|| state_ == State::Right) && getVelocity().x > 0.f) 
+		{
 			state_ = State::Right;
 		}
 
 		if ((state_ == State::Up || state_ == State::Down || state_ == State::Left
-			|| state_ == State::Right) && getVelocity().y < -0.f) {
+			|| state_ == State::Right) && getVelocity().y < -0.f)
+		{
 			state_ = State::Up;
 		}
 
 		if ((state_ == State::Up || state_ == State::Left || state_ == State::Right
-			|| state_ == State::Down) && getVelocity().y > 0.f) {
+			|| state_ == State::Down) && getVelocity().y > 0.f)
+		{
 			state_ = State::Down;
 		}
 	}
 
+	// update the current events of the objects
 	void DynamicObjects::updateCurrent(sf::Time dt, GEX::CommandQueue & commands)
 	{
 		updateStates();
@@ -165,6 +214,7 @@ namespace GEX {
 			Entity::updateCurrent(dt, commands);
 	}
 
+	// draw the current object
 	void DynamicObjects::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		target.draw(sprite_, states);
