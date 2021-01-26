@@ -31,6 +31,7 @@
 */
 
 #include "MusicPlayer.h"
+#include <stdexcept>
 
 // Default Constructor initiallizes member variables
 GEX::MusicPlayer::MusicPlayer()

@@ -34,6 +34,8 @@
 #include "ResourceIdentifiers.h"
 
 #include <cassert>
+#include <cmath>
+#include <stdexcept>
 
 #include <SFML/Audio/Listener.hpp>
 #include <SFML/System/Vector2.hpp>
