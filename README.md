@@ -48,7 +48,7 @@ In the near future, a nuclear-siren alarm is suddenly sounded in the city. A use
 ## 4. Game Rule
 
 - ![](./img/SignPost1.png) - Find a `Sign Post` first. You cann't the location of all bunkers unless you see them in the `Sign Post`.
-- ![](./img/Bunker3.png) - Go to one of bunkers shown up in the game. When you reach the bunker, you realize that the door is locked.
-- Search and grab the key, then go back to the bunker.
+- ![](./img/Bunker3.png) - Go to one of `bunkers` shown up in the game. When you reach the `bunker`, you realize that the door is locked.
+- Search and grab the `key`, then go back to the `bunker`.
 
 **Enter a bunker in a limited time.** _May God help you find your way._
