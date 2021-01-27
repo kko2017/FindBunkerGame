@@ -4,7 +4,7 @@
 
 ## 1. Introduction & Game Concept
 
-**`Find Bunker Game`** is an simple aracade game that is one of my projects I created in my college, _NBCC_ (New Brunswick Community College).
+**`Find Bunker Game`** is a simple aracade game that is one of my projects I created in my college, _NBCC_ (New Brunswick Community College).
 
 ## 2. Game Concept
 
