@@ -1,6 +1,6 @@
 # Find Bunker Game
 
-![](https://img.shields.io/badge/-C%2B%2B-informational) ![](https://img.shields.io/badge/SFML-v2.5.1-success)
+![](https://img.shields.io/badge/C++-00599C?style=square&logo=C%2B%2B&logoColor=white)&nbsp; ![](https://img.shields.io/badge/SFML-v2.5.1-success)
 
 ## 1. Introduction & Game Concept
 
